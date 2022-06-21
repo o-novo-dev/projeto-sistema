@@ -9,9 +9,9 @@ class conectDB {
   public $db;
 
   function __construct() {
-    $dsn = 'mysql:host=localhost;port=3306;dbname=pet';
-    $username = 'root';
-    $password = '';
+    $dsn = 'mysql:host=localhost;port=3306;dbname=matheu55_sistema';
+    $username = 'matheu55_sistema';
+    $password = '123456';
     $options = array(
       PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
     ); 

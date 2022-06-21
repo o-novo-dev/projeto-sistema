@@ -1,7 +1,7 @@
 <?php
 session_start();
-define("BASE_URL", "http://localhost/projeto-sistema/crud");
-define("ASSETS_URL", "http://localhost/projeto-sistema/crud/public");
+define("BASE_URL", "http://agendarse.com.br");
+define("ASSETS_URL", "http://agendarse.com.br/public");
 //print_r($_SERVER);
 if (isset($_SERVER['PATH_INFO'])){
   $parts = explode("/", $_SERVER['PATH_INFO']);
