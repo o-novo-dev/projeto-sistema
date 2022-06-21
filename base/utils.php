@@ -47,7 +47,7 @@ function input($label, $name, $id, $value, $type, $select = [], $col = '12', $or
   $required = $required ? "required" : "";
   $disabled = $disabled ? "disabled" : "";
 
-  if (count($select) > 0){
+  if ($select !== null){
     $html = "
         <div class='col-md-{$col} mb-3'>
           <label for='{$id}' style='display:{$display}'>{$label}</label>
@@ -82,7 +82,7 @@ function formCard($inputs, $titulo, $titulo_button = 'Alterar', $id = 'formAdd')
     <h6 class='card-header'> {$titulo} </h6><!-- .card-body -->
     <div class='card-body'>
       <!-- form -->
-      <form action='{$_SERVER['REDIRECT_URL']}' method='POST' id='{$id}'>
+      <form action='{$_SERVER['PHP_SELF']}' method='POST' id='{$id}'>
         <div class='form-row'>";
        
           foreach($inputs as $key => $value) {

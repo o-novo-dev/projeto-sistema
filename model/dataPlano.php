@@ -4,18 +4,31 @@ require_once("./base/model.php");
 class dataPlano extends model {
 
   function  __construct() {
-    $this->table = 'Plano';
+    $this->table = 'plano';
     $this->pk = "id";
     parent::__construct();
+
+    $tipo = getModel('dataPlanoTipos');
+    $projetos = getModel('dataProjetos');
 
     $this->inputs['id']['label'] = 'Identificador';
     $this->inputs['id']['order'] = 0;
 
-    $this->inputs['nome']['label'] = "Modulo";
+    $this->inputs['nome']['label'] = "Plano";
     $this->inputs['nome']['order'] = 1;
     $this->inputs['nome']['required'] = true;
     
-    $this->inputs['ativo']['order'] = 2;
+    $this->inputs['plano_tipo_id']['label'] = "Tipo do Plano";
+    $this->inputs['plano_tipo_id']['select'] = $tipo->selectAll();
+    $this->inputs['plano_tipo_id']['order'] = 2;
+    $this->inputs['plano_tipo_id']['required'] = true;
+
+    $this->inputs['projeto_id']['label'] = "Projeto";
+    $this->inputs['projeto_id']['select'] = $projetos->selectAll();
+    $this->inputs['projeto_id']['order'] = 3;
+    $this->inputs['projeto_id']['required'] = true;
+
+    $this->inputs['ativo']['order'] = 4;
     $this->inputs['ativo']['value'] = 'Sim';
 
     /**
@@ -41,11 +54,17 @@ class dataPlano extends model {
         'title' => 'Falhou',
         'message' => 'Por favor, Preencher o campo Plano!!',
       ];
-    } else if((!isset($_POST['[campo]'])) or (empty($_POST['[campo]']))) { 
+    } else if((!isset($_POST['plano_tipo_id'])) or (empty($_POST['plano_tipo_id']))) { 
       $arrMessage = [
         'status' => 'false', 
         'title' => 'Falhou',
-        'message' => 'Por favor, Preencher o campo [titulo p/ coluna]!',
+        'message' => 'Por favor, Preencher o campo Tipo do Plano!',
+      ];
+    } else if((!isset($_POST['projeto_id'])) or (empty($_POST['projeto_id']))) { 
+      $arrMessage = [
+        'status' => 'false', 
+        'title' => 'Falhou',
+        'message' => 'Por favor, Preencher o campo Projeto!',
       ];
     } else {
       return true;
@@ -55,14 +74,15 @@ class dataPlano extends model {
   }
   
   public function selectWhere($where = []){
-    
-    $sql = "SELECT a.id, a.nome, a.plano_tipo_id, a.projeto_id, a.ativo, b.nome as tipo
+    $sql = "SELECT a.id, a.nome, a.plano_tipo_id, a.projeto_id, a.ativo, b.nome as tipo, c.nome as projeto
               FROM plano a
              INNER JOIN plano_tipos b ON b.id = a.plano_tipo_id
+             INNER JOIN projetos c ON c.id = a.projeto_id
              WHERE a.ativo = 'Sim'
-               AND a.ativo = 'Sim' ";
+               AND b.ativo = 'Sim' 
+               AND c.ativo = 'Sim'";
     foreach ($where as $key => $value) {
-      $sql .= " and {$key} = :{$key} ";
+      $sql .= " AND {$key} = :{$key} ";
     }
     return $this->select($sql, $where);
   }

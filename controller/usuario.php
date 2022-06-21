@@ -12,6 +12,7 @@ class usuario extends controller {
   public $menus;
   public $submenus;
   public $projeto;
+  public $plano;
 
   function __construct() {
     if (!isset($_SESSION['usuario'])) redirect("/login");
@@ -339,7 +340,9 @@ class usuario extends controller {
       $this->_tipos();
     } else if ($detalhes == 'getPlanoTipos'){
       echo json_encode(["data" => $this->planotipos->selectAll()]);
-    } 
+    } else if ($detalhes == 'getPlano'){
+      echo json_encode(["data" => $this->plano->selectWhere()]);
+    }
   }
 
   private function _tipos(){

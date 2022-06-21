@@ -30,6 +30,18 @@ class dataProjetos extends model {
   }
 
   protected function validate(){
-    return true;
+    $arrMessage = [];
+    if((!isset($_POST['nome'])) or (empty($_POST['nome']))) {
+      $arrMessage = [
+        'status' => 'false', 
+        'title' => 'Falhou',
+        'message' => 'Por favor, Preencher o campo Projeto!',
+      ];
+    } else {
+      return true;
+    }
+
+    echo json_encode($arrMessage);
+    return false;
   }
 }

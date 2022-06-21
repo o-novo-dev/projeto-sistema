@@ -5,7 +5,7 @@
                       <h6 class="card-header"> Dados do Usuário </h6><!-- .card-body -->
                       <div class="card-body">
                         <!-- form -->
-                        <form action="<?= $_SERVER['REDIRECT_URL'] ?>" method="POST">
+                        <form action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
                           <input type="hidden" name="id" value="<?= $usuario->id ?>">
                           <!-- form-group -->
                           <div class="form-group">

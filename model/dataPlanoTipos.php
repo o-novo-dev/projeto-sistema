@@ -39,7 +39,7 @@ class dataPlanoTipos extends model {
       $arrMessage = [
         'status' => 'false', 
         'title' => 'Falhou',
-        'message' => 'Por favor, Preencher o campo Tipo do Plano!!',
+        'message' => 'Por favor, Preencher o campo Tipo do Plano!',
       ];
     } else {
       return true;

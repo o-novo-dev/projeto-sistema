@@ -152,74 +152,80 @@ abstract class model extends conectDB {
 
   public function doGravarAjax(){
     if($_POST){
-      if ($this->validate()){
-        if(empty($_POST['id'])){
+      if(isset($_POST['tabelaDel'])){ // deletar
 
-          if (is_callable($this->beforeInsert))
-            $this->doCallBack($this->beforeInsert);
+        if (is_callable($this->beforeDelete))
+          $this->doCallBack($this->beforeDelete);
 
-          $id = $this->inserir($_POST);
+        if ($this->deleteLogico()) {
 
-          if (is_callable($this->afterInsert))
-            $this->doCallBack($this->afterInsert, $id);
+          if (is_callable($this->afterDelete))
+            $this->doCallBack($this->afterDelete, $_POST['id']);
 
-          $_POST['id'] = $id;
           echo json_encode([
-            'status' => 'true', 
+            'status' => 'true',
             'title' => 'Pronto',
-            'message' => 'Cadastro realizado com sucesso!',
+            'message' => 'Delete realizado com sucesso!',
+          ]);
+        } else {
+          echo json_encode([
+            'status' => 'false',
+            'title' => 'Falha',
+            'message' => 'Falha ao realizar o delete. Tente novamente em instantes.',
+          ]);
+        }
+
+        return true;
+      }
+
+      $is_valid = $this->validate();
+
+      if (!$is_valid) return true;
+
+
+      if(empty($_POST['id'])){ //inserir
+
+        if (is_callable($this->beforeInsert))
+          $this->doCallBack($this->beforeInsert);
+
+        $id = $this->inserir($_POST);
+
+        if (is_callable($this->afterInsert))
+          $this->doCallBack($this->afterInsert, $id);
+
+        $_POST['id'] = $id;
+        echo json_encode([
+          'status' => 'true', 
+          'title' => 'Pronto',
+          'message' => 'Cadastro realizado com sucesso!',
+          'data' => $_POST
+        ]);
+      } else { //update
+        if (is_callable($this->beforeUpdate))
+          $this->doCallBack($this->beforeUpdate);
+
+        if ($this->alterar($_POST)){
+
+          if (is_callable($this->afterUpdate))
+            $this->doCallBack($this->afterUpdate, $_POST['id']);
+
+          echo json_encode([
+            'status' => 'true',
+            'title' => 'Pronto',
+            'message' => 'Dados alterado com sucesso!',
             'data' => $_POST
           ]);
         } else {
-          if(isset($_POST['tabelaDel'])){
-
-            if (is_callable($this->beforeDelete))
-              $this->doCallBack($this->beforeDelete);
-
-            if ($this->deleteLogico()) {
-
-              if (is_callable($this->afterDelete))
-                $this->doCallBack($this->afterDelete, $_POST['id']);
-
-              echo json_encode([
-                'status' => 'true',
-                'title' => 'Pronto',
-                'message' => 'Delete realizado com sucesso!',
-              ]);
-            } else {
-              echo json_encode([
-                'status' => 'false',
-                'title' => 'Falha',
-                'message' => 'Falha ao realizar o delete. Tente novamente em instantes.',
-              ]);
-            }
-          } else {
-
-            if (is_callable($this->beforeUpdate))
-              $this->doCallBack($this->beforeUpdate);
-
-            if ($this->alterar($_POST)){
-
-              if (is_callable($this->afterUpdate))
-                $this->doCallBack($this->afterUpdate, $_POST['id']);
-
-              echo json_encode([
-                'status' => 'true',
-                'title' => 'Pronto',
-                'message' => 'Dados alterado com sucesso!',
-                'data' => $_POST
-              ]);
-            } else {
-              echo json_encode([
-                'status' => 'false',
-                'title' => 'Falha',
-                'message' => 'Falha ao realizar a alteração. Tente novamente em instantes.',
-              ]);
-            }
-          }
+          echo json_encode([
+            'status' => 'false',
+            'title' => 'Falha',
+            'message' => 'Falha ao realizar a alteração. Tente novamente em instantes.',
+          ]);
         }
       }
+
       return true;
+      
     } else {
       return false;
     }

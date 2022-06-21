@@ -13,7 +13,7 @@
       <div class="modal-body">
         <h4 id="labelDelete">Deseja deletar este registro ?</h4>
         <h6 id="labelRegistro"></h6>
-        <form action="<?= $_SERVER['REDIRECT_URL'] ?>" id="formDelete" method="post" >
+        <form action="<?= $_SERVER['PHP_SELF'] ?>" id="formDelete" method="post" >
           <input type="hidden" id="idDel" name="id" value="">
           <input type="hidden" id="tabelaDel" name="tabelaDel" value="">
           <input type="hidden" id="campoStatus" name="campoDel" value="">

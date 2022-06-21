@@ -1,5 +1,5 @@
 <?php
-  $colunas = ['Plano', 'Tipo'];
+  $colunas = ['Plano', 'Tipo', 'Projeto'];
   $titulo = "Planos";
   $inputs = $this->plano->inputs;
 ?>

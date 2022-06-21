@@ -188,7 +188,7 @@ foreach($arr as $obj){
                   </span> 
                   <span class="account-summary pr-lg-4 d-none d-lg-block">
                     <span class="account-name">Beni Arisandi</span> 
-                    <span class="account-description"><?= $usuario->nome ?></span>
+                    <span class="account-description">Marketing Manager</span>
                   </span>
                 </button> <!-- .dropdown-menu -->
                 <div class="dropdown-menu">
