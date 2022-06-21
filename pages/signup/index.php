@@ -18,7 +18,7 @@
         </h1>
         <p> Already have an account? please <a href="<?= BASE_URL ?>/login">Login</a> </p>
       </header><!-- form -->
-      <form class="auth-form" action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
+      <form class="auth-form" action="<?= $_SERVER['REDIRECT_URL'] ?>" method="POST">
         <?php getflashdata() ?>
         <input type="hidden" name="tipo" value="Laboratório">
         <!-- .form-group -->

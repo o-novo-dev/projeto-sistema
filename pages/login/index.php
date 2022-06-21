@@ -18,7 +18,7 @@
         <p> Você tem uma conta? <a href="<?= BASE_URL ?>/signup">Crie uma aqui</a>
         </p>
       </header><!-- form -->
-      <form class="auth-form" action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
+      <form class="auth-form" action="<?= $_SERVER['REDIRECT_URL'] ?>" method="POST">
         <?php getflashdata() ?>
         <!-- .form-group -->
         <div class="form-group">
