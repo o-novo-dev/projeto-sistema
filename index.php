@@ -1,7 +1,7 @@
 <?php
 session_start();
-define("BASE_URL", "http://agendarse.com.br");
-define("ASSETS_URL", "http://agendarse.com.br/public");
+include_once("./config/ini.php");
+
 
 if (isset($_SERVER['PATH_INFO'])){
   $parts = explode("/", $_SERVER['PATH_INFO']);
