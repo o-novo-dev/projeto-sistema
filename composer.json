@@ -1,0 +1,17 @@
+{
+    "name": "mathe/projeto-sistema",
+    "require-dev": {
+        "composer/composer": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mathe\\ProjetoSistema\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Matheus Mello"
+        }
+    ],
+    "require": {}
+}

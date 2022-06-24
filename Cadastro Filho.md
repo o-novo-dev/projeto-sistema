@@ -6,7 +6,7 @@
 <?php
   $colunas = ['Modulo'];
   $titulo = "Modulo de Menus";
-  $titulo_pai = "Modulos"
+  $titulo_pai = "Modulos";
   $inputs = $this->modulosmenus->inputs;
 ?>
             <!-- .page-inner -->
