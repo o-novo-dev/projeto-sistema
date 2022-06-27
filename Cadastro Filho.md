@@ -159,6 +159,25 @@ class data[Tabela] extends model {
     return false;
   }
 }
+
+  /**
+   * quando necessário
+   */
+  /*
+  public function selectWhere($where = []){
+    $sql = "SELECT a.id, a.nome, a.ativo, a.plano_id, a.modulo_id, b.nome as plano, c.nome as modulo, a.ordem
+              FROM plano_detalhes a
+             INNER JOIN plano b ON a.plano_id = b.id
+             INNER JOIN modulos c ON a.modulo_id = c.id
+             WHERE a.ativo = 'Sim'
+               AND b.ativo = 'Sim'
+               AND c.ativo = 'Sim' ";
+    foreach ($where as $key => $value) {
+      $sql .= " and {$key} = :{$key} ";
+    }
+    return $this->select($sql, $where);
+  }
+  */
 ```
 
 # PHP Controller

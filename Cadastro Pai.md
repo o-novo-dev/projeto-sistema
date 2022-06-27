@@ -130,6 +130,26 @@ class data[Tabela] extends model {
     echo json_encode($arrMessage);
     return false;
   }  
+
+  /**
+   * quando necessário
+   */
+  /*
+  public function selectWhere($where = []){
+    $sql = "SELECT a.id, a.nome, a.plano_tipo_id, a.projeto_id, a.ativo, b.nome as tipo, c.nome as projeto
+              FROM plano a
+             INNER JOIN plano_tipos b ON b.id = a.plano_tipo_id
+             INNER JOIN projetos c ON c.id = a.projeto_id
+             WHERE a.ativo = 'Sim' ";
+    $andWhere = [];
+    foreach ($where as $key => $value) {
+      $sql .= " AND {$value['key']} = :{$value['param']} ";
+      $andWhere = [$value['param'] => $value['valor']];
+    }
+    
+    return $this->select($sql, $andWhere);
+  }
+  */
 }
 ```
 

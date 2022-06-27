@@ -1,14 +1,12 @@
 <?php
 require_once("./base/model.php");
 
-class dataPlanoDetalhes extends model {
+class dataPlanoPrecos extends model {
 
   function  __construct($id = '') {
-    $this->table = 'plano_detalhes';
+    $this->table = 'plano_precos';
     $this->pk = "id";
     parent::__construct();
-
-    $this->modulos = getModel('dataModulos');
 
     $this->inputs['id']['label'] = 'Identificador';
     $this->inputs['id']['order'] = 0;
@@ -17,13 +15,12 @@ class dataPlanoDetalhes extends model {
     $this->inputs['nome']['order'] = 1;
     $this->inputs['nome']['required'] = true;
     
-    $this->inputs['ativo']['order'] = 2;
-    $this->inputs['ativo']['value'] = 'Sim';
+    $this->inputs['preco']['label'] = "Preço";
+    $this->inputs['preco']['order'] = 2;
+    $this->inputs['preco']['required'] = true;
 
-    $this->inputs['modulo_id']['label'] = "modulo";
-    $this->inputs['modulo_id']['select'] = $this->modulos->selectAll();
-    $this->inputs['modulo_id']['order'] = 3;
-    $this->inputs['modulo_id']['required'] = true;
+    $this->inputs['ativo']['order'] = 3;
+    $this->inputs['ativo']['value'] = 'Sim';
 
     $this->inputs['plano_id']['label'] = "Plano";
     $this->inputs['plano_id']['value'] = $id;
@@ -53,22 +50,28 @@ class dataPlanoDetalhes extends model {
         'title' => 'Falhou',
         'message' => 'Por favor, Preencher o campo Plano!',
       ];
-    } else if((!isset($_POST['modulo_id'])) or (empty($_POST['modulo_id']))) { 
+    } else if((!isset($_POST['preco'])) or (empty($_POST['preco']))) { 
       $arrMessage = [
         'status' => 'false', 
         'title' => 'Falhou',
-        'message' => 'Por favor, Preencher o campo Modulo!',
-      ];
-    } else if((!isset($_POST['order'])) or (empty($_POST['order']))) { 
-      $arrMessage = [
-        'status' => 'false', 
-        'title' => 'Falhou',
-        'message' => 'Por favor, Preencher o campo Order!',
+        'message' => 'Por favor, Preencher o campo Preço!',
       ];
     } else {
+      $_POST['preco'] = str_replace(',','.',$_POST['preco']);
       return true;
     }
     echo json_encode($arrMessage);
     return false;
+  }
+
+  public function selectWhere($where = []){
+    $sql = "SELECT a.id, a.nome, a.ativo, a.preco, a.plano_id, b.nome as plano
+              FROM plano_precos a
+             INNER JOIN plano b ON a.plano_id = b.id
+             WHERE a.ativo = 'Sim' ";
+    foreach ($where as $key => $value) {
+      $sql .= " and {$key} = :{$key} ";
+    }
+    return $this->select($sql, $where);
   }
 }

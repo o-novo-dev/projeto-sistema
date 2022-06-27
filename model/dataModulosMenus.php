@@ -39,9 +39,7 @@ class dataModulosMenus extends model {
     return true;
   }
 
-  public function selectWhere($where = []){
-    $sql = $this->sqlBase ;
-    
+  public function selectWhere($where = []){   
     $sql = "SELECT a.id, a.nome, a.ativo, a.modulo_id, a.menu_id, b.nome as menu
               FROM modulos_menus a
              INNER JOIN menus b on b.id = a.menu_id

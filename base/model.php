@@ -184,7 +184,7 @@ abstract class model extends conectDB {
 
 
       if(empty($_POST['id'])){ //inserir
-
+        $_POST['id'] = null;
         if (is_callable($this->beforeInsert))
           $this->doCallBack($this->beforeInsert);
 

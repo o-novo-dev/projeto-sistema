@@ -1,8 +1,8 @@
 <?php
-  $colunas = ['Detalhe', 'Plano', 'Modulo', 'Ordem'];
-  $titulo = "Detalhes";
+  $colunas = ['Detalhe', 'Preço', 'Plano'];
+  $titulo = "Preços";
   $titulo_pai = "Plano";
-  $inputs = $this->planodetalhes->inputs;
+  $inputs = $this->planoprecos->inputs;
 ?>
             <!-- .page-inner -->
             <div class="page-inner">

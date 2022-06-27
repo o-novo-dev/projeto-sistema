@@ -78,12 +78,13 @@ class dataPlano extends model {
               FROM plano a
              INNER JOIN plano_tipos b ON b.id = a.plano_tipo_id
              INNER JOIN projetos c ON c.id = a.projeto_id
-             WHERE a.ativo = 'Sim'
-               AND b.ativo = 'Sim' 
-               AND c.ativo = 'Sim'";
+             WHERE a.ativo = 'Sim' ";
+    $andWhere = [];
     foreach ($where as $key => $value) {
-      $sql .= " AND {$key} = :{$key} ";
+      $sql .= " AND {$value['key']} = :{$value['param']} ";
+      $andWhere = [$value['param'] => $value['valor']];
     }
-    return $this->select($sql, $where);
+    
+    return $this->select($sql, $andWhere);
   }
 }
