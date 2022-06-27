@@ -1,5 +1,5 @@
 <?php
-require_once("./base/model.php");
+require_once("./src/base/model.php");
 
 class dataPlanoDetalhes extends model {
 
@@ -33,7 +33,7 @@ class dataPlanoDetalhes extends model {
     $this->inputs['plano_id']['required'] = true;
 
     $this->inputs['ordem']['label'] = "Ordem";
-    $this->inputs['ordem']['order'] = 1;
+    $this->inputs['ordem']['order'] = 5;
     $this->inputs['ordem']['required'] = true;
 
     /**

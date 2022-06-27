@@ -1,0 +1,1 @@
+mysqldump --user root --password --databases pet > db/pet.sql

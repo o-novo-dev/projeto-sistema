@@ -76,7 +76,7 @@
 
 ```php
 <?php
-require_once("./base/model.php");
+require_once("./src/base/model.php");
 
 class data[Tabela] extends model {
 
@@ -159,8 +159,8 @@ class data[Tabela] extends model {
 
 ```php
 <?php 
-require_once("./base/controller.php");
-require_once("./controller/page404.php");
+require_once("./src/base/controller.php");
+require_once("./src/controller/page404.php");
 
 class [controller] extends controller {
 

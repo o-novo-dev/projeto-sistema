@@ -1,5 +1,5 @@
 <?php 
-require_once("./base/controller.php");
+require_once("./src/base/controller.php");
 
 class dashboard extends controller {
 
@@ -10,6 +10,6 @@ class dashboard extends controller {
 
   public function index(){
     $this->data['titulo'] = "Principal";
-    $this->viewLogado("./pages/dashboard/index.php");
+    $this->viewLogado("./src/pages/dashboard/index.php");
   }
 }

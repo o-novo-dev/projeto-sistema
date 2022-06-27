@@ -1,5 +1,5 @@
 <?php
-require_once("./base/model.php");
+require_once("./src/base/model.php");
 
 class dataPlanoPrecos extends model {
 

@@ -1,7 +1,7 @@
 <?php
 
 function getModel($model, $param = ''){
-  require_once("./model/{$model}.php");
+  require_once("./src/model/{$model}.php");
   if (empty($param))
     return new $model();
   else 

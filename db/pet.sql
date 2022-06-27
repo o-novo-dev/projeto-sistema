@@ -1,40 +1,60 @@
-/*
-SQLyog Ultimate v11.11 (64 bit)
-MySQL - 5.5.5-10.1.10-MariaDB : Database - pet
-*********************************************************************
-*/
+-- MySQL dump 10.16  Distrib 10.1.10-MariaDB, for Win32 (AMD64)
+--
+-- Host: localhost    Database: pet
+-- ------------------------------------------------------
+-- Server version	10.1.10-MariaDB
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-
-/*!40101 SET SQL_MODE=''*/;
-
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`pet` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+--
+-- Current Database: `pet`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `pet` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
 USE `pet`;
 
-/*Table structure for table `atividades` */
+--
+-- Table structure for table `atividades`
+--
 
 DROP TABLE IF EXISTS `atividades`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `atividades` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `ativo` enum('Sim','Não') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Sim',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `atividades` */
+--
+-- Dumping data for table `atividades`
+--
 
-insert  into `atividades`(`id`,`nome`,`ativo`) values (1,'Matheus','Sim'),(2,'Teste','Sim'),(3,'ABC','Sim');
+LOCK TABLES `atividades` WRITE;
+/*!40000 ALTER TABLE `atividades` DISABLE KEYS */;
+INSERT INTO `atividades` VALUES (1,'Matheus','Sim'),(2,'Teste','Sim'),(3,'ABC','Sim');
+/*!40000 ALTER TABLE `atividades` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `cartoes` */
+--
+-- Table structure for table `cartoes`
+--
 
 DROP TABLE IF EXISTS `cartoes`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cartoes` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `tipo` enum('Cartão de Crédito','Cartão de Débito') NOT NULL,
@@ -49,15 +69,25 @@ CREATE TABLE `cartoes` (
   KEY `fk_usuario_cartao` (`usuario_id`),
   CONSTRAINT `fk_usuario_cartao` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `cartoes` */
+--
+-- Dumping data for table `cartoes`
+--
 
-insert  into `cartoes`(`id`,`tipo`,`numero`,`nome`,`dt_expiracao`,`cvv`,`bandeira`,`usuario_id`,`ativo`) values (2,'Cartão de Débito',1234123412341234,'Clinica Matheus','2022-08-11',123,'Visa',1,'Não'),(3,'Cartão de Crédito',1234567891234567,'matheus','2022-06-02',123,'Master Card',1,'Sim'),(6,'Cartão de Crédito',1243414341241,'teste','2022-06-02',123,'Elo',1,'Sim'),(7,'Cartão de Débito',9875465488798754,'cartão teste','2022-06-01',123,'Visa',1,'Sim');
+LOCK TABLES `cartoes` WRITE;
+/*!40000 ALTER TABLE `cartoes` DISABLE KEYS */;
+INSERT INTO `cartoes` VALUES (2,'Cartão de Débito',1234123412341234,'Clinica Matheus','2022-08-11',123,'Visa',1,'Não'),(3,'Cartão de Crédito',1234567891234567,'matheus','2022-06-02',123,'Master Card',1,'Sim'),(6,'Cartão de Crédito',1243414341241,'teste','2022-06-02',123,'Elo',1,'Sim'),(7,'Cartão de Débito',9875465488798754,'cartão teste','2022-06-01',123,'Visa',1,'Sim');
+/*!40000 ALTER TABLE `cartoes` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `empresas` */
+--
+-- Table structure for table `empresas`
+--
 
 DROP TABLE IF EXISTS `empresas`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `empresas` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `atividade_id` bigint(20) unsigned NOT NULL,
@@ -78,15 +108,25 @@ CREATE TABLE `empresas` (
   KEY `empresas_atividade_id_foreign` (`atividade_id`),
   CONSTRAINT `empresas_atividade_id_foreign` FOREIGN KEY (`atividade_id`) REFERENCES `atividades` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `empresas` */
+--
+-- Dumping data for table `empresas`
+--
 
-insert  into `empresas`(`id`,`atividade_id`,`razao_social`,`nome_fantasia`,`cep`,`endereco`,`numero`,`bairro`,`complemento`,`cidade`,`uf`,`celular`,`pago`,`dt_experiencia`,`ativo`) values (20,2,'Teste','MATHEUS DE MELLO IZABEL CRISTINA BUGNOLA DE MELLO','14015-170','Rua Álvares Cabral','40339455','centro','AP 51','Ribeirão Preto','AS','991838523','Não','2022-05-27','Sim'),(21,1,'Matheus de Mello','Matheus Mello','14015170','AV 9 DE JULHO','1243124234','test','test','Ribeirão Preto, city, Brazil','AS','(16) 66666-6666','Não','2022-05-18','Sim');
+LOCK TABLES `empresas` WRITE;
+/*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
+INSERT INTO `empresas` VALUES (20,2,'Teste','MATHEUS DE MELLO IZABEL CRISTINA BUGNOLA DE MELLO','14015-170','Rua Álvares Cabral','40339455','centro','AP 51','Ribeirão Preto','AS','991838523','Não','2022-05-27','Sim'),(21,1,'Matheus de Mello','Matheus Mello','14015170','AV 9 DE JULHO','1243124234','test','test','Ribeirão Preto, city, Brazil','AS','(16) 66666-6666','Não','2022-05-18','Sim');
+/*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `enderecos` */
+--
+-- Table structure for table `enderecos`
+--
 
 DROP TABLE IF EXISTS `enderecos`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `enderecos` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
@@ -105,46 +145,78 @@ CREATE TABLE `enderecos` (
   KEY `fk_usuario_endereco` (`usuario_id`),
   CONSTRAINT `fk_usuario_endereco` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `enderecos` */
+--
+-- Dumping data for table `enderecos`
+--
 
-insert  into `enderecos`(`id`,`nome`,`rua`,`numero`,`bairro`,`complemento`,`cep`,`estado`,`cidade`,`telefone`,`principal`,`usuario_id`,`ativo`) values (1,'teste','teste','teste','teste','teste','teste','te','test','teste','Não',1,'Não'),(3,'Matheus','Miguel','asf','adf','adf','af','ad','asf','asf','Não',1,'Sim'),(4,'matheus','xxxxx','xxx','xx','xxx','xxx','xx','xxxx','xxx','Não',1,'Sim'),(5,'sergio','yyy','y','y','y','y','y','y','y','Não',1,'Não'),(6,'Clinica Matheus','Miguel','40339455','centro','AP 51','14180000','ad','Ribeirão Preto','+5516991838523','Sim',1,'Sim');
+LOCK TABLES `enderecos` WRITE;
+/*!40000 ALTER TABLE `enderecos` DISABLE KEYS */;
+INSERT INTO `enderecos` VALUES (1,'teste','teste','teste','teste','teste','teste','te','test','teste','Não',1,'Não'),(3,'Matheus','Miguel','asf','adf','adf','af','ad','asf','asf','Não',1,'Sim'),(4,'matheus','xxxxx','xxx','xx','xxx','xxx','xx','xxxx','xxx','Não',1,'Sim'),(5,'sergio','yyy','y','y','y','y','y','y','y','Não',1,'Não'),(6,'Clinica Matheus','Miguel','40339455','centro','AP 51','14180000','ad','Ribeirão Preto','+5516991838523','Sim',1,'Sim');
+/*!40000 ALTER TABLE `enderecos` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `menus` */
+--
+-- Table structure for table `menus`
+--
 
 DROP TABLE IF EXISTS `menus`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `menus` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `link` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
+  `icone` varchar(100) NOT NULL,
+  `ordem` int(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `menus` */
+--
+-- Dumping data for table `menus`
+--
 
-insert  into `menus`(`id`,`nome`,`link`,`ativo`) values (1,'Dashboard1x','Dashboard/Painel','Não'),(2,'Dashboard','dashboard/Fiscal','Sim');
+LOCK TABLES `menus` WRITE;
+/*!40000 ALTER TABLE `menus` DISABLE KEYS */;
+INSERT INTO `menus` VALUES (1,'Dashboard1x','Dashboard/Painel','Não','',0),(2,'Dashboard','dashboard/Fiscal','Sim','teste',1),(3,'Fiscal','teste','Sim','icone',2),(4,'tese','#','Sim','teste',3);
+/*!40000 ALTER TABLE `menus` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `modulos` */
+--
+-- Table structure for table `modulos`
+--
 
 DROP TABLE IF EXISTS `modulos`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `modulos` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `modulos` */
+--
+-- Dumping data for table `modulos`
+--
 
-insert  into `modulos`(`id`,`nome`,`ativo`) values (1,'Fiscal','Sim'),(2,'Laboratório','Sim');
+LOCK TABLES `modulos` WRITE;
+/*!40000 ALTER TABLE `modulos` DISABLE KEYS */;
+INSERT INTO `modulos` VALUES (1,'Fiscal','Sim'),(2,'Laboratório','Sim'),(3,'teste','Sim');
+/*!40000 ALTER TABLE `modulos` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `modulos_menus` */
+--
+-- Table structure for table `modulos_menus`
+--
 
 DROP TABLE IF EXISTS `modulos_menus`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `modulos_menus` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
@@ -156,14 +228,26 @@ CREATE TABLE `modulos_menus` (
   KEY `FK_modulos_menus#menus#menu_id` (`menu_id`),
   CONSTRAINT `FK_modulos_menus#menus#menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`),
   CONSTRAINT `FK_modulos_menus#modulos` FOREIGN KEY (`modulo_id`) REFERENCES `modulos` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `modulos_menus` */
+--
+-- Dumping data for table `modulos_menus`
+--
 
-/*Table structure for table `pages` */
+LOCK TABLES `modulos_menus` WRITE;
+/*!40000 ALTER TABLE `modulos_menus` DISABLE KEYS */;
+INSERT INTO `modulos_menus` VALUES (1,'Matheus de Mello','Sim',1,2),(2,'Clinica Matheus','Sim',2,3),(3,'MATHEUS DE MELLO IZABEL CRISTINA BUGNOLA DE MELLO','Sim',2,2),(4,'Fiscal','Sim',3,3);
+/*!40000 ALTER TABLE `modulos_menus` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pages`
+--
 
 DROP TABLE IF EXISTS `pages`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` enum('main','header','footer','contato','sobre','serviço','plano') NOT NULL,
@@ -174,15 +258,25 @@ CREATE TABLE `pages` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_param` (`tipo`,`param`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `pages` */
+--
+-- Dumping data for table `pages`
+--
 
-insert  into `pages`(`id`,`tipo`,`param`,`value`,`valueImg`,`ativo`) values (1,'header','titulo','Bem vindo ao Pets',NULL,'Sim'),(2,'header','meta','pet; laboratório; petshop; ',NULL,'Sim');
+LOCK TABLES `pages` WRITE;
+/*!40000 ALTER TABLE `pages` DISABLE KEYS */;
+INSERT INTO `pages` VALUES (1,'header','titulo','Bem vindo ao Pets',NULL,'Sim'),(2,'header','meta','pet; laboratório; petshop; ',NULL,'Sim');
+/*!40000 ALTER TABLE `pages` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `plano` */
+--
+-- Table structure for table `plano`
+--
 
 DROP TABLE IF EXISTS `plano`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `plano` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
@@ -194,34 +288,58 @@ CREATE TABLE `plano` (
   KEY `FK_plano#plano_tipos#plano_tipo_id` (`plano_tipo_id`),
   CONSTRAINT `FK_plano#plano_tipos#plano_tipo_id` FOREIGN KEY (`plano_tipo_id`) REFERENCES `plano_tipos` (`id`),
   CONSTRAINT `FK_plano#projetos#projeto_id` FOREIGN KEY (`projeto_id`) REFERENCES `projetos` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `plano` */
+--
+-- Dumping data for table `plano`
+--
 
-/*Table structure for table `plano_detalhes` */
+LOCK TABLES `plano` WRITE;
+/*!40000 ALTER TABLE `plano` DISABLE KEYS */;
+INSERT INTO `plano` VALUES (1,'Clinica Matheus',2,3,'Sim');
+/*!40000 ALTER TABLE `plano` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `plano_detalhes`
+--
 
 DROP TABLE IF EXISTS `plano_detalhes`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `plano_detalhes` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   `plano_id` bigint(20) NOT NULL,
   `modulo_id` bigint(20) NOT NULL,
-  `order` int(11) NOT NULL,
+  `ordem` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_detalhes#planos#plano_id` (`plano_id`),
   KEY `FK_detalhes#modulos` (`modulo_id`),
   CONSTRAINT `FK_detalhes#modulos` FOREIGN KEY (`modulo_id`) REFERENCES `modulos` (`id`),
   CONSTRAINT `FK_detalhes#planos#plano_id` FOREIGN KEY (`plano_id`) REFERENCES `plano` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `plano_detalhes` */
+--
+-- Dumping data for table `plano_detalhes`
+--
 
-/*Table structure for table `plano_precos` */
+LOCK TABLES `plano_detalhes` WRITE;
+/*!40000 ALTER TABLE `plano_detalhes` DISABLE KEYS */;
+INSERT INTO `plano_detalhes` VALUES (1,'Matheus de Mello','Sim',1,1,1);
+/*!40000 ALTER TABLE `plano_detalhes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `plano_precos`
+--
 
 DROP TABLE IF EXISTS `plano_precos`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `plano_precos` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
@@ -231,58 +349,105 @@ CREATE TABLE `plano_precos` (
   PRIMARY KEY (`id`),
   KEY `FK_precos#planos#plano_id` (`plano_id`),
   CONSTRAINT `FK_precos#planos#plano_id` FOREIGN KEY (`plano_id`) REFERENCES `plano` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `plano_precos` */
+--
+-- Dumping data for table `plano_precos`
+--
 
-/*Table structure for table `plano_tipos` */
+LOCK TABLES `plano_precos` WRITE;
+/*!40000 ALTER TABLE `plano_precos` DISABLE KEYS */;
+INSERT INTO `plano_precos` VALUES (1,'Clinica Matheus','Sim',1,15.50);
+/*!40000 ALTER TABLE `plano_precos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `plano_tipos`
+--
 
 DROP TABLE IF EXISTS `plano_tipos`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `plano_tipos` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `plano_tipos` */
+--
+-- Dumping data for table `plano_tipos`
+--
 
-/*Table structure for table `projetos` */
+LOCK TABLES `plano_tipos` WRITE;
+/*!40000 ALTER TABLE `plano_tipos` DISABLE KEYS */;
+INSERT INTO `plano_tipos` VALUES (1,'Clinica Matheus','Não'),(2,'tipo mello','Sim');
+/*!40000 ALTER TABLE `plano_tipos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `projetos`
+--
 
 DROP TABLE IF EXISTS `projetos`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `projetos` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `projetos` */
+--
+-- Dumping data for table `projetos`
+--
 
-insert  into `projetos`(`id`,`nome`,`ativo`) values (1,'Projeto Fiscal','Sim');
+LOCK TABLES `projetos` WRITE;
+/*!40000 ALTER TABLE `projetos` DISABLE KEYS */;
+INSERT INTO `projetos` VALUES (1,'Projeto Fiscal','Não'),(2,'testes','Não'),(3,'Clinica Matheus','Sim');
+/*!40000 ALTER TABLE `projetos` ENABLE KEYS */;
+UNLOCK TABLES;
 
-/*Table structure for table `submenus` */
+--
+-- Table structure for table `submenus`
+--
 
 DROP TABLE IF EXISTS `submenus`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `submenus` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
+  `link` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   `menu_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_submenus#menus#menu_id` (`menu_id`),
   CONSTRAINT `FK_submenus#menus#menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `submenus` */
+--
+-- Dumping data for table `submenus`
+--
 
-/*Table structure for table `usuario` */
+LOCK TABLES `submenus` WRITE;
+/*!40000 ALTER TABLE `submenus` DISABLE KEYS */;
+INSERT INTO `submenus` VALUES (1,'teste','123','Sim',3),(2,'abc','654','Sim',3),(3,'Matheus de Mello','123','Sim',2),(4,'teste','xxxx','Sim',2);
+/*!40000 ALTER TABLE `submenus` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario`
+--
 
 DROP TABLE IF EXISTS `usuario`;
-
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
@@ -299,12 +464,25 @@ CREATE TABLE `usuario` (
   KEY `users_empresa_id_foreign` (`empresa_id`),
   CONSTRAINT `users_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-/*Data for the table `usuario` */
+--
+-- Dumping data for table `usuario`
+--
 
-insert  into `usuario`(`id`,`nome`,`email`,`senha`,`tipo`,`avatar`,`cpf_cnpj`,`ativo`,`telefone`,`empresa_id`) values (1,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Administrador',NULL,'36848874809','Sim','16991838523',21),(2,'','','','Administrador',NULL,NULL,'Sim',NULL,NULL);
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Administrador',NULL,'36848874809','Sim','16991838523',21),(2,'','','','Administrador',NULL,NULL,'Sim',NULL,NULL);
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-06-27  9:54:03

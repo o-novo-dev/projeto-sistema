@@ -20,15 +20,15 @@ class controller extends conectDB {
     protected function view($views){
       extract($this->data);
       extract($_SESSION);
-      include("./pages/layout/header.php");
+      include("./src/pages/layout/header.php");
       include($views);
-      include("./pages/layout/footer.php");
+      include("./src/pages/layout/footer.php");
     }
 
     protected function viewLogado($views){
       extract($this->data);
       extract($_SESSION);
-      include("./pages/layout/header_logado.php");
+      include("./src/pages/layout/header_logado.php");
       if (is_array($views)){
         foreach ($views as $key => $value) {
           include($value);
@@ -36,6 +36,6 @@ class controller extends conectDB {
       } else {
         include($views);
       }
-      include("./pages/layout/footer_logado.php");
+      include("./src/pages/layout/footer_logado.php");
     }
 }

@@ -15,10 +15,11 @@ const load = (e) => {
     columns: [
       { data: 'nome' },
       { data: 'link' },
+      { data: 'ordem' },
       { data: 'id', className: 'align-middle text-right', orderable: false, searchable: false }
     ],
     columnDefs: [{
-      targets: 2,
+      targets: 3,
       render: function (data, type, row, meta) {
         //console.log(data, type, row, meta);
         let dataRow = JSON.stringify(row);
@@ -41,6 +42,8 @@ const load = (e) => {
       document.getElementById('nome').value = row.nome
       document.getElementById('link').value = row.link
       document.getElementById('ativo').value = row.ativo
+      document.getElementById('icone').value = row.icone
+      document.getElementById('ordem').value = row.ordem;
     }
     //console.log(row);
   })
@@ -50,6 +53,8 @@ const load = (e) => {
     document.getElementById('formAdd').reset();   
     document.getElementById('id').value = '';
     document.getElementById('ativo').value = 'Sim';
+    document.getElementById('icone').value = '';
+    document.getElementById('ordem').value = '';
   })
 }
 

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once("./config/ini.php");
+include_once("./src/config/ini.php");
 
 
 if (isset($_SERVER['PATH_INFO'])){
@@ -28,8 +28,8 @@ if (isset($_SERVER['PATH_INFO'])){
     $value1 = $parts[4];
   }
 
-  if (file_exists("./controller/{$class}.php")){
-    require_once("./controller/{$class}.php");
+  if (file_exists("./src/controller/{$class}.php")){
+    require_once("./src/controller/{$class}.php");
     $obj = new $class();
 
     if (!empty($method)){
@@ -44,12 +44,12 @@ if (isset($_SERVER['PATH_INFO'])){
       $obj->index();
     }
   } else {
-    require_once("./controller/page404.php");
+    require_once("./src/controller/page404.php");
     $obj = new page404();
     $obj->index();
   }
 } else {
-  require_once("./controller/main.php");
+  require_once("./src/controller/main.php");
   $obj = new main();
   $obj->index();
 }

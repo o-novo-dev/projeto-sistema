@@ -1,5 +1,5 @@
 <?php
-require_once("./base/model.php");
+require_once("./src/base/model.php");
 
 class dataMenus extends model {
 
@@ -22,6 +22,14 @@ class dataMenus extends model {
     $this->inputs['ativo']['order'] = 3;
     $this->inputs['ativo']['value'] = 'Sim';
 
+    $this->inputs['icone']['label'] = "Icone";
+    $this->inputs['icone']['order'] = 4;
+    $this->inputs['icone']['required'] = true;
+
+    $this->inputs['ordem']['label'] = "Ordem";
+    $this->inputs['ordem']['order'] = 5;
+    $this->inputs['ordem']['required'] = true;
+    
     $this->ordernar();
   }
 

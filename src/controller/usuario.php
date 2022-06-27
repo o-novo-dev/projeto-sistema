@@ -1,6 +1,6 @@
 <?php 
-require_once("./base/controller.php");
-require_once("./controller/page404.php");
+require_once("./src/base/controller.php");
+require_once("./src/controller/page404.php");
 
 class usuario extends controller {
 
@@ -31,7 +31,7 @@ class usuario extends controller {
 
   public function index(){
     $this->addJS('usuario.js');
-    $this->viewLogado("./pages/usuario/index.php");
+    $this->viewLogado("./src/pages/usuario/index.php");
   }
 
   public function logout(){
@@ -42,9 +42,9 @@ class usuario extends controller {
   public function overview(){
     $this->data['view_perfil'] = 'overview';
     $this->viewLogado([
-      "./pages/usuario/layout/header.php", 
-      "./pages/usuario/perfil/overview.php", 
-      "./pages/usuario/layout/footer.php"
+      "./src/pages/usuario/layout/header.php", 
+      "./src/pages/usuario/perfil/overview.php", 
+      "./src/pages/usuario/layout/footer.php"
     ]);
   }
 
@@ -106,9 +106,9 @@ class usuario extends controller {
         
         $this->addJS('modulosmenus.js');
         $this->viewLogado([
-          "./pages/usuario/layout/header.php", 
-          "./pages/usuario/modulo/menus.php", 
-          "./pages/usuario/layout/footer.php"
+          "./src/pages/usuario/layout/header.php", 
+          "./src/pages/usuario/modulo/menus.php", 
+          "./src/pages/usuario/layout/footer.php"
         ]);
       }
     } else {
@@ -122,10 +122,10 @@ class usuario extends controller {
       
       $this->addJS('modulos.js');
       $this->viewLogado([
-        "./pages/usuario/layout/header.php", 
-        "./pages/usuario/layout/menu_modulo.php", 
-        "./pages/usuario/modulo/modulo.php", 
-        "./pages/usuario/layout/footer.php"
+        "./src/pages/usuario/layout/header.php", 
+        "./src/pages/usuario/layout/menu_modulo.php", 
+        "./src/pages/usuario/modulo/modulo.php", 
+        "./src/pages/usuario/layout/footer.php"
       ]);
     }
   }
@@ -158,10 +158,10 @@ class usuario extends controller {
 
   private function _parceiro(){
     $this->viewLogado([
-      "./pages/usuario/layout/header.php", 
-      "./pages/usuario/layout/menu_parceiro.php", 
-      "./pages/usuario/perfil/parceiro.php", 
-      "./pages/usuario/layout/footer.php"
+      "./src/pages/usuario/layout/header.php", 
+      "./src/pages/usuario/layout/menu_parceiro.php", 
+      "./src/pages/usuario/perfil/parceiro.php", 
+      "./src/pages/usuario/layout/footer.php"
     ]);
   }
 
@@ -169,10 +169,10 @@ class usuario extends controller {
 
   private function _site(){
     $this->viewLogado([
-      "./pages/usuario/layout/header.php", 
-      "./pages/usuario/layout/menu_parceiro.php", 
-      "./pages/usuario/perfil/site.php", 
-      "./pages/usuario/layout/footer.php"
+      "./src/pages/usuario/layout/header.php", 
+      "./src/pages/usuario/layout/menu_parceiro.php", 
+      "./src/pages/usuario/perfil/site.php", 
+      "./src/pages/usuario/layout/footer.php"
     ]);
   }
 
@@ -182,10 +182,10 @@ class usuario extends controller {
       
       $this->addJS('menus.js');
       $this->viewLogado([
-        "./pages/usuario/layout/header.php", 
-        "./pages/usuario/layout/menu_menu.php", 
-        "./pages/usuario/menu/menus.php", 
-        "./pages/usuario/layout/footer.php"
+        "./src/pages/usuario/layout/header.php", 
+        "./src/pages/usuario/layout/menu_menu.php", 
+        "./src/pages/usuario/menu/menus.php", 
+        "./src/pages/usuario/layout/footer.php"
       ]);
     }
   }
@@ -198,9 +198,9 @@ class usuario extends controller {
         
         $this->addJS('submenus.js');
         $this->viewLogado([
-          "./pages/usuario/layout/header.php", 
-          "./pages/usuario/menu/submenus.php", 
-          "./pages/usuario/layout/footer.php"
+          "./src/pages/usuario/layout/header.php", 
+          "./src/pages/usuario/menu/submenus.php", 
+          "./src/pages/usuario/layout/footer.php"
         ]);
       }
     } else {
@@ -214,10 +214,10 @@ class usuario extends controller {
 
       $this->addJS('projetos.js');
       $this->viewLogado([
-        "./pages/usuario/layout/header.php", 
-        "./pages/usuario/layout/menu_projeto.php", 
-        "./pages/usuario/projeto/projeto.php", 
-        "./pages/usuario/layout/footer.php"
+        "./src/pages/usuario/layout/header.php", 
+        "./src/pages/usuario/layout/menu_projeto.php", 
+        "./src/pages/usuario/projeto/projeto.php", 
+        "./src/pages/usuario/layout/footer.php"
       ]);
     }
   }
@@ -227,10 +227,10 @@ class usuario extends controller {
       $this->usuario->doUpdatePerfil($_POST);
     }
     $this->viewLogado([
-      "./pages/usuario/layout/header.php", 
-      "./pages/usuario/layout/menu.php", 
-      "./pages/usuario/perfil/perfil.php", 
-      "./pages/usuario/layout/footer.php"
+      "./src/pages/usuario/layout/header.php", 
+      "./src/pages/usuario/layout/menu.php", 
+      "./src/pages/usuario/perfil/perfil.php", 
+      "./src/pages/usuario/layout/footer.php"
     ]);
   }
 
@@ -240,10 +240,10 @@ class usuario extends controller {
       
       $this->addJS('enderecos.js');
       $this->viewLogado([
-        "./pages/usuario/layout/header.php", 
-        "./pages/usuario/layout/menu.php", 
-        "./pages/usuario/perfil/enderecos.php", 
-        "./pages/usuario/layout/footer.php"
+        "./src/pages/usuario/layout/header.php", 
+        "./src/pages/usuario/layout/menu.php", 
+        "./src/pages/usuario/perfil/enderecos.php", 
+        "./src/pages/usuario/layout/footer.php"
       ]);
     }
   }
@@ -254,10 +254,10 @@ class usuario extends controller {
       $this->addJS('carteira.js');
 
       $this->viewLogado([
-        "./pages/usuario/layout/header.php", 
-        "./pages/usuario/layout/menu.php", 
-        "./pages/usuario/perfil/carteira.php", 
-        "./pages/usuario/layout/footer.php"
+        "./src/pages/usuario/layout/header.php", 
+        "./src/pages/usuario/layout/menu.php", 
+        "./src/pages/usuario/perfil/carteira.php", 
+        "./src/pages/usuario/layout/footer.php"
       ]);
     }
   }
@@ -268,10 +268,10 @@ class usuario extends controller {
     
 
     $this->viewLogado([
-      "./pages/usuario/layout/header.php", 
-      "./pages/usuario/layout/menu.php", 
-      "./pages/usuario/perfil/senha.php", 
-      "./pages/usuario/layout/footer.php"
+      "./src/pages/usuario/layout/header.php", 
+      "./src/pages/usuario/layout/menu.php", 
+      "./src/pages/usuario/perfil/senha.php", 
+      "./src/pages/usuario/layout/footer.php"
     ]);
   }
 
@@ -298,10 +298,10 @@ class usuario extends controller {
     }
 
     $this->viewLogado([
-      "./pages/usuario/layout/header.php", 
-      "./pages/usuario/layout/menu.php", 
-      "./pages/usuario/perfil/empresa.php", 
-      "./pages/usuario/layout/footer.php"
+      "./src/pages/usuario/layout/header.php", 
+      "./src/pages/usuario/layout/menu.php", 
+      "./src/pages/usuario/perfil/empresa.php", 
+      "./src/pages/usuario/layout/footer.php"
     ]);
   }
 
@@ -342,9 +342,9 @@ class usuario extends controller {
         
         $this->addJS('planoprecos.js');
         $this->viewLogado([
-          "./pages/usuario/layout/header.php", 
-          "./pages/usuario/plano/precos.php", 
-          "./pages/usuario/layout/footer.php"
+          "./src/pages/usuario/layout/header.php", 
+          "./src/pages/usuario/plano/precos.php", 
+          "./src/pages/usuario/layout/footer.php"
         ]);
       }
     } else {
@@ -363,9 +363,9 @@ class usuario extends controller {
         
         $this->addJS('planodetalhes.js');
         $this->viewLogado([
-          "./pages/usuario/layout/header.php", 
-          "./pages/usuario/plano/detalhes.php", 
-          "./pages/usuario/layout/footer.php"
+          "./src/pages/usuario/layout/header.php", 
+          "./src/pages/usuario/plano/detalhes.php", 
+          "./src/pages/usuario/layout/footer.php"
         ]);
       }
     } else {
@@ -379,10 +379,10 @@ class usuario extends controller {
       
       $this->addJS('planotipos.js');
       $this->viewLogado([
-        "./pages/usuario/layout/header.php", 
-        "./pages/usuario/layout/menu_plano.php", 
-        "./pages/usuario/plano/tipo.php", 
-        "./pages/usuario/layout/footer.php"
+        "./src/pages/usuario/layout/header.php", 
+        "./src/pages/usuario/layout/menu_plano.php", 
+        "./src/pages/usuario/plano/tipo.php", 
+        "./src/pages/usuario/layout/footer.php"
       ]);
     }
   }
@@ -392,10 +392,10 @@ class usuario extends controller {
       
       $this->addJS('plano.js');
       $this->viewLogado([
-        "./pages/usuario/layout/header.php", 
-        "./pages/usuario/layout/menu_plano.php", 
-        "./pages/usuario/plano/plano.php", 
-        "./pages/usuario/layout/footer.php"
+        "./src/pages/usuario/layout/header.php", 
+        "./src/pages/usuario/layout/menu_plano.php", 
+        "./src/pages/usuario/plano/plano.php", 
+        "./src/pages/usuario/layout/footer.php"
       ]);
     }
   }

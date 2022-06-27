@@ -1,5 +1,5 @@
 <?php 
-require_once("./base/controller.php");
+require_once("./src/base/controller.php");
 
 class page404 extends controller {
 
@@ -9,6 +9,6 @@ class page404 extends controller {
 
   public function index(){
     $this->data['titulo'] = "Principal";
-    $this->view("./pages/page404/index.php");
+    $this->view("./src/pages/page404/index.php");
   }
 }

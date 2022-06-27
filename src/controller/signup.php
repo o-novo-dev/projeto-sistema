@@ -1,9 +1,9 @@
 <?php 
-require_once("./base/controller.php");
+require_once("./src/base/controller.php");
 
-class login extends controller {
+class signup extends controller {
 
-  public $usuario;
+  private $usuario;
 
   function __construct() {
     if (isset($_SESSION['usuario'])) redirect("/dashboard");
@@ -13,11 +13,15 @@ class login extends controller {
 
   public function index(){
     $this->data['titulo'] = "Principal";
-
+    
     if ($_POST){
-      $this->usuario->doLogin($_POST);      
+      $this->usuario->doSignup($_POST);
     }
     
-    $this->view("./pages/login/index.php");
+    $this->view("./src/pages/signup/index.php");
+  }
+
+  public function cadastrar(){
+    
   }
 }

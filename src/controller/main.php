@@ -1,7 +1,7 @@
 <?php 
-require_once("./base/controller.php");
+require_once("./src/base/controller.php");
 
-class recovery extends controller {
+class main extends controller {
 
   function __construct() {
     parent::__construct();
@@ -9,6 +9,6 @@ class recovery extends controller {
 
   public function index(){
     $this->data['titulo'] = "Principal";
-    $this->view("./pages/recovery/index.php");
+    $this->view("./src/pages/main/index.php");
   }
 }

@@ -93,11 +93,11 @@
 
 # PHP Model
 
->diretório ./model/data[Tabela].php
+>diretório ./src/model/data[Tabela].php
 
 ```php
 <?php
-require_once("./base/model.php");
+require_once("./src/base/model.php");
 
 class data[Tabela] extends model {
 
@@ -186,8 +186,8 @@ class data[Tabela] extends model {
 
 ```php
 <?php 
-require_once("./base/controller.php");
-require_once("./controller/page404.php");
+require_once("./src/base/controller.php");
+require_once("./src/controller/page404.php");
 
 class [controller] extends controller {
 
@@ -217,7 +217,7 @@ class [controller] extends controller {
      * viewLogado contem o layout para paginas logados
      * o parametro pode ser array, quando requerer incluir outro layout
      */
-    $this->viewLogado("./pages/[controller]/index.php");
+    $this->viewLogado("./src/pages/[controller]/index.php");
 
     /**
      * view contem o layout para paginas não logado

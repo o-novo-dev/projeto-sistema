@@ -66,7 +66,7 @@
 
 ```php
 <?php
-require_once("./base/model.php");
+require_once("./src/base/model.php");
 
 class data[Tabela] extends model {
 
@@ -125,11 +125,11 @@ class data[Tabela] extends model {
 
 # PHP Controller
 
->diretório ./controller/[controller].php
+>diretório ./src/controller/[controller].php
 
 ```php
 <?php 
-require_once("./base/controller.php");
+require_once("./src/base/controller.php");
 
 class [controller] extends controller {
 
@@ -159,12 +159,12 @@ class [controller] extends controller {
      * viewLogado contem o layout para paginas logados
      * o parametro pode ser array, quando requerer incluir outro layout
      */
-    $this->viewLogado("./pages/[controller]/index.php");
+    $this->viewLogado("./src/pages/[controller]/index.php");
 
     /**
      * view contem o layout para paginas não logado
      */
-    $this->view("./pages/[controller]/index.php");
+    $this->view("./src/pages/[controller]/index.php");
   }
 
   public function [method]($[param1] = '', $[param2] = ''){
@@ -172,7 +172,7 @@ class [controller] extends controller {
       
       $this->addJS('[controller].js');
 
-      $this->viewLogado("./pages/[controller]/index.php");
+      $this->viewLogado("./src/pages/[controller]/index.php");
     }
   }
 ```
