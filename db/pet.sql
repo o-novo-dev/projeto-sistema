@@ -82,6 +82,38 @@ INSERT INTO `cartoes` VALUES (2,'Cartão de Débito',1234123412341234,'Clinica M
 UNLOCK TABLES;
 
 --
+-- Table structure for table `contratos`
+--
+
+DROP TABLE IF EXISTS `contratos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contratos` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) DEFAULT NULL,
+  `ativo` enum('Sim','Não') NOT NULL,
+  `dt_contrato` date NOT NULL,
+  `plano_id` bigint(20) NOT NULL,
+  `empresa_id` bigint(20) unsigned NOT NULL,
+  `status` enum('Aberto','Pago','Cancelado') NOT NULL DEFAULT 'Aberto',
+  PRIMARY KEY (`id`),
+  KEY `FK_CONTRATOS#PLANOS#ID` (`plano_id`),
+  KEY `FK_CONTRATOS#EMPRESA#ID` (`empresa_id`),
+  CONSTRAINT `FK_CONTRATOS#EMPRESA#ID` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `FK_CONTRATOS#PLANOS#ID` FOREIGN KEY (`plano_id`) REFERENCES `plano` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contratos`
+--
+
+LOCK TABLES `contratos` WRITE;
+/*!40000 ALTER TABLE `contratos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `contratos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `empresas`
 --
 
@@ -472,7 +504,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Administrador',NULL,'36848874809','Sim','16991838523',21),(2,'','','','Administrador',NULL,NULL,'Sim',NULL,NULL);
+INSERT INTO `usuario` VALUES (1,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Administrador',NULL,'36848874809','Sim','16991838523',21);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -485,4 +517,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-27  9:54:03
+-- Dump completed on 2022-06-27 17:32:40
