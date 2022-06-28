@@ -1,14 +1,14 @@
 # Configurar
 
-Add pasta config
+Add pasta ./src/config
 Na pasta config add o arquivo ini.php
 
-> add no arquivo ini.php
+> add no arquivo ./src/configini.php
 
 ```php
 <?php
-$ssl_set = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "s" : "";
-$pasta = "/projeto-sistema/";
+$ssl_set = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "s" : "";
+$pasta = "/projeto-sistema";
 $url = 'http'. $ssl_set.'://'.$_SERVER ['HTTP_HOST'].$pasta;
 
 //config site
