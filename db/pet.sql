@@ -35,7 +35,7 @@ CREATE TABLE `atividades` (
   `nome` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   `ativo` enum('Sim','Não') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Sim',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `atividades` (
 
 LOCK TABLES `atividades` WRITE;
 /*!40000 ALTER TABLE `atividades` DISABLE KEYS */;
-INSERT INTO `atividades` VALUES (1,'Matheus','Sim'),(2,'Teste','Sim'),(3,'ABC','Sim');
+INSERT INTO `atividades` VALUES (4,'Laboratório','Sim'),(5,'Clinica','Sim');
 /*!40000 ALTER TABLE `atividades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +77,6 @@ CREATE TABLE `cartoes` (
 
 LOCK TABLES `cartoes` WRITE;
 /*!40000 ALTER TABLE `cartoes` DISABLE KEYS */;
-INSERT INTO `cartoes` VALUES (2,'Cartão de Débito',1234123412341234,'Clinica Matheus','2022-08-11',123,'Visa',1,'Não'),(3,'Cartão de Crédito',1234567891234567,'matheus','2022-06-02',123,'Master Card',1,'Sim'),(6,'Cartão de Crédito',1243414341241,'teste','2022-06-02',123,'Elo',1,'Sim'),(7,'Cartão de Débito',9875465488798754,'cartão teste','2022-06-01',123,'Visa',1,'Sim');
 /*!40000 ALTER TABLE `cartoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,6 +95,7 @@ CREATE TABLE `contratos` (
   `plano_id` bigint(20) NOT NULL,
   `empresa_id` bigint(20) unsigned NOT NULL,
   `status` enum('Aberto','Pago','Cancelado') NOT NULL DEFAULT 'Aberto',
+  `dt_fim` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_CONTRATOS#PLANOS#ID` (`plano_id`),
   KEY `FK_CONTRATOS#EMPRESA#ID` (`empresa_id`),
@@ -122,7 +122,7 @@ DROP TABLE IF EXISTS `empresas`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `empresas` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `atividade_id` bigint(20) unsigned NOT NULL,
+  `atividade_id` bigint(20) unsigned DEFAULT NULL,
   `razao_social` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `nome_fantasia` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `cep` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -133,7 +133,6 @@ CREATE TABLE `empresas` (
   `cidade` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `uf` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
   `celular` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `pago` enum('Sim','Não') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Não',
   `dt_experiencia` date DEFAULT NULL,
   `ativo` enum('Sim','Não') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Sim',
   PRIMARY KEY (`id`),
@@ -148,7 +147,6 @@ CREATE TABLE `empresas` (
 
 LOCK TABLES `empresas` WRITE;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-INSERT INTO `empresas` VALUES (20,2,'Teste','MATHEUS DE MELLO IZABEL CRISTINA BUGNOLA DE MELLO','14015-170','Rua Álvares Cabral','40339455','centro','AP 51','Ribeirão Preto','AS','991838523','Não','2022-05-27','Sim'),(21,1,'Matheus de Mello','Matheus Mello','14015170','AV 9 DE JULHO','1243124234','test','test','Ribeirão Preto, city, Brazil','AS','(16) 66666-6666','Não','2022-05-18','Sim');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +183,6 @@ CREATE TABLE `enderecos` (
 
 LOCK TABLES `enderecos` WRITE;
 /*!40000 ALTER TABLE `enderecos` DISABLE KEYS */;
-INSERT INTO `enderecos` VALUES (1,'teste','teste','teste','teste','teste','teste','te','test','teste','Não',1,'Não'),(3,'Matheus','Miguel','asf','adf','adf','af','ad','asf','asf','Não',1,'Sim'),(4,'matheus','xxxxx','xxx','xx','xxx','xxx','xx','xxxx','xxx','Não',1,'Sim'),(5,'sergio','yyy','y','y','y','y','y','y','y','Não',1,'Não'),(6,'Clinica Matheus','Miguel','40339455','centro','AP 51','14180000','ad','Ribeirão Preto','+5516991838523','Sim',1,'Sim');
 /*!40000 ALTER TABLE `enderecos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +210,6 @@ CREATE TABLE `menus` (
 
 LOCK TABLES `menus` WRITE;
 /*!40000 ALTER TABLE `menus` DISABLE KEYS */;
-INSERT INTO `menus` VALUES (1,'Dashboard1x','Dashboard/Painel','Não','',0),(2,'Dashboard','dashboard/Fiscal','Sim','teste',1),(3,'Fiscal','teste','Sim','icone',2),(4,'tese','#','Sim','teste',3);
 /*!40000 ALTER TABLE `menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,7 +234,6 @@ CREATE TABLE `modulos` (
 
 LOCK TABLES `modulos` WRITE;
 /*!40000 ALTER TABLE `modulos` DISABLE KEYS */;
-INSERT INTO `modulos` VALUES (1,'Fiscal','Sim'),(2,'Laboratório','Sim'),(3,'teste','Sim');
 /*!40000 ALTER TABLE `modulos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,7 +264,6 @@ CREATE TABLE `modulos_menus` (
 
 LOCK TABLES `modulos_menus` WRITE;
 /*!40000 ALTER TABLE `modulos_menus` DISABLE KEYS */;
-INSERT INTO `modulos_menus` VALUES (1,'Matheus de Mello','Sim',1,2),(2,'Clinica Matheus','Sim',2,3),(3,'MATHEUS DE MELLO IZABEL CRISTINA BUGNOLA DE MELLO','Sim',2,2),(4,'Fiscal','Sim',3,3);
 /*!40000 ALTER TABLE `modulos_menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,7 +323,6 @@ CREATE TABLE `plano` (
 
 LOCK TABLES `plano` WRITE;
 /*!40000 ALTER TABLE `plano` DISABLE KEYS */;
-INSERT INTO `plano` VALUES (1,'Clinica Matheus',2,3,'Sim');
 /*!40000 ALTER TABLE `plano` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -361,7 +354,6 @@ CREATE TABLE `plano_detalhes` (
 
 LOCK TABLES `plano_detalhes` WRITE;
 /*!40000 ALTER TABLE `plano_detalhes` DISABLE KEYS */;
-INSERT INTO `plano_detalhes` VALUES (1,'Matheus de Mello','Sim',1,1,1);
 /*!40000 ALTER TABLE `plano_detalhes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -390,7 +382,6 @@ CREATE TABLE `plano_precos` (
 
 LOCK TABLES `plano_precos` WRITE;
 /*!40000 ALTER TABLE `plano_precos` DISABLE KEYS */;
-INSERT INTO `plano_precos` VALUES (1,'Clinica Matheus','Sim',1,15.50);
 /*!40000 ALTER TABLE `plano_precos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,7 +406,6 @@ CREATE TABLE `plano_tipos` (
 
 LOCK TABLES `plano_tipos` WRITE;
 /*!40000 ALTER TABLE `plano_tipos` DISABLE KEYS */;
-INSERT INTO `plano_tipos` VALUES (1,'Clinica Matheus','Não'),(2,'tipo mello','Sim');
 /*!40000 ALTER TABLE `plano_tipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -469,7 +459,6 @@ CREATE TABLE `submenus` (
 
 LOCK TABLES `submenus` WRITE;
 /*!40000 ALTER TABLE `submenus` DISABLE KEYS */;
-INSERT INTO `submenus` VALUES (1,'teste','123','Sim',3),(2,'abc','654','Sim',3),(3,'Matheus de Mello','123','Sim',2),(4,'teste','xxxx','Sim',2);
 /*!40000 ALTER TABLE `submenus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -495,7 +484,7 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `uk_email` (`email`),
   KEY `users_empresa_id_foreign` (`empresa_id`),
   CONSTRAINT `users_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -504,7 +493,6 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Administrador',NULL,'36848874809','Sim','16991838523',21);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -517,4 +505,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-27 17:32:40
+-- Dump completed on 2022-06-28 17:44:18
