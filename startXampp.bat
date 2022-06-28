@@ -1,1 +1,0 @@
-start c:\xampp70\xampp-control-70.exe /i

@@ -1,1 +1,0 @@
-mysql --user root --password pet < db/pet.sql

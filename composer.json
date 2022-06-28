@@ -13,5 +13,10 @@
             "name": "Matheus Mello"
         }
     ],
-    "require": {}
+    "require": {},
+    "scripts": {
+        "start": "start c:\\xampp70\\xampp-control-70.exe /i",
+        "backup": "mysqldump --user root --password --databases pet > db/pet.sql",
+        "import": "mysql --user root --password pet < db/pet.sql"
+    }
 }
