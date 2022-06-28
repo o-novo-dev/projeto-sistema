@@ -293,7 +293,6 @@ class usuario extends controller {
       $this->empresa->inputs['cidade']['value'] = $empresa[0]->cidade;
       $this->empresa->inputs['uf']['value'] = $empresa[0]->uf;
       $this->empresa->inputs['celular']['value'] = $empresa[0]->celular;
-      $this->empresa->inputs['pago']['value'] = $empresa[0]->pago;
       $this->empresa->inputs['dt_experiencia']['value'] = $empresa[0]->dt_experiencia;
     }
 

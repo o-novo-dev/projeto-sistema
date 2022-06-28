@@ -13,12 +13,11 @@ class dataEmpresas extends model {
     $this->usuario = getModel("dataUsuario");
     $data = $this->atividades->selectAll();
     
-    /*$pago = [
+    /* exemplo para lista do select
+    $ativo = [
       (object)["id" => "Sim", "nome" => "Sim"],
       (object)["id" => "Não", "nome" => "Não"],
-    ];
-    $this->inputs['pago']['label'] = 'Pago';
-    $this->inputs['pago']['select'] = $pago; */
+    ];*/
 
     $this->inputs['id']['label'] = 'Identificador';
     $this->inputs['id']['order'] = 0;
@@ -71,12 +70,9 @@ class dataEmpresas extends model {
     $this->inputs['dt_experiencia']['type'] = 'date';
     $this->inputs['dt_experiencia']['col'] = '6';
     $this->inputs['dt_experiencia']['order'] = 12;
-    
-    $this->inputs['pago']['type'] = 'hidden';
-    $this->inputs['pago']['value'] = 'Não';
-    $this->inputs['pago']['order'] = 13;
+  
 
-    $this->inputs['ativo']['order'] = 14;
+    $this->inputs['ativo']['order'] = 13;
     $this->inputs['ativo']['value'] = 'Sim';
 
     $this->ordernar();
