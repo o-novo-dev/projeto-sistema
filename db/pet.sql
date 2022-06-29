@@ -204,7 +204,7 @@ CREATE TABLE `menus` (
   `icone` varchar(100) NOT NULL,
   `ordem` int(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,7 +228,7 @@ CREATE TABLE `modulos` (
   `nome` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -258,7 +258,7 @@ CREATE TABLE `modulos_menus` (
   KEY `FK_modulos_menus#menus#menu_id` (`menu_id`),
   CONSTRAINT `FK_modulos_menus#menus#menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`),
   CONSTRAINT `FK_modulos_menus#modulos` FOREIGN KEY (`modulo_id`) REFERENCES `modulos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,9 +284,12 @@ CREATE TABLE `pages` (
   `value` varchar(4000) DEFAULT NULL,
   `valueImg` varchar(255) DEFAULT NULL,
   `ativo` enum('Sim','Não') NOT NULL DEFAULT 'Sim',
+  `projeto_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_param` (`tipo`,`param`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  UNIQUE KEY `uk_param` (`tipo`,`param`),
+  KEY `FK_PAGES#PROJETOS#ID` (`projeto_id`),
+  CONSTRAINT `FK_PAGES#PROJETOS#ID` FOREIGN KEY (`projeto_id`) REFERENCES `projetos` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,7 +298,6 @@ CREATE TABLE `pages` (
 
 LOCK TABLES `pages` WRITE;
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
-INSERT INTO `pages` VALUES (1,'header','titulo','Bem vindo ao Pets',NULL,'Sim'),(2,'header','meta','pet; laboratório; petshop; ',NULL,'Sim');
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -326,6 +328,7 @@ CREATE TABLE `plano` (
 
 LOCK TABLES `plano` WRITE;
 /*!40000 ALTER TABLE `plano` DISABLE KEYS */;
+INSERT INTO `plano` VALUES (1,'Controle',1,3,'Sim');
 /*!40000 ALTER TABLE `plano` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,7 +351,7 @@ CREATE TABLE `plano_detalhes` (
   KEY `FK_detalhes#modulos` (`modulo_id`),
   CONSTRAINT `FK_detalhes#modulos` FOREIGN KEY (`modulo_id`) REFERENCES `modulos` (`id`),
   CONSTRAINT `FK_detalhes#planos#plano_id` FOREIGN KEY (`plano_id`) REFERENCES `plano` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -376,7 +379,7 @@ CREATE TABLE `plano_precos` (
   PRIMARY KEY (`id`),
   KEY `FK_precos#planos#plano_id` (`plano_id`),
   CONSTRAINT `FK_precos#planos#plano_id` FOREIGN KEY (`plano_id`) REFERENCES `plano` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -400,7 +403,7 @@ CREATE TABLE `plano_tipos` (
   `nome` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -409,6 +412,7 @@ CREATE TABLE `plano_tipos` (
 
 LOCK TABLES `plano_tipos` WRITE;
 /*!40000 ALTER TABLE `plano_tipos` DISABLE KEYS */;
+INSERT INTO `plano_tipos` VALUES (1,'Básico','Sim'),(2,'Intermediário','Sim'),(3,'Avançado','Sim');
 /*!40000 ALTER TABLE `plano_tipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -423,8 +427,10 @@ CREATE TABLE `projetos` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
+  `site` varchar(150) NOT NULL,
+  `dominio` varchar(150) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -433,7 +439,7 @@ CREATE TABLE `projetos` (
 
 LOCK TABLES `projetos` WRITE;
 /*!40000 ALTER TABLE `projetos` DISABLE KEYS */;
-INSERT INTO `projetos` VALUES (1,'Projeto Fiscal','Não'),(2,'testes','Não'),(3,'Clinica Matheus','Sim');
+INSERT INTO `projetos` VALUES (3,'Staart Dev','Sim','www.staartdev.com.br','staartdev'),(4,'Pet Lab System','Sim','www.petlabsystem.com','petlabsystem');
 /*!40000 ALTER TABLE `projetos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -453,7 +459,7 @@ CREATE TABLE `submenus` (
   PRIMARY KEY (`id`),
   KEY `FK_submenus#menus#menu_id` (`menu_id`),
   CONSTRAINT `FK_submenus#menus#menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -477,12 +483,13 @@ CREATE TABLE `usuario` (
   `nome` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `senha` varchar(64) NOT NULL,
-  `tipo` enum('Laboratório','Colaborador','Parceiro','Veterinário','Administrador') NOT NULL DEFAULT 'Laboratório',
+  `tipo` enum('Proprietário','Cliente','Parceiro') NOT NULL DEFAULT 'Parceiro',
   `avatar` varchar(255) DEFAULT NULL,
   `cpf_cnpj` varchar(14) DEFAULT NULL,
   `ativo` enum('Sim','Não') DEFAULT 'Sim',
   `telefone` varchar(20) DEFAULT NULL,
   `empresa_id` bigint(20) unsigned DEFAULT NULL,
+  `projeto_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_email` (`email`),
   KEY `users_empresa_id_foreign` (`empresa_id`),
@@ -496,7 +503,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (5,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Laboratório',NULL,'36848874809','Sim','16991838523',24),(6,'Admin','matheus.gnu@gmail.com','e10adc3949ba59abbe56e057f20f883e','Administrador',NULL,'36848874809','Sim','16991838523',25);
+INSERT INTO `usuario` VALUES (5,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Proprietário',NULL,'36848874809','Sim','16991838523',24,0),(6,'Admin','matheus.gnu@gmail.com','e10adc3949ba59abbe56e057f20f883e','',NULL,'36848874809','Sim','16991838523',25,0);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -509,4 +516,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-28 22:10:01
+-- Dump completed on 2022-06-29 17:50:28
