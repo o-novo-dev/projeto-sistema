@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once("./src/config/ini.php");
-
+include_once("./src/config/db.php");
 
 if (isset($_SERVER['PATH_INFO'])){
   $parts = explode("/", $_SERVER['PATH_INFO']);

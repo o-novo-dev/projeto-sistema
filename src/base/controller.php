@@ -11,6 +11,10 @@ class controller extends conectDB {
       parent::__construct();
       $this->data['titulo'] = '';
       $this->arrJS = [];
+
+      if (!isset($_SESSION['projeto'])  ||  $_SESSION['projeto']->dominio !== SUBDOMINIO){
+        $_SESSION['projeto'] = $this->select("SELECT * FROM projetos WHERE dominio = :dominio", ['dominio' => SUBDOMINIO])[0];
+      }
     }
 
     protected function addJS($js){
