@@ -15,7 +15,12 @@ class signup extends controller {
     $this->data['titulo'] = "Principal";
     
     if ($_POST){
-      $this->usuario->doSignup($_POST);
+      $this->usuario->doSignup([
+        'nome' => $_POST['nome'],
+        'email' => $_POST['email'],
+        'senha' => $_POST['senha'],
+        'tipo' => $_POST['tipo']
+      ]);
     }
     
     $this->view("./src/pages/signup/index.php");

@@ -28,9 +28,11 @@ class dataUsuario extends model {
       $data = $this->selectByEmail($arrPost['email']);
       
       if ($data == null){
-        if($this->inserirUsuario($arrPost)){
+        $id = $this->inserirUsuario($arrPost);
+        if($id){
           $data = $this->selectByEmail($arrPost['email'])[0];
           $_SESSION['usuario'] = $data;
+          $this->doRegraEmpresa((array)$data);
           setflashdata(indicator("Cadastro realizado com sucesso!", "success"));
           redirect("/dashboard");
         } else {
@@ -110,6 +112,42 @@ class dataUsuario extends model {
         }
       }
     }
+  }
+
+  private function doRegraEmpresa($data){
+    $empresas = getModel("dataEmpresas");
+    $id = $empresas->inserir([
+      'id' => null,
+      'atividade_id' => null,
+      'razao_social' => null,
+      'nome_fantasia' => null,
+      'cep' => null,
+      'endereco' => null,
+      'numero' => null,
+      'bairro' => null,
+      'complemento' => null,
+      'cidade' => null,
+      'uf' => null,
+      'celular' => null,
+      'dt_experiencia' => null,
+      'ativo' => "Sim"
+    ]);
+
+    if ($id){
+      $data['empresa_id'] = $id;
+    }
+
+    $this->alterar($data);
+
+   /* $contratos = getModel("dataContratos");
+    $contratos->inserir([
+      'id' => null,
+      'ativo' => "Sim",
+      "dt_contrato" => date("Y-m-d"),
+      "plano_id" => "?",
+      "empresa_id" => $id,
+      "dt_fim" => date("Y-m-d", strtotime(date("Y-m-d", strtotime($StaringDate)) . " + 1 year"))
+    ]) */
   }
 
   private function inserirUsuario($arr){
