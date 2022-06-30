@@ -103,3 +103,8 @@ function formCard($inputs, $titulo, $titulo_button = 'Alterar', $id = 'formAdd')
 
   return $html;
 }
+
+function upload(){
+  print_r($_FILES);
+  print_r($_POST);
+}

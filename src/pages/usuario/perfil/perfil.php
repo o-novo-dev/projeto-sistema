@@ -5,14 +5,14 @@
                       <h6 class="card-header"> Dados do Usuário </h6><!-- .card-body -->
                       <div class="card-body">
                         <!-- form -->
-                        <form action="<?= $_SERVER['REDIRECT_URL'] ?>" method="POST">
+                        <form action="<?= $_SERVER['REDIRECT_URL'] ?>" method="POST" enctype="multipart/form-data">
                           <input type="hidden" name="id" value="<?= $usuario->id ?>">
                           <!-- .media -->
                           <div class="media mb-3">
                             <!-- avatar -->
                             <div class="user-avatar user-avatar-xl fileinput-button">
                               <div class="fileinput-button-label"> Change photo </div><img src="<?= ASSETS_URL ?>/assets/images/avatars/unknown-profile.jpg" alt=""> 
-                              <input id="fileupload-avatar" type="file" name="avatar" form="">
+                              <input id="fileupload-avatar" type="file" name="avatar">
                             </div><!-- /avatar -->
                             <!-- .media-body -->
                             <div class="media-body pl-3">
