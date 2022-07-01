@@ -90,10 +90,25 @@ abstract class model extends conectDB {
   }
 
   public function inserir($arrData){
-    return $this->insert($this->insertBase, $arrData);
+    if (is_callable($this->beforeInsert))
+      $this->doCallBack($this->beforeInsert, $_POST);
+
+    $data = $this->insert($this->insertBase, $_POST);
+
+    if ($data) {
+      $arrData['id'] = $data;
+      if (is_callable($this->afterInsert))
+      $this->doCallBack($this->afterInsert, $arrData);
+    }
+
+    return $data;
   }
 
   public function alterar($arrData){
+    if (is_callable($this->beforeUpdate))
+        $this->doCallBack($this->beforeUpdate, $arrData);
+
+    $arrData = $_POST;
     if(!isset($arrData[$this->pk])){
       return false;
     } else {
@@ -109,7 +124,18 @@ abstract class model extends conectDB {
       }
       $campos = rtrim($campos, ",");
       $sql = "update {$this->table} set {$campos} where {$this->pk} = :{$this->pk}";
-      return $this->update($sql, $newArr);
+
+
+      
+      
+      $data = $this->update($sql, $newArr);
+
+      if ($data){
+        if (is_callable($this->afterUpdate))
+          $this->doCallBack($this->afterUpdate, $_POST['id']);
+      }
+
+      return $data;
     }
     
   }
@@ -120,7 +146,18 @@ abstract class model extends conectDB {
     $campo = $_POST['campoDel'];
     $valor = $_POST['valorDel'];
     $sql = "UPDATE {$tabela} SET {$campo} = '{$valor}' WHERE id = {$id}";
-    return $this->update($sql);
+
+    if (is_callable($this->beforeDelete))
+      $this->doCallBack($this->beforeDelete, $_POST);
+    
+    $data = $this->update($sql);
+
+    if ($data){
+      if (is_callable($this->afterDelete))
+        $this->doCallBack($this->afterDelete, $_POST['id']);
+    }
+
+    return $data;
   }
 
   public function selectByUsuario($sqlWhere = ''){
@@ -154,14 +191,7 @@ abstract class model extends conectDB {
     if($_POST){
       if(isset($_POST['tabelaDel'])){ // deletar
 
-        if (is_callable($this->beforeDelete))
-          $this->doCallBack($this->beforeDelete);
-
         if ($this->deleteLogico()) {
-
-          if (is_callable($this->afterDelete))
-            $this->doCallBack($this->afterDelete, $_POST['id']);
-
           echo json_encode([
             'status' => 'true',
             'title' => 'Pronto',
@@ -182,33 +212,28 @@ abstract class model extends conectDB {
 
       if (!$is_valid) return true;
 
-
       if(empty($_POST['id'])){ //inserir
         $_POST['id'] = null;
-        if (is_callable($this->beforeInsert))
-          $this->doCallBack($this->beforeInsert);
 
         $id = $this->inserir($_POST);
 
-        if (is_callable($this->afterInsert))
-          $this->doCallBack($this->afterInsert, $id);
-
-        $_POST['id'] = $id;
-        echo json_encode([
-          'status' => 'true', 
-          'title' => 'Pronto',
-          'message' => 'Cadastro realizado com sucesso!',
-          'data' => $_POST
-        ]);
+        if ($id){
+          $_POST['id'] = $id;
+          echo json_encode([
+            'status' => 'true', 
+            'title' => 'Pronto',
+            'message' => 'Cadastro realizado com sucesso!',
+            'data' => $_POST
+          ]);
+        } else {
+          echo json_encode([
+            'status' => 'false',
+            'title' => 'Falha',
+            'message' => 'Falha ao inserir o registro. Tente novamente em instantes.',
+          ]);
+        }
       } else { //update
-        if (is_callable($this->beforeUpdate))
-          $this->doCallBack($this->beforeUpdate);
-
         if ($this->alterar($_POST)){
-
-          if (is_callable($this->afterUpdate))
-            $this->doCallBack($this->afterUpdate, $_POST['id']);
-
           echo json_encode([
             'status' => 'true',
             'title' => 'Pronto',

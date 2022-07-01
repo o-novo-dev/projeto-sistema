@@ -1,5 +1,24 @@
+            <!-- .page-inner -->
+            <div class="page-inner">
+              <!-- .page-section -->
+              <div class="page-section">
+                <?= getflashdata() ?>
+                <!-- grid row -->
+                <div class="row">
+                  <?php if ($_SESSION['projeto']->id = "3") : ?>
+                  <header class="page-title-bar">
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item active">
+                          <a href="<?= BASE_URL ?>/usuario/projeto"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Voltar ao Menu</a>
+                        </li>
+                      </ol>
+                    </nav>
+                    <h1 class="page-title"> Landing Page </h1>
+                  </header>
+                  <?php endif; ?>
                   <!-- grid column -->
-                  <div class="col-lg-8">
+                  <div class="col-lg-12">
 
                     <!-- .page-section -->
                     <div class="page-section">
@@ -14,8 +33,11 @@
                           <table id="datatable" class="table dt-responsive nowrap w-100">
                             <thead>
                               <tr>
-                                <th> Projeto </th>
-                                <th> Site </th>
+                                <th> Sessão </th>
+                                <th> Parametro </th>
+                                <th> Valor </th>
+                                <th> Imagem </th>
+                                <th> Nome </th>
                                 <th style="width:100px; min-width:100px;">&nbsp;</th>
                               </tr>
                             </thead>
@@ -36,12 +58,12 @@
     <div class="modal-content">
       <!-- .modal-header -->
       <div class="modal-header">
-        <h5 id="modalFormLabel" class="modal-title">Projetos</h5>
+        <h5 id="modalFormLabel" class="modal-title">Landing Page</h5>
       </div>
       <!-- /.modal-header -->
       <!-- .modal-body -->
       <div class="modal-body">
-        <?= formCard($this->projetos->inputs, '', 'Salvar') ?>
+        <?= formCard($this->pages->inputs, '', 'Salvar', 'formAdd', true) ?>
       </div>
       <!-- /.modal-body -->
       <!-- .modal-footer -->
@@ -55,3 +77,6 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
+<script>
+  var id = <?= $id ?>;
+</script>

@@ -1,7 +1,7 @@
 var table
 const load = (e) => {
   table = $('#datatable').DataTable( {
-    ajax: base_url + '/usuario/projeto/getProjetos',
+    ajax: base_url + '/usuario/projeto/getPage/'+id,
     responsive: true,
     dom: `<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>
       <'table-responsive'tr>
@@ -13,29 +13,31 @@ const load = (e) => {
       }
     },
     columns: [
-      { data: 'nome' },
-      { data: 'site' },
+      { data: 'tipo' },
+      { data: 'param' },
+      { data: 'value' },
+      { data: 'valueImg' },
       { data: 'id', className: 'align-middle text-right', orderable: false, searchable: false }
     ],
     columnDefs: [{
-      targets: 1,
+      targets: 3,
       render: function (data, type, row, meta) {
+        let dataRow = JSON.stringify(row);
         return `
-        <a target="_blanck" href="http://${row.site}">${row.site}</a>
+        <img src="${base_url}/public/assets/images/pages/${row.valueImg}" width='70' height='30'>
         `
       }
     },{
-      targets: 2,
+      targets: 4,
       render: function (data, type, row, meta) {
         let dataRow = JSON.stringify(row);
         return `
         <a class="btn btn-sm btn-icon btn-secondary" data-row='${dataRow}' data-toggle="modal" href="#modalForm"><i class="fa fa-pencil-alt"></i></a>
-        <a class="btn btn-sm btn-icon btn-secondary" data-row='${dataRow}' data-toggle="modal" href="#modalFormDelete" data-tabela="projetos" data-campo="ativo" data-valor="Não" data-datatable="datatable"><i class="far fa-trash-alt"></i></a>
-        <a class="btn btn-sm btn-icon btn-secondary" data-row='${dataRow}' href="${base_url}/usuario/projeto/page/${row.id}" role="button" data-toggle="tooltip" data-placement="top" title="Landing Page"><i class="fab fa-elementor"></i></a>
+        <a class="btn btn-sm btn-icon btn-secondary" data-row='${dataRow}' data-toggle="modal" href="#modalFormDelete" data-tabela="pages" data-campo="ativo" data-valor="Não" data-datatable="datatable"><i class="far fa-trash-alt"></i></a>
         `
       }
     }]
-  });
+  } );
 
 
   $('#modalForm').on('show.bs.modal', function (event) {
@@ -45,13 +47,23 @@ const load = (e) => {
       document.getElementById('id').value = row.id
       document.getElementById('nome').value = row.nome
       document.getElementById('ativo').value = row.ativo
+      document.getElementById('tipo').value = row.tipo
+      document.getElementById('param').value = row.param
+      document.getElementById('value').value = row.value
+      document.getElementById('projeto_id').value = row.projeto_id;
     }
+    //console.log(row);
   })
+
   
   $('#modalForm').on('hidden.bs.modal', function (event) {  
     document.getElementById('formAdd').reset();   
     document.getElementById('id').value = '';
     document.getElementById('ativo').value = 'Sim';
+    document.getElementById('tipo').value = ''
+    document.getElementById('param').value = ''
+    document.getElementById('value').value = ''
+    document.getElementById('projeto_id').value = ''
   })
 }
 

@@ -13,6 +13,7 @@ class usuario extends controller {
   public $submenus;
   public $projeto;
   public $plano;
+  public $parceiros;
 
   function __construct() {
     if (!isset($_SESSION['usuario'])) redirect("/login");
@@ -26,6 +27,7 @@ class usuario extends controller {
     $this->projetos = getModel('dataProjetos');
     $this->planotipos = getModel('dataPlanoTipos');
     $this->plano = getModel('dataPlano');
+    $this->parceiros = getModel('dataParceiros', $_SESSION['usuario']->id);
     $this->data['titulo'] = "Usuário";
   }
 
@@ -57,15 +59,27 @@ class usuario extends controller {
       redirect("/dashboard");
     }
 
+    $this->data['id'] = $id;
     $this->data['view_perfil'] = 'parceiro';
     $this->data['detalhes'] = $detalhes;
-    
-    if (empty($detalhes)){
+    if ($detalhes = "usuarios"){
       $this->_parceiro();
-    } else if($detalhes == 'site'){
-      $this->_site();
+    } else if ($detalhes == 'getParceiros'){
+      echo json_encode(["data" => $this->parceiros->selectAll()]);
+    }    
+  }
+
+  private function _parceiro(){
+    if (!$this->parceiros->doGravarAjax()){
+      
+      $this->addJS('parceiros.js');
+      $this->viewLogado([
+        "./src/pages/usuario/layout/header.php", 
+        "./src/pages/usuario/layout/menu_parceiro.php", 
+        "./src/pages/usuario/perfil/parceiro.php", 
+        "./src/pages/usuario/layout/footer.php"
+      ]);
     }
-    
   }
 
   public function perfil($detalhes = '', $id = ''){
@@ -155,6 +169,7 @@ class usuario extends controller {
   public function projeto($detalhes = '', $id = ''){
     $this->data['view_perfil'] = 'projeto';
     $this->data['detalhes'] = $detalhes;
+    $this->data['id'] = $id;
     if (empty($detalhes)){
       $this->_projeto();
     } else if ($detalhes == 'getProjetos'){
@@ -169,28 +184,8 @@ class usuario extends controller {
         redirect("/dashboard");
       }
       $pages = getModel("dataPages", $id);
-      echo json_encode(["data" => $pages->selectAll()]);
+      echo json_encode(["data" => $pages->selectWhere(['projeto_id' => $id])]);
     }
-  }
-
-  private function _parceiro(){
-    $this->viewLogado([
-      "./src/pages/usuario/layout/header.php", 
-      "./src/pages/usuario/layout/menu_parceiro.php", 
-      "./src/pages/usuario/perfil/parceiro.php", 
-      "./src/pages/usuario/layout/footer.php"
-    ]);
-  }
-
-
-
-  private function _site(){
-    $this->viewLogado([
-      "./src/pages/usuario/layout/header.php", 
-      "./src/pages/usuario/layout/menu_parceiro.php", 
-      "./src/pages/usuario/perfil/site.php", 
-      "./src/pages/usuario/layout/footer.php"
-    ]);
   }
 
   private function _menus(){
@@ -417,6 +412,21 @@ class usuario extends controller {
   }
 
   public function _page($id){
-    
+    $data = $this->projetos->selectWhere(['id' => $id]);
+    if (count($data) > 0){
+      $this->pages = getModel('dataPages', $id);
+      if (!$this->pages->doGravarAjax()){
+        
+        $this->addJS('pages.js');
+        $this->viewLogado([
+          "./src/pages/usuario/layout/header.php", 
+          "./src/pages/usuario/projeto/page.php", 
+          "./src/pages/usuario/layout/footer.php"
+        ]);
+      }
+    } else {
+      $page404 = new page404();
+      $page404->index();
+    }   
   }
 }

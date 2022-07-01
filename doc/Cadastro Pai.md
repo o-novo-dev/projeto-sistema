@@ -100,14 +100,14 @@ class data[Tabela] extends model {
      */
     $this->ordernar();
 
-    $this->afterInsert = function() {};
-    $this->beforeInsert = function($id) {};
+    $this->afterInsert = function($data) {};
+    $this->beforeInsert = function($data) {};
 
-    $this->afterUpdate = function($id) {};
-    $this->beforeUpdate = function() {};
+    $this->afterUpdate = function($data) {};
+    $this->beforeUpdate = function($data) {};
 
     $this->afterDelete = function($id) {};
-    $this->beforeDelete = function() {};
+    $this->beforeDelete = function($id) {};
   }
 
   protected function validate(){

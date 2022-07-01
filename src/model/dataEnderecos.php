@@ -76,7 +76,8 @@ class dataEnderecos extends model {
 
     $this->ordernar();
 
-    $this->afterUpdate = function($id) {
+    $this->afterUpdate = function($data) {
+      $id = $data['id'];
       if($_POST['principal'] == 'Sim'){
         $this->update("UPDATE enderecos SET principal = 'Não' WHERE usuario_id = {$_SESSION['usuario']->id} AND id NOT IN ({$id})");
       }

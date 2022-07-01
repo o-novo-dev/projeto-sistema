@@ -42,15 +42,15 @@ function getflashdata(){
 }
 
 function input($label, $name, $id, $value, $type, $select = [], $col = '12', $order, $required = false, $disabled = false){
-  $display = $type == 'hidden' ? 'none' : 'inline-block';
+  $display = $type == 'hidden' ? 'd-none' : '';
   if ($disabled) $required = false;
   $required = $required ? "required" : "";
   $disabled = $disabled ? "disabled" : "";
 
   if ($select !== null){
     $html = "
-        <div class='col-md-{$col} mb-3'>
-          <label for='{$id}' style='display:{$display}'>{$label}</label>
+        <div class='col-md-{$col} mb-3 {$display}'>
+          <label for='{$id}'>{$label}</label>
           <div class='form-label-group'>
             <select class='custom-select' id='{$id}' name='{$name}' {$required} {$disabled}>
               <option value=''> Selecionar... </option>";
@@ -66,8 +66,8 @@ function input($label, $name, $id, $value, $type, $select = [], $col = '12', $or
   } else {
     return "
     
-      <div class='col-md-{$col} mb-3'>
-        <label for='{$id}' style='display:{$display}'>{$label}</label>
+      <div class='col-md-{$col} mb-3 {$display}'>
+        <label for='{$id}'>{$label}</label>
         <input name='{$name}' type='{$type}' class='form-control' id='{$id}' value='{$value}' placeholder='{$label}' {$required} {$disabled}>
       </div>
     
@@ -75,14 +75,19 @@ function input($label, $name, $id, $value, $type, $select = [], $col = '12', $or
   }
 }
 
-function formCard($inputs, $titulo, $titulo_button = 'Alterar', $id = 'formAdd'){
+function formCard($inputs, $titulo, $titulo_button = 'Alterar', $nome_id = 'formAdd', $multpart = false){
+  $enctype = $multpart ? "enctype='multipart/form-data'" : "";
+  $titulo = empty($titulo) ? "" : "<h6> {$titulo} </h6>";
   $html = "
   <!-- .card -->
   <div class='card card-fluid'>
-    <h6 class='card-header'> {$titulo} </h6><!-- .card-body -->
+    <div class='card-header'>
+      $titulo
+    </div>
+    <!-- .card-body -->
     <div class='card-body'>
       <!-- form -->
-      <form action='{$_SERVER['REDIRECT_URL']}' method='POST' id='{$id}'>
+      <form action='{$_SERVER['REDIRECT_URL']}' method='POST' id='{$nome_id}' {$enctype}>
         <div class='form-row'>";
        
           foreach($inputs as $key => $value) {
@@ -108,7 +113,7 @@ function formCard($inputs, $titulo, $titulo_button = 'Alterar', $id = 'formAdd')
  * @param name Nome do input
  * @return array|false [message(string)|success(bool)|filename] | false não enviou nenhum imagem
  */
-function upload($name){
+function upload($name, $dir){
   if(isset($_FILES[$name]))
   {
     if (($_FILES[$name]['size'] > 2097152)){
@@ -117,16 +122,23 @@ function upload($name){
 
     $ext = strtolower(substr($_FILES[$name]['name'],-4)); //Pegando extensão do arquivo
     $new_name = md5(date("Y.m.d-H.i.s")) . $ext; //Definindo um novo nome para o arquivo
-    $dir = DIR_PUBLIC . '/assets/images/avatars/'; //Diretório para uploads 
+    $dir = DIR_PUBLIC . $dir; //Diretório para uploads 
 
     if (move_uploaded_file($_FILES[$name]['tmp_name'], $dir.$new_name)){ //Fazer upload do arquivo
       return ['message' => 'Upload realizado com successo.', 'success' => true, 'filename' => $new_name];
     } else {
       return ['message' => 'Falha ao gravar a imagem', 'success' => false, 'filename' => $new_name];
-    }
-
-     
+    }  
   } 
 
   return false;
+}
+
+/**
+ * @param $filename
+ */
+function deleteFile($filename, $dir){
+  $dir = DIR_PUBLIC . $dir;
+  if (file_exists($dir.$filename))
+    unlink($dir.$filename);
 }

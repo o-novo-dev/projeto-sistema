@@ -22,15 +22,6 @@ class dataPlanoTipos extends model {
      * A função ordernar caso tenho configurado sua ordenação
      */
     $this->ordernar();
-
-    /*$this->afterInsert = function() {};
-    $this->beforeInsert = function($id) {};
-
-    $this->afterUpdate = function($id) {};
-    $this->beforeUpdate = function() {};
-
-    $this->afterDelete = function($id) {};
-    $this->beforeDelete = function() {};*/
   }
 
   public function validate(){

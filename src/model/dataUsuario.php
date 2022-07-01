@@ -85,11 +85,14 @@ class dataUsuario extends model {
     } else if(!isset($arrPost['cpf_cnpj'])){
       setflashdata(indicator("Por favor, Preencher o campo CPF ou CNPJ", "danger"));
     } else {
-      $file = upload('avatar');
+      $file = upload('avatar', '/assets/images/avatars/');
 
       if ($file){
         if ($file['success']) {
           $arrPost['avatar'] = $file['filename'];
+          if (!empty($_SESSION['usuario']->avatar)){
+            deleteFile($_SESSION['usuario']->avatar, '/assets/images/avatars/');
+          }
         } else {
           setflashdata(indicator($file['message'], "danger"));
           return;
