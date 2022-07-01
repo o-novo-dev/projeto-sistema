@@ -290,7 +290,7 @@ CREATE TABLE `pages` (
   UNIQUE KEY `uk_param` (`tipo`,`param`),
   KEY `FK_PAGES#PROJETOS#ID` (`projeto_id`),
   CONSTRAINT `FK_PAGES#PROJETOS#ID` FOREIGN KEY (`projeto_id`) REFERENCES `projetos` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,6 +299,7 @@ CREATE TABLE `pages` (
 
 LOCK TABLES `pages` WRITE;
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
+INSERT INTO `pages` VALUES (1,'footer','teste11','teste1','slider-02.jpg','Não',4,''),(2,'header','teste1','teste1','9791ed6af6b32510f8c2f324afa0c98b.jpg','Sim',3,'');
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -517,4 +518,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-30 22:43:13
+-- Dump completed on 2022-07-01 17:51:08
