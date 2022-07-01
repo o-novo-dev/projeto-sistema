@@ -11,7 +11,7 @@
                           <div class="media mb-3">
                             <!-- avatar -->
                             <div class="user-avatar user-avatar-xl fileinput-button">
-                              <div class="fileinput-button-label"> Change photo </div><img src="<?= ASSETS_URL ?>/assets/images/avatars/unknown-profile.jpg" alt=""> 
+                              <div class="fileinput-button-label"> Change photo </div><img src="<?= ASSETS_URL ?>/assets/images/avatars/<?= empty($usuario->avatar) ? "unknown-profile.jpg" : $usuario->avatar ?>" alt=""> 
                               <input id="fileupload-avatar" type="file" name="avatar">
                             </div><!-- /avatar -->
                             <!-- .media-body -->
@@ -19,7 +19,7 @@
                               <h3 class="card-title"> Public avatar </h3>
                               <h6 class="card-subtitle text-muted"> Click the current avatar to change your photo. </h6>
                               <p class="card-text">
-                                <small>JPG, GIF or PNG 400x400, &lt; 2 MB.</small>
+                                <small>JPG or PNG 400x400, &lt; 2 MB.</small>
                               </p><!-- The avatar upload progress bar -->
                               <div id="progress-avatar" class="progress progress-xs fade">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>

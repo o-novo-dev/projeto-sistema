@@ -184,11 +184,11 @@ foreach($arr as $obj){
               <div class="dropdown d-flex">
                 <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="user-avatar user-avatar-md">
-                    <img src="<?= ASSETS_URL ?>/assets/images/avatars/unknown-profile.jpg" alt="">
+                    <img src="<?= ASSETS_URL ?>/assets/images/avatars/<?= empty($usuario->avatar) ? "unknown-profile.jpg" : $usuario->avatar ?>" alt="">
                   </span> 
                   <span class="account-summary pr-lg-4 d-none d-lg-block">
-                    <span class="account-name">Beni Arisandi</span> 
-                    <span class="account-description">Marketing Manager</span>
+                    <span class="account-name"><?= $usuario->nome ?></span> 
+                    <span class="account-description"><?= $usuario->tipo ?></span>
                   </span>
                 </button> <!-- .dropdown-menu -->
                 <div class="dropdown-menu">

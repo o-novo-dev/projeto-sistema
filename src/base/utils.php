@@ -104,7 +104,29 @@ function formCard($inputs, $titulo, $titulo_button = 'Alterar', $id = 'formAdd')
   return $html;
 }
 
-function upload(){
-  print_r($_FILES);
-  print_r($_POST);
+/**
+ * @param name Nome do input
+ * @return array|false [message(string)|success(bool)|filename] | false não enviou nenhum imagem
+ */
+function upload($name){
+  if(isset($_FILES[$name]))
+  {
+    if (($_FILES[$name]['size'] > 2097152)){
+      return ['message' => 'Não é permitido imagem maior que 2 mega de tamanho.', 'success' => false];
+    }
+
+    $ext = strtolower(substr($_FILES[$name]['name'],-4)); //Pegando extensão do arquivo
+    $new_name = md5(date("Y.m.d-H.i.s")) . $ext; //Definindo um novo nome para o arquivo
+    $dir = DIR_PUBLIC . '/assets/images/avatars/'; //Diretório para uploads 
+
+    if (move_uploaded_file($_FILES[$name]['tmp_name'], $dir.$new_name)){ //Fazer upload do arquivo
+      return ['message' => 'Upload realizado com successo.', 'success' => true, 'filename' => $new_name];
+    } else {
+      return ['message' => 'Falha ao gravar a imagem', 'success' => false, 'filename' => $new_name];
+    }
+
+     
+  } 
+
+  return false;
 }

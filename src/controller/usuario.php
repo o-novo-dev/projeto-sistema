@@ -40,6 +40,10 @@ class usuario extends controller {
   }
 
   public function overview(){
+    if(!in_array($_SESSION['usuario']->tipo,["Proprietário"])){
+      redirect("/dashboard");
+    }
+
     $this->data['view_perfil'] = 'overview';
     $this->viewLogado([
       "./src/pages/usuario/layout/header.php", 
@@ -49,17 +53,19 @@ class usuario extends controller {
   }
 
   public function parceiro($detalhes = '', $id = ''){
-    $this->data['view_perfil'] = 'parceiro';
-    $this->data['detalhes'] = $detalhes;
-    if(in_array($_SESSION['usuario']->tipo,["Laboratório"])){
-      if (empty($detalhes)){
-        $this->_parceiro();
-      } else if($detalhes == 'site'){
-        $this->_site();
-      }
-    } else {
+    if(!in_array($_SESSION['usuario']->tipo,["Proprietário"])){
       redirect("/dashboard");
     }
+
+    $this->data['view_perfil'] = 'parceiro';
+    $this->data['detalhes'] = $detalhes;
+    
+    if (empty($detalhes)){
+      $this->_parceiro();
+    } else if($detalhes == 'site'){
+      $this->_site();
+    }
+    
   }
 
   public function perfil($detalhes = '', $id = ''){
@@ -153,6 +159,17 @@ class usuario extends controller {
       $this->_projeto();
     } else if ($detalhes == 'getProjetos'){
       echo json_encode(["data" => $this->projetos->selectAll()]);
+    } else if ($detalhes == 'page'){
+      if(!in_array($_SESSION['usuario']->tipo,["Proprietário"])){
+        redirect("/dashboard");
+      }
+      $this->_page($id);
+    } else if ($detalhes == 'getPage'){
+      if(!in_array($_SESSION['usuario']->tipo,["Proprietário"])){
+        redirect("/dashboard");
+      }
+      $pages = getModel("dataPages", $id);
+      echo json_encode(["data" => $pages->selectAll()]);
     }
   }
 
@@ -397,5 +414,9 @@ class usuario extends controller {
         "./src/pages/usuario/layout/footer.php"
       ]);
     }
+  }
+
+  public function _page($id){
+    
   }
 }
