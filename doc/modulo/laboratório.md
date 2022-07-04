@@ -2,10 +2,12 @@
 
 > Documentação [mermaid](https://mermaid-js.github.io/mermaid/#/)
 
+
 ```mermaid
 flowchart LR
     id1[(Database)]-- teste  adf-->cid1(((This is the text in the circle)))   
 ```
+
 ```mermaid
 erDiagram
   usuario {
@@ -43,6 +45,9 @@ erDiagram
     string site
     string dominio
   }
+```
+```mermaid
+erDiagram
   atividades {
     bigint id PK "Chave Primaria"
     string nome
@@ -75,6 +80,9 @@ erDiagram
     bigint modulo_id FK "fk_modulos_menus#modulos#id"
     bigint menu_id FK "fk_modulos_menus#menus#id"
   }
+```
+```mermaid
+erDiagram
   plano_tipos {
     bigint id PK "Chave Primaria"
     string nome
@@ -102,6 +110,9 @@ erDiagram
     bigint plano_id FK "fk_plano_precos#plano#id"
     decimal preco
   }
+```
+```mermaid
+erDiagram
   pages {
     bigint id PK "Chave Primaria"
     string nome
@@ -133,6 +144,9 @@ erDiagram
     enum status "Aberto|Pago|Cancelado"
     date dt_fim
   }
+```
+```mermaid
+erDiagram
   enderecos {
     bigint id PK "Chave Primaria"
     string nome
@@ -148,8 +162,12 @@ erDiagram
     enum principal "Sim|Não"
     bigint usuario_id FK "fk_enderecos#usuario#id"
   }
+```
+```mermaid
+erDiagram
   usuario }|--|| empresas : "x -> 1"
   usuario }|--o| atividades : "1 -> 1"
+  usuario }|--o| projetos : "1 -> 1"
 
 
 ```
