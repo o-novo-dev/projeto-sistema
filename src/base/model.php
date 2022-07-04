@@ -93,9 +93,6 @@ abstract class model extends conectDB {
     if (is_callable($this->beforeInsert))
       $this->doCallBack($this->beforeInsert, $_POST);
 
-    foreach ($_POST as $key => $value) {
-      $_POST[$key] = empty($_POST[$key]) ? "null" : $_POST[$key];
-    }
     $data = $this->insert($this->insertBase, $_POST);
 
     if ($data) {
@@ -128,9 +125,6 @@ abstract class model extends conectDB {
       $campos = rtrim($campos, ",");
       $sql = "update {$this->table} set {$campos} where {$this->pk} = :{$this->pk}";
 
-
-      
-      
       $data = $this->update($sql, $newArr);
 
       if ($data){

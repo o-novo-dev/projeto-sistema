@@ -54,13 +54,6 @@ class dataParceiros extends model {
      * A função ordernar caso tenho configurado sua ordenação
      */
     $this->ordernar();
-
-    $this->beforeInsert = function($data) {
-      /*$_POST['avatar'] = '';
-      $_POST['avatar'] = '';
-      :id,:nome,:email,:senha,:tipo,:avatar,:cpf_cnpj,:ativo,:telefone,:empresa_id,:projeto_id
-      [id] => [nome] => Cristina [email] => crisphoto5@hotmail.com [senha] => e10adc3949ba59abbe56e057f20f883e [tipo] => Parceiro [avatar] => [cpf_cnpj] => [telefone] => [ativo] => Sim [projeto_id] => [empresa_id] => 5 */
-    };
   }
 
   protected function validate(){
@@ -96,7 +89,7 @@ class dataParceiros extends model {
    */
 
   public function selectWhere($where = []){
-    $sql = "SELECT nome, email, tipo, empresa_id, projeto_id FROM usuario where ativo = 'Sim' and tipo = 'Parceiro' ";
+    $sql = "SELECT id, nome, email, tipo, empresa_id, projeto_id FROM usuario where ativo = 'Sim' and tipo = 'Parceiro' ";
     foreach ($where as $key => $value) {
       $sql .= " and {$key} = :{$key} ";
     }

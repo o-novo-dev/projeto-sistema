@@ -27,7 +27,7 @@ class usuario extends controller {
     $this->projetos = getModel('dataProjetos');
     $this->planotipos = getModel('dataPlanoTipos');
     $this->plano = getModel('dataPlano');
-    $this->parceiros = getModel('dataParceiros', $_SESSION['usuario']->id);
+    $this->parceiros = getModel('dataParceiros', $_SESSION['usuario']->empresa_id);
     $this->data['titulo'] = "Usuário";
   }
 

@@ -1,5 +1,5 @@
 <?php
-  $colunas = ['Nome', 'E-mail', 'Senha'];
+  $colunas = ['Nome', 'E-mail'];
   $titulo = "Parceiros";
   $inputs = $this->parceiros->inputs;
 ?>
