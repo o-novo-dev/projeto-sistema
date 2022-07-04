@@ -2,12 +2,46 @@
 
 > Documentação [mermaid](https://mermaid-js.github.io/mermaid/#/)
 
-
+## Configurar relacionamento
+---
+| Value (left) | Value (right) | Meaning |
+|--- |--- |--- |
+| \|o | o\| | Zero or one |
+| \|\| | \|\| | Exactly one |
+| }o | o{ | Zero or more (no upper limit) |
+| }\| | \|{ | One or more (no upper limit) |
+---
+## Database
+---
 ```mermaid
 flowchart LR
-    id1[(Database)]-- teste  adf-->cid1(((This is the text in the circle)))   
+    A[(Staartdev DB)]
 ```
-
+---
+## Entidade Relacional
+---
+```mermaid
+erDiagram
+  usuario ||--|| empresas : "1 -> 1"
+  usuario ||--|| projetos : "1 -> 1"
+  empresas ||--|| atividades : "1 -> 1"
+  empresas ||--|{ contratos : "1 -> x"
+  usuario ||--|{ cartoes : "1 -> x"
+  usuario ||--|{ enderecos : "1 -> x"
+  plano ||--|{ contratos : "1 -> x"
+  menus ||--|{ submenus : "1 -> x"
+  modulos ||--|{ modulos_menus : "1 -> x"
+  menus ||--|{ modulos_menus : "1 -> x"
+  projetos ||--|{ pages "1 -> x"
+  projetos ||--|{ plano "1 -> x"
+  plano_tipos ||--|{ plano "1 -> x"
+  projetos ||--|{ plano "1 -> x"
+  plano ||--|{ plano_detalhes "1 -> x"
+  plano ||--|{ plano_precos "1 -> x"
+```
+---
+## Tabelas
+---
 ```mermaid
 erDiagram
   usuario {
@@ -66,6 +100,9 @@ erDiagram
     string icone
     int ordem
   }
+```
+```mermaid
+erDiagram
   submenus {
     bigint id PK "Chave Primaria"
     string nome
@@ -80,14 +117,14 @@ erDiagram
     bigint modulo_id FK "fk_modulos_menus#modulos#id"
     bigint menu_id FK "fk_modulos_menus#menus#id"
   }
-```
-```mermaid
-erDiagram
   plano_tipos {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"
   }
+```
+```mermaid
+erDiagram
   plano {
     bigint id PK "Chave Primaria"
     string nome
@@ -163,11 +200,4 @@ erDiagram
     bigint usuario_id FK "fk_enderecos#usuario#id"
   }
 ```
-```mermaid
-erDiagram
-  usuario }|--|| empresas : "x -> 1"
-  usuario }|--o| atividades : "1 -> 1"
-  usuario }|--o| projetos : "1 -> 1"
-
-
-```
+---
