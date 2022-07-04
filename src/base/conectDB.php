@@ -26,10 +26,16 @@ class conectDB {
 
 
   public function insert($sql, $param = null){
+    
     echo $sql;
     print_r($param);
      $dbh = $this->db->prepare($sql);
-     $dbh->execute($param);
+
+
+    $sm = $dbh->execute($param);
+
+    print_r('query failed: ERROR['.$this->db->errorCode().':'.print_r($this->db->errorInfo(), true).'] QUERY['.$sql.']');   
+     
      return $this->db->lastInsertId();
   }
 

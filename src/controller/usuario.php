@@ -62,10 +62,11 @@ class usuario extends controller {
     $this->data['id'] = $id;
     $this->data['view_perfil'] = 'parceiro';
     $this->data['detalhes'] = $detalhes;
-    if ($detalhes = "usuarios"){
+    
+    if ($detalhes == "usuarios"){
       $this->_parceiro();
     } else if ($detalhes == 'getParceiros'){
-      echo json_encode(["data" => $this->parceiros->selectAll()]);
+      echo json_encode(["data" => $this->parceiros->selectWhere(['empresa_id' => $id])]);
     }    
   }
 

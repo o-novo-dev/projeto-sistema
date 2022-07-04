@@ -42,7 +42,7 @@ class dataParceiros extends model {
 
     $this->inputs['projeto_id']['order'] = 9;
     $this->inputs['projeto_id']['type'] = 'hidden';
-    $this->inputs['empresa_id']['value'] = $_SESSION['projeto']->id;
+    $this->inputs['projeto_id']['value'] = $_SESSION['projeto']->id;
 
     $this->inputs['empresa_id']['label'] = "Empresa";
     $this->inputs['empresa_id']['value'] = $id;
@@ -54,6 +54,13 @@ class dataParceiros extends model {
      * A função ordernar caso tenho configurado sua ordenação
      */
     $this->ordernar();
+
+    $this->beforeInsert = function($data) {
+      /*$_POST['avatar'] = '';
+      $_POST['avatar'] = '';
+      :id,:nome,:email,:senha,:tipo,:avatar,:cpf_cnpj,:ativo,:telefone,:empresa_id,:projeto_id
+      [id] => [nome] => Cristina [email] => crisphoto5@hotmail.com [senha] => e10adc3949ba59abbe56e057f20f883e [tipo] => Parceiro [avatar] => [cpf_cnpj] => [telefone] => [ativo] => Sim [projeto_id] => [empresa_id] => 5 */
+    };
   }
 
   protected function validate(){
@@ -83,23 +90,17 @@ class dataParceiros extends model {
     echo json_encode($arrMessage);
     return false;
   }
-}
 
   /**
    * quando necessário
    */
-  /*
+
   public function selectWhere($where = []){
-    $sql = "SELECT a.id, a.nome, a.ativo, a.plano_id, a.modulo_id, b.nome as plano, c.nome as modulo, a.ordem
-              FROM plano_detalhes a
-             INNER JOIN plano b ON a.plano_id = b.id
-             INNER JOIN modulos c ON a.modulo_id = c.id
-             WHERE a.ativo = 'Sim'
-               AND b.ativo = 'Sim'
-               AND c.ativo = 'Sim' ";
+    $sql = "SELECT nome, email, tipo, empresa_id, projeto_id FROM usuario where ativo = 'Sim' and tipo = 'Parceiro' ";
     foreach ($where as $key => $value) {
       $sql .= " and {$key} = :{$key} ";
     }
     return $this->select($sql, $where);
   }
-  */
+}
+

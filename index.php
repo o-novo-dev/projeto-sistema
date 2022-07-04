@@ -3,6 +3,9 @@ session_start();
 header('Content-Type: text/html; charset=utf-8');
 date_default_timezone_set('America/Sao_Paulo');
 
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+
 include_once("./src/config/ini.php");
 include_once("./src/config/db.php");
 
