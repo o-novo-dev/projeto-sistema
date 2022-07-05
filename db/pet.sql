@@ -190,6 +190,30 @@ INSERT INTO `enderecos` VALUES (7,'Matheus de Mello','Miguel Barachini','510','C
 UNLOCK TABLES;
 
 --
+-- Table structure for table `especies`
+--
+
+DROP TABLE IF EXISTS `especies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `especies` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) NOT NULL,
+  `ativo` enum('Sim','Não') NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `especies`
+--
+
+LOCK TABLES `especies` WRITE;
+/*!40000 ALTER TABLE `especies` DISABLE KEYS */;
+/*!40000 ALTER TABLE `especies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `menus`
 --
 
@@ -301,6 +325,34 @@ LOCK TABLES `pages` WRITE;
 /*!40000 ALTER TABLE `pages` DISABLE KEYS */;
 INSERT INTO `pages` VALUES (1,'footer','teste11','teste1','slider-02.jpg','Não',4,''),(2,'header','teste1','teste1','9791ed6af6b32510f8c2f324afa0c98b.jpg','Sim',3,'');
 /*!40000 ALTER TABLE `pages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pets`
+--
+
+DROP TABLE IF EXISTS `pets`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pets` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) NOT NULL,
+  `ativo` enum('Sim','Não') NOT NULL,
+  `dt_nascimento` date NOT NULL,
+  `especie_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_pets#especies#id` (`especie_id`),
+  CONSTRAINT `fk_pets#especies#id` FOREIGN KEY (`especie_id`) REFERENCES `especies` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pets`
+--
+
+LOCK TABLES `pets` WRITE;
+/*!40000 ALTER TABLE `pets` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pets` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -419,6 +471,39 @@ INSERT INTO `plano_tipos` VALUES (1,'Básico','Sim'),(2,'Intermediário','Sim'),
 UNLOCK TABLES;
 
 --
+-- Table structure for table `produtos`
+--
+
+DROP TABLE IF EXISTS `produtos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `produtos` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) NOT NULL,
+  `ativo` enum('Sim','Não') NOT NULL,
+  `dt_cadastro` date NOT NULL,
+  `valor` decimal(10,2) NOT NULL,
+  `tipo` enum('Serviço','Produto') NOT NULL,
+  `usuario_id` bigint(20) NOT NULL,
+  `empresa_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_produtos#usuario#id` (`usuario_id`),
+  KEY `fk_produtos#empresa#id` (`empresa_id`),
+  CONSTRAINT `fk_produtos#empresa#id` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `fk_produtos#usuario#id` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `produtos`
+--
+
+LOCK TABLES `produtos` WRITE;
+/*!40000 ALTER TABLE `produtos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `produtos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `projetos`
 --
 
@@ -474,6 +559,38 @@ LOCK TABLES `submenus` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `unidades`
+--
+
+DROP TABLE IF EXISTS `unidades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `unidades` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) NOT NULL,
+  `ativo` enum('Sim','Não') NOT NULL,
+  `ds_unidade` varchar(255) NOT NULL,
+  `dt_cadastro` date NOT NULL,
+  `usuario_id` bigint(20) NOT NULL,
+  `empresa_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_unidades#usuario#id` (`usuario_id`),
+  KEY `fk_unidades#empresas#id` (`empresa_id`),
+  CONSTRAINT `fk_unidades#empresas#id` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `fk_unidades#usuario#id` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `unidades`
+--
+
+LOCK TABLES `unidades` WRITE;
+/*!40000 ALTER TABLE `unidades` DISABLE KEYS */;
+/*!40000 ALTER TABLE `unidades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `usuario`
 --
 
@@ -496,7 +613,7 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `uk_email` (`email`),
   KEY `users_empresa_id_foreign` (`empresa_id`),
   CONSTRAINT `users_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -505,8 +622,48 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (5,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Proprietário','391d3d5222ab211ccb0d8b26a1c2381e.jpg','36848874809','Sim','16991838523',24,3),(6,'Admin','matheus.gnu@gmail.com','e10adc3949ba59abbe56e057f20f883e','',NULL,'36848874809','Sim','16991838523',25,4);
+INSERT INTO `usuario` VALUES (5,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Proprietário','391d3d5222ab211ccb0d8b26a1c2381e.jpg','36848874809','Sim','16991838523',24,3),(6,'Admin','matheus.gnu@gmail.com','e10adc3949ba59abbe56e057f20f883e','',NULL,'36848874809','Sim','16991838523',25,4),(9,'Estúdio Cristina Rodrigues','crisphoto5@hotmail.com','81dc9bdb52d04dc20036dbd8313ed055','Parceiro','null','null','Sim','null',24,3),(10,'Cristina rodrigues','creditogames@hotmail.com','202cb962ac59075b964b07152d234b70','Parceiro','','','Sim','',24,3);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `valoresreferencias`
+--
+
+DROP TABLE IF EXISTS `valoresreferencias`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `valoresreferencias` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(255) DEFAULT NULL,
+  `ativo` enum('Sim','Não') NOT NULL,
+  `especie_id` bigint(20) NOT NULL,
+  `produto_id` bigint(20) NOT NULL,
+  `unidade_id` bigint(20) NOT NULL,
+  `valor` decimal(10,2) NOT NULL,
+  `empresa_id` bigint(20) unsigned NOT NULL,
+  `usuario_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_valoresReferencias#especies#id` (`especie_id`),
+  KEY `fk_valoresReferencias#produtos#id` (`produto_id`),
+  KEY `fk_valoresReferencias#unidades#id` (`unidade_id`),
+  KEY `fk_valoresReferencias#empresas#id` (`empresa_id`),
+  KEY `fk_valoresReferencias#usuario#id` (`usuario_id`),
+  CONSTRAINT `fk_valoresReferencias#empresas#id` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
+  CONSTRAINT `fk_valoresReferencias#especies#id` FOREIGN KEY (`especie_id`) REFERENCES `especies` (`id`),
+  CONSTRAINT `fk_valoresReferencias#produtos#id` FOREIGN KEY (`produto_id`) REFERENCES `produtos` (`id`),
+  CONSTRAINT `fk_valoresReferencias#unidades#id` FOREIGN KEY (`unidade_id`) REFERENCES `unidades` (`id`),
+  CONSTRAINT `fk_valoresReferencias#usuario#id` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `valoresreferencias`
+--
+
+LOCK TABLES `valoresreferencias` WRITE;
+/*!40000 ALTER TABLE `valoresreferencias` DISABLE KEYS */;
+/*!40000 ALTER TABLE `valoresreferencias` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -518,4 +675,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-03 23:42:43
+-- Dump completed on 2022-07-05 17:55:17
