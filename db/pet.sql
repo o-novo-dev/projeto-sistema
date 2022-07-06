@@ -228,7 +228,7 @@ CREATE TABLE `menus` (
   `icone` varchar(100) NOT NULL,
   `ordem` int(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -237,6 +237,7 @@ CREATE TABLE `menus` (
 
 LOCK TABLES `menus` WRITE;
 /*!40000 ALTER TABLE `menus` DISABLE KEYS */;
+INSERT INTO `menus` VALUES (1,'Agenda Médica','#','Sim','far fa-calendar-alt',1),(2,'Agendamento Online','#','Sim','far fa-calendar-check',2),(3,'Cadastro de Pacientes','#','Sim','far fa-user',3),(4,'Pedido de Exames','#','Sim','far fa-laptop-medical',4),(5,'Prescrição Eletrônica','#','Sim','fal fa-files-medical',5),(6,'Prontuário Eletrônico','#','Sim','fal fa-book',6),(7,'Relatórios','#','Sim','fal fa-chart-line',7);
 /*!40000 ALTER TABLE `menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +253,7 @@ CREATE TABLE `modulos` (
   `nome` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,6 +262,7 @@ CREATE TABLE `modulos` (
 
 LOCK TABLES `modulos` WRITE;
 /*!40000 ALTER TABLE `modulos` DISABLE KEYS */;
+INSERT INTO `modulos` VALUES (1,'Cadastro de Pacientes','Sim'),(2,'Prontuário Eletrônico','Sim'),(3,'Prescrição Eletrônica','Sim'),(4,'Agenda Médica','Sim'),(5,'Agendamento Online','Sim'),(6,'Pedido de Exames','Sim'),(7,'Relatórios','Sim');
 /*!40000 ALTER TABLE `modulos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,7 +375,7 @@ CREATE TABLE `plano` (
   KEY `FK_plano#plano_tipos#plano_tipo_id` (`plano_tipo_id`),
   CONSTRAINT `FK_plano#plano_tipos#plano_tipo_id` FOREIGN KEY (`plano_tipo_id`) REFERENCES `plano_tipos` (`id`),
   CONSTRAINT `FK_plano#projetos#projeto_id` FOREIGN KEY (`projeto_id`) REFERENCES `projetos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -382,7 +384,7 @@ CREATE TABLE `plano` (
 
 LOCK TABLES `plano` WRITE;
 /*!40000 ALTER TABLE `plano` DISABLE KEYS */;
-INSERT INTO `plano` VALUES (1,'Controle',1,3,'Sim');
+INSERT INTO `plano` VALUES (1,'Controle',1,3,'Sim'),(2,'Starter',1,4,'Sim');
 /*!40000 ALTER TABLE `plano` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -457,7 +459,7 @@ CREATE TABLE `plano_tipos` (
   `nome` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -466,7 +468,7 @@ CREATE TABLE `plano_tipos` (
 
 LOCK TABLES `plano_tipos` WRITE;
 /*!40000 ALTER TABLE `plano_tipos` DISABLE KEYS */;
-INSERT INTO `plano_tipos` VALUES (1,'Básico','Sim'),(2,'Intermediário','Sim'),(3,'Avançado','Sim');
+INSERT INTO `plano_tipos` VALUES (1,'Starter','Sim'),(2,'Plus','Sim'),(3,'Pro','Sim'),(4,'Premium','Sim');
 /*!40000 ALTER TABLE `plano_tipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -675,4 +677,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-05 17:55:17
+-- Dump completed on 2022-07-05 22:58:59

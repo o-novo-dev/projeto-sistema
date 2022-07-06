@@ -25,19 +25,20 @@ erDiagram
   usuario ||--|| empresas : "1 -> 1"
   usuario ||--|| projetos : "1 -> 1"
   empresas ||--|| atividades : "1 -> 1"
-  empresas ||--|{ contratos : "1 -> x"
+  empresas ||--|| contratos : "1 -> x"
+  plano ||--|| contratos : "1 -> 1"
   usuario ||--|{ cartoes : "1 -> x"
   usuario ||--|{ enderecos : "1 -> x"
-  plano ||--|{ contratos : "1 -> x"
   menus ||--|{ submenus : "1 -> x"
   modulos ||--|{ modulos_menus : "1 -> x"
   menus ||--|{ modulos_menus : "1 -> x"
+  projetos ||--|{ plano "1 -> x"
   projetos ||--|{ pages "1 -> x"
-  projetos ||--|{ plano "1 -> x"
+  
   plano_tipos ||--|{ plano "1 -> x"
-  projetos ||--|{ plano "1 -> x"
-  plano ||--|{ plano_detalhes "1 -> x"
+  plano_precos ||--|| plano "1 -> x"
   plano ||--|{ plano_precos "1 -> x"
+  plano ||--|{ plano_detalhes "1 -> x"
 ```
 ---
 ## Tabelas
