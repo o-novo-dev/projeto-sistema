@@ -1,14 +1,15 @@
 <?php
 require_once("./src/base/conectDB.php");
 
+#region model
 function model(){
   $opt = getopt("c:m:v:a:t:");
   if (count($opt) > 0){
     $filename = isset($opt['m']) ? $opt['m'] : $opt['all'];
     $tabela = $opt['t'];
   } else {
-    $filename = readline("filename:");
-    $tabela = readline("Nome tabela:");
+    $filename = readline("Nome do Arquivo:");
+    $tabela = readline("Nome da Tabela:");
   }
   
   $con = new conectDB();
@@ -98,15 +99,71 @@ class data{$filename} extends model {
 
   echo $file;
 }
+#endregion
 
+#region controller
 function controller(){
-  echo 'cx';
-}
 
+  echo "
+  <?php 
+  require_once('./src/base/controller.php');
+  require_once('./src/controller/page404.php');
+  
+  class [controller] extends controller {
+  
+    public \$[model];
+    
+  
+    function __construct() {
+  
+      if (!isset(\$_SESSION['usuario'])) redirect('/login');
+      parent::__construct();
+      \$this->[model] = getModel('data[model]');
+    }
+  
+  
+    public function index(){
+  
+      \$this->addJS('[controller].js');
+  
+      \$this->viewLogado('./pages/[controller]/index.php');
+  
+      \$this->view('./pages/[controller]/index.php');
+    }
+  
+    public function [method](\$[param1] = '', \$[param2] = ''){
+      \$this->data['id'] = \$id;
+      
+      if (empty(\$[param1])) {
+        \$this->_pai();
+      } else if (\$[param1] == 'getJson') {
+        echo json_encode(['data' => \$this->[model]->selectAll()]);
+      }
+    }
+  
+    public function _pai(){
+      if (!\$this->[model]->doGravarAjax()){
+        
+        \$this->addJS('[controller].js');
+        \$this->viewLogado([
+          './pages/[controller]/layout/header.php', 
+          './pages/[controller]/[method]/index.php', 
+          './pages/[controller]/layout/footer.php'
+        ]);
+      }
+    }
+  }
+  ";
+}
+#endregion
+
+#region view
 function view(){
   echo 'vx';
 }
+#endregion
 
+#region start
 if ($argc > 1){
   if ($argv[1] == '-h'){
     echo "
@@ -167,3 +224,4 @@ if ($argc > 1){
     }
   } while ($opt !== 's');
 }
+#endregion

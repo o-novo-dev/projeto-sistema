@@ -219,6 +219,7 @@ class [controller] extends controller {
       ]);
     }
   }
+}
 ```
 
 # Javascript

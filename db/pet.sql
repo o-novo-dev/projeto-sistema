@@ -375,7 +375,7 @@ CREATE TABLE `plano` (
   KEY `FK_plano#plano_tipos#plano_tipo_id` (`plano_tipo_id`),
   CONSTRAINT `FK_plano#plano_tipos#plano_tipo_id` FOREIGN KEY (`plano_tipo_id`) REFERENCES `plano_tipos` (`id`),
   CONSTRAINT `FK_plano#projetos#projeto_id` FOREIGN KEY (`projeto_id`) REFERENCES `projetos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -384,7 +384,7 @@ CREATE TABLE `plano` (
 
 LOCK TABLES `plano` WRITE;
 /*!40000 ALTER TABLE `plano` DISABLE KEYS */;
-INSERT INTO `plano` VALUES (1,'Controle',1,3,'Sim'),(2,'Starter',1,4,'Sim'),(3,'Plus',2,4,'Sim'),(4,'Pro',3,4,'Sim'),(5,'Premium',4,4,'Sim');
+INSERT INTO `plano` VALUES (1,'Controle',1,3,'Sim'),(2,'Starter',1,4,'Sim'),(3,'Plus',2,4,'Sim'),(4,'Pro',3,4,'Sim'),(5,'Premium',4,4,'Sim'),(6,'Free',5,4,'Sim');
 /*!40000 ALTER TABLE `plano` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -459,7 +459,7 @@ CREATE TABLE `plano_tipos` (
   `nome` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -468,7 +468,7 @@ CREATE TABLE `plano_tipos` (
 
 LOCK TABLES `plano_tipos` WRITE;
 /*!40000 ALTER TABLE `plano_tipos` DISABLE KEYS */;
-INSERT INTO `plano_tipos` VALUES (1,'Starter','Sim'),(2,'Plus','Sim'),(3,'Pro','Sim'),(4,'Premium','Sim');
+INSERT INTO `plano_tipos` VALUES (1,'Starter','Sim'),(2,'Plus','Sim'),(3,'Pro','Sim'),(4,'Premium','Sim'),(5,'Free','Sim');
 /*!40000 ALTER TABLE `plano_tipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -677,4 +677,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-06 17:52:18
+-- Dump completed on 2022-07-07 17:53:03
