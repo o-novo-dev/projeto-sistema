@@ -1,7 +1,7 @@
 var table
 const load = (e) => {
   table = $('#data-endereco').DataTable( {
-    ajax: base_url + '/usuario/perfil/getEnderecos',
+    ajax: base_url + '/enderecos/get/',
     responsive: true,
     dom: `<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>
       <'table-responsive'tr>

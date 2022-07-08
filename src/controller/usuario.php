@@ -41,6 +41,11 @@ class usuario extends controller {
     redirect("");
   }
 
+  public function parceiro($detalhes = '', $id = ''){
+    $parceiros = getController('parceiros');
+    $parceiros->index($id);
+  }
+
   public function overview(){
     if(!in_array($_SESSION['usuario']->tipo,["Proprietário"])){
       redirect("/dashboard");
@@ -54,53 +59,63 @@ class usuario extends controller {
     ]);
   }
 
-  public function parceiro($detalhes = '', $id = ''){
-    if(!in_array($_SESSION['usuario']->tipo,["Proprietário"])){
-      redirect("/dashboard");
-    }
-
-    $this->data['id'] = $id;
-    $this->data['view_perfil'] = 'parceiro';
-    $this->data['detalhes'] = $detalhes;
-    
-    if ($detalhes == "usuarios"){
-      $this->_parceiro();
-    } else if ($detalhes == 'getParceiros'){
-      echo json_encode(["data" => $this->parceiros->selectWhere(['empresa_id' => $id])]);
-    }    
-  }
-
-  private function _parceiro(){
-    if (!$this->parceiros->doGravarAjax()){
-      
-      $this->addJS('parceiros.js');
-      $this->viewLogado([
-        "./src/pages/usuario/layout/header.php", 
-        "./src/pages/usuario/layout/menu_parceiro.php", 
-        "./src/pages/usuario/perfil/parceiro.php", 
-        "./src/pages/usuario/layout/footer.php"
-      ]);
-    }
-  }
-
   public function perfil($detalhes = '', $id = ''){
     $this->data['view_perfil'] = 'perfil';
     $this->data['detalhes'] = $detalhes;
     if (empty($detalhes)){
-      $this->_perfil();
+      getController('perfil')->index();
+      //$this->_perfil();
     } else if ($detalhes == 'enderecos'){
-      $this->_enderecos();
-    } else if ($detalhes == 'getEnderecos'){
-      echo json_encode(["data" => $this->enderecos->selectByUsuario()]);
-    } else if ($detalhes == 'getCarteira'){
-      echo json_encode(["data" => $this->carteira->selectByUsuario()]);
+      getController('enderecos')->index();
     } else if ($detalhes == 'carteira'){
-      $this->_carteira();
+      getController('carteira')->index();
     } else if ($detalhes == 'senha'){
       $this->_senha();
     } else if ($detalhes == 'empresa'){
       $this->_empresa();
     } 
+  }
+
+  private function _senha() {
+    
+    $this->usuario->doTrocarSenha();
+    
+
+    $this->viewLogado([
+      "./src/pages/usuario/layout/header.php", 
+      "./src/pages/usuario/layout/menu.php", 
+      "./src/pages/usuario/perfil/senha.php", 
+      "./src/pages/usuario/layout/footer.php"
+    ]);
+  }
+
+  private function _empresa() {
+
+    $this->empresa->doGravar();
+    
+    $empresa = $this->empresa->selectByPk($_SESSION['usuario']->empresa_id);
+    if(!empty($empresa)){
+      $this->empresa->inputs['id']['value'] = $empresa[0]->id;
+      $this->empresa->inputs['atividade_id']['value'] = $empresa[0]->atividade_id;
+      $this->empresa->inputs['razao_social']['value'] = $empresa[0]->razao_social;
+      $this->empresa->inputs['nome_fantasia']['value'] = $empresa[0]->nome_fantasia;
+      $this->empresa->inputs['cep']['value'] = $empresa[0]->cep;
+      $this->empresa->inputs['endereco']['value'] = $empresa[0]->endereco;
+      $this->empresa->inputs['numero']['value'] = $empresa[0]->numero;
+      $this->empresa->inputs['bairro']['value'] = $empresa[0]->bairro;
+      $this->empresa->inputs['complemento']['value'] = $empresa[0]->complemento;
+      $this->empresa->inputs['cidade']['value'] = $empresa[0]->cidade;
+      $this->empresa->inputs['uf']['value'] = $empresa[0]->uf;
+      $this->empresa->inputs['celular']['value'] = $empresa[0]->celular;
+      $this->empresa->inputs['dt_experiencia']['value'] = $empresa[0]->dt_experiencia;
+    }
+
+    $this->viewLogado([
+      "./src/pages/usuario/layout/header.php", 
+      "./src/pages/usuario/layout/menu.php", 
+      "./src/pages/usuario/perfil/empresa.php", 
+      "./src/pages/usuario/layout/footer.php"
+    ]);
   }
 
   public function modulo($detalhes = '', $id = ''){
@@ -235,87 +250,7 @@ class usuario extends controller {
     }
   }
 
-  private function _perfil(){
-    if($_POST){
-      $this->usuario->doUpdatePerfil($_POST);
-    }
-    $this->viewLogado([
-      "./src/pages/usuario/layout/header.php", 
-      "./src/pages/usuario/layout/menu.php", 
-      "./src/pages/usuario/perfil/perfil.php", 
-      "./src/pages/usuario/layout/footer.php"
-    ]);
-  }
 
-  private function _enderecos(){
-
-    if (!$this->enderecos->doGravarAjax()){
-      
-      $this->addJS('enderecos.js');
-      $this->viewLogado([
-        "./src/pages/usuario/layout/header.php", 
-        "./src/pages/usuario/layout/menu.php", 
-        "./src/pages/usuario/perfil/enderecos.php", 
-        "./src/pages/usuario/layout/footer.php"
-      ]);
-    }
-  }
-
-  private function _carteira() {
-    if (!$this->carteira->doGravarAjax()){
-      
-      $this->addJS('carteira.js');
-
-      $this->viewLogado([
-        "./src/pages/usuario/layout/header.php", 
-        "./src/pages/usuario/layout/menu.php", 
-        "./src/pages/usuario/perfil/carteira.php", 
-        "./src/pages/usuario/layout/footer.php"
-      ]);
-    }
-  }
-
-  private function _senha() {
-    
-    $this->usuario->doTrocarSenha();
-    
-
-    $this->viewLogado([
-      "./src/pages/usuario/layout/header.php", 
-      "./src/pages/usuario/layout/menu.php", 
-      "./src/pages/usuario/perfil/senha.php", 
-      "./src/pages/usuario/layout/footer.php"
-    ]);
-  }
-
-  private function _empresa() {
-
-    $this->empresa->doGravar();
-    
-    $empresa = $this->empresa->selectByPk($_SESSION['usuario']->empresa_id);
-    if(!empty($empresa)){
-      $this->empresa->inputs['id']['value'] = $empresa[0]->id;
-      $this->empresa->inputs['atividade_id']['value'] = $empresa[0]->atividade_id;
-      $this->empresa->inputs['razao_social']['value'] = $empresa[0]->razao_social;
-      $this->empresa->inputs['nome_fantasia']['value'] = $empresa[0]->nome_fantasia;
-      $this->empresa->inputs['cep']['value'] = $empresa[0]->cep;
-      $this->empresa->inputs['endereco']['value'] = $empresa[0]->endereco;
-      $this->empresa->inputs['numero']['value'] = $empresa[0]->numero;
-      $this->empresa->inputs['bairro']['value'] = $empresa[0]->bairro;
-      $this->empresa->inputs['complemento']['value'] = $empresa[0]->complemento;
-      $this->empresa->inputs['cidade']['value'] = $empresa[0]->cidade;
-      $this->empresa->inputs['uf']['value'] = $empresa[0]->uf;
-      $this->empresa->inputs['celular']['value'] = $empresa[0]->celular;
-      $this->empresa->inputs['dt_experiencia']['value'] = $empresa[0]->dt_experiencia;
-    }
-
-    $this->viewLogado([
-      "./src/pages/usuario/layout/header.php", 
-      "./src/pages/usuario/layout/menu.php", 
-      "./src/pages/usuario/perfil/empresa.php", 
-      "./src/pages/usuario/layout/footer.php"
-    ]);
-  }
 
 
 

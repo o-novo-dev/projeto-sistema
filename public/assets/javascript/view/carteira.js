@@ -1,7 +1,7 @@
 var table
 const load = (e) => {
   table = $('#data-carteira').DataTable( {
-    ajax: base_url + '/usuario/perfil/getCarteira',
+    ajax: base_url + '/carteira/get',
     responsive: true,
     dom: `<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>
       <'table-responsive'tr>

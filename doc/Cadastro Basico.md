@@ -185,7 +185,7 @@ class [controller] extends controller {
 var table
 const load = (e) => {
   table = $('#datatable').DataTable( {
-    ajax: base_url + '/[controller]/[method]/[param1]/[param2]',//retornar json
+    ajax: base_url + '/[controller]/get/[param1]',//retornar json
     responsive: true,
     dom: `<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>
       <'table-responsive'tr>

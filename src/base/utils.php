@@ -1,12 +1,20 @@
 <?php
 
+function getController($controller, $param = ''){
+  require_once("./src/controller/{$controller}.php");
+  if (empty($param))
+    return new $controller();
+  else 
+    return new $controller($param);
+}  
+
 function getModel($model, $param = ''){
   require_once("./src/model/{$model}.php");
   if (empty($param))
     return new $model();
   else 
     return new $model($param);
-}  
+}
 
 function redirect($page){
   header("Location: " . BASE_URL . "{$page}");

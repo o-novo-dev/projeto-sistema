@@ -102,16 +102,17 @@ class data{$filename} extends model {
 #endregion
 
 #region controller
-function controller(){
+function controller() {
   $opt = getopt("c:m:v:a:t:");
+  print_r($opt);
   if (count($opt) > 0){
-    $filename = isset($opt['m']) ? $opt['m'] : $opt['all'];
-    $tabela = $opt['t'];
+    $filename = isset($opt['c']) ? $opt['c'] : $opt['all'];
+    //$tabela = $opt['t'];
   } else {
     $filename = readline("Nome do Arquivo:");
-    $tabela = readline("Nome da Tabela:");
+    //$tabela = readline("Nome da Tabela:");
   }
-
+  $model = ucfirst($filename);
   echo "
   <?php 
   require_once('./src/base/controller.php');
@@ -120,15 +121,13 @@ function controller(){
   class {$filename} extends controller {
   
     public \${$filename};
-    
   
     function __construct() {
-  
       if (!isset(\$_SESSION['usuario'])) redirect('/login');
+      
       parent::__construct();
-      \$this->{$filename} = getModel('data{$filename}');
+      \$this->{$filename} = getModel('data{$model}');
     }
-  
   
     public function index(){
   
@@ -142,33 +141,11 @@ function controller(){
       }
     }
   
-    public function [method](\$[param1] = '', \$[param2] = ''){
-      \$this->data['id'] = \$id;
-      
-      if (empty(\$[param1])) {
-        \$this->_pai();
-      } else if (\$[param1] == 'getJson') {
-        echo json_encode(['data' => \$this->{$filename}->selectAll()]);
-      }
-    }
-
     public function get(\$id = ''){
       if (empty(\$id))
         echo json_encode(['data' => \$this->{$filename}->selectAll()]);
       else
         echo json_encode(['data' => \$this->{$filename}->selectWhere(['id' => \$id])]);
-    }
-  
-    public function _pai(){
-      if (!\$this->[model]->doGravarAjax()){
-        
-        \$this->addJS('[controller].js');
-        \$this->viewLogado([
-          './pages/[controller]/layout/header.php', 
-          './pages/[controller]/[method]/index.php', 
-          './pages/[controller]/layout/footer.php'
-        ]);
-      }
     }
   }
   ";
