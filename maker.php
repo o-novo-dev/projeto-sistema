@@ -3,7 +3,7 @@ require_once("./src/base/conectDB.php");
 
 #region model
 function model(){
-  $opt = getopt("c:m:v:a:t:");
+  $opt = getopt("c:m:v:a:t:s:");
   if (count($opt) > 0){
     $filename = isset($opt['m']) ? $opt['m'] : $opt['all'];
     $tabela = $opt['t'];
@@ -103,52 +103,65 @@ class data{$filename} extends model {
 
 #region controller
 function controller() {
-  $opt = getopt("c:m:v:a:t:");
+  $opt = getopt("c:m:v:a:t:s:");
   print_r($opt);
   if (count($opt) > 0){
     $filename = isset($opt['c']) ? $opt['c'] : $opt['all'];
     //$tabela = $opt['t'];
+    $reescrever = isset($opt['s']) ? $opt['s'] : "n";
   } else {
     $filename = readline("Nome do Arquivo:");
     //$tabela = readline("Nome da Tabela:");
+    if (file_exists("./src/controller/{$filename}.php"))
+      $reescrever = readline("Sobrescrever o Arquivo? (s/n)");
   }
-  $model = ucfirst($filename);
-  echo "
-  <?php 
-  require_once('./src/base/controller.php');
-  require_once('./src/controller/page404.php');
   
-  class {$filename} extends controller {
   
-    public \${$filename};
-  
-    function __construct() {
-      if (!isset(\$_SESSION['usuario'])) redirect('/login');
-      
-      parent::__construct();
-      \$this->{$filename} = getModel('data{$model}');
-    }
-  
-    public function index(){
-  
-      if (!\$this->{$filename}->doGravarAjax()){
 
-        \$this->addJS('{$filename}.js');
+  $model = ucfirst($filename);
+  $content = "
+<?php 
+require_once('./src/base/controller.php');
+require_once('./src/controller/page404.php');
+
+class {$filename} extends controller {
+
+  public \${$filename};
+
+  function __construct() {
+    if (!isset(\$_SESSION['usuario'])) redirect('/login');
     
-        \$this->viewLogado('./pages/{$filename}/index.php');
-    
-        \$this->view('./pages/{$filename}/index.php');
-      }
-    }
+    parent::__construct();
+    \$this->{$filename} = getModel('data{$model}');
+  }
+
+  public function index(){
+
+    if (!\$this->{$filename}->doGravarAjax()){
+
+      \$this->addJS('{$filename}.js');
   
-    public function get(\$id = ''){
-      if (empty(\$id))
-        echo json_encode(['data' => \$this->{$filename}->selectAll()]);
-      else
-        echo json_encode(['data' => \$this->{$filename}->selectWhere(['id' => \$id])]);
+      \$this->viewLogado('./pages/{$filename}/index.php');
+  
+      \$this->view('./pages/{$filename}/index.php');
     }
   }
-  ";
+
+  public function get(\$id = ''){
+    if (empty(\$id))
+      echo json_encode(['data' => \$this->{$filename}->selectAll()]);
+    else
+      echo json_encode(['data' => \$this->{$filename}->selectWhere(['id' => \$id])]);
+  }
+}
+";
+  echo $content;
+
+  if (file_exists("./src/controller/{$filename}.php"))
+    echo "Arquivo encontrado";
+    
+  if ($reescrever == "s")
+    file_put_contents("./src/controller/{$filename}.php", $content);
 }
 #endregion
 
@@ -169,9 +182,10 @@ if ($argc > 1){
     -v [filename] => View
     -a --all [filename] => Todas opções acima
     -t [Nome] => Tabela do banco de dados
+    -s [s/n] => sobrescrever?
     ";
   } else {
-    $opt = getopt("c:m:v:a:t:");
+    $opt = getopt("c:m:v:a:t:s:");
 
     if (isset($opt['c'])){
       controller();
