@@ -8,20 +8,21 @@ class submenus extends controller {
   public $submenus;
   private $menu_id;
 
-  function __construct($menu_id = '') {
+  function __construct() {
     if (!isset($_SESSION['usuario'])) redirect('/login');
     
     parent::__construct();
-    $this->menu_id = $menu_id;
-    $this->submenus = getModel('dataSubmenus', $menu_id);
+    $this->submenus = getModel('dataSubmenus');
   }
 
-  public function index(){
-    $menus = getModel('dataMenus', $this->menu_id);
+  public function index($menu_id = ''){
+    $this->submenus = getModel('dataSubmenus', $menu_id);
+
+    $menus = getModel('dataMenus', $menu_id);
     $data = $menus->selectWhere(['id' => $this->menu_id]);
     if (count($data) > 0){
 
-      $this->data['id'] = $this->menu_id;
+      $this->data['id'] = $menu_id;
       $this->data['view_perfil'] = 'menu';
       $this->data['detalhes'] = 'submenus';
       if (!$this->submenus->doGravarAjax()){

@@ -83,13 +83,10 @@ class usuario extends controller {
   }
 
   public function menu($detalhes = '', $id = ''){
-    $this->data['id'] = $id;
-    $this->data['view_perfil'] = 'menu';
-    $this->data['detalhes'] = $detalhes;
     if (empty($detalhes)){
       getController('menus')->index();
     } else if ($detalhes == 'submenus'){
-      getController('submenus', $id)->index();
+      getController('submenus')->index($id);
     }
   }
 
@@ -107,93 +104,13 @@ class usuario extends controller {
     $this->data['detalhes'] = $detalhes;
     $this->data['id'] = $id;
     if (empty($detalhes)){
-      $this->_plano();
+      getController('planos')->index();
     } else if ($detalhes == 'tipos'){
-      $this->_tipos();
+      getController('planotipos')->index();
     } else if ($detalhes == 'precos'){
-      $this->_planopreco($id);
+      getController('planoprecos')->index($id);
     } else if ($detalhes == 'detalhes'){
-      $this->_planodetalhes($id);
-    } else if ($detalhes == 'getPlanoTipos'){
-      echo json_encode(["data" => $this->planotipos->selectAll()]);
-    } else if ($detalhes == 'getPlano'){
-      echo json_encode(["data" => $this->plano->selectWhere()]);
-    } else if ($detalhes == 'getPlanoDetalhes'){
-      $planodetalhes = getModel('dataPlanoDetalhes', $id);
-      echo json_encode(["data" => $planodetalhes->selectWhere(['plano_id' => $id])]);
-    } else if ($detalhes == 'getPlanoPrecos'){
-      $planoprecos = getModel('dataPlanoPrecos', $id);
-      echo json_encode(["data" => $planoprecos->selectWhere(['plano_id' => $id])]);
+      getController('planodetalhes')->index($id);
     }
   }
-
-  private function _planopreco($id){
-    $this->planoprecos = getModel('dataPlanoPrecos', $id); //filho
-    $data = $this->plano->selectWhere([
-      ['key' => 'a.id', 'param' => 'id', 'valor' => $id]
-    ]); //pai
-    if (count($data) > 0){
-      if (!$this->planoprecos->doGravarAjax()){
-        
-        $this->addJS('planoprecos.js');
-        $this->viewLogado([
-          "./src/pages/usuario/layout/header.php", 
-          "./src/pages/usuario/plano/precos.php", 
-          "./src/pages/usuario/layout/footer.php"
-        ]);
-      }
-    } else {
-      $page404 = new page404();
-      $page404->index();
-    }
-  }
-
-  private function _planodetalhes($id){
-    $this->planodetalhes = getModel('dataPlanoDetalhes', $id); //filho
-    $data = $this->plano->selectWhere([
-      ['key' => 'a.id', 'param' => 'id', 'valor' => $id]
-    ]); //pai
-    if (count($data) > 0){
-      if (!$this->planodetalhes->doGravarAjax()){
-        
-        $this->addJS('planodetalhes.js');
-        $this->viewLogado([
-          "./src/pages/usuario/layout/header.php", 
-          "./src/pages/usuario/plano/detalhes.php", 
-          "./src/pages/usuario/layout/footer.php"
-        ]);
-      }
-    } else {
-      $page404 = new page404();
-      $page404->index();
-    }
-  }
-
-  private function _tipos(){
-    if (!$this->planotipos->doGravarAjax()){
-      
-      $this->addJS('planotipos.js');
-      $this->viewLogado([
-        "./src/pages/usuario/layout/header.php", 
-        "./src/pages/usuario/layout/menu_plano.php", 
-        "./src/pages/usuario/plano/tipo.php", 
-        "./src/pages/usuario/layout/footer.php"
-      ]);
-    }
-  }
-
-  private function _plano(){
-    if (!$this->plano->doGravarAjax()){
-      
-      $this->addJS('plano.js');
-      $this->viewLogado([
-        "./src/pages/usuario/layout/header.php", 
-        "./src/pages/usuario/layout/menu_plano.php", 
-        "./src/pages/usuario/plano/plano.php", 
-        "./src/pages/usuario/layout/footer.php"
-      ]);
-    }
-  }
-
-
 }

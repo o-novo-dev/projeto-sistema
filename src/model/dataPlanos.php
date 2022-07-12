@@ -1,7 +1,7 @@
 <?php
 require_once("./src/base/model.php");
 
-class dataPlano extends model {
+class dataPlanos extends model {
 
   function  __construct() {
     $this->table = 'plano';
