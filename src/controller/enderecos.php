@@ -14,6 +14,8 @@
     }
 
     public function index(){
+      $this->data['view_perfil'] = 'perfil';
+      $this->data['detalhes'] = 'enderecos';
 
       if (!$this->enderecos->doGravarAjax()){
 

@@ -42,6 +42,8 @@ class perfil extends controller {
   }
 
   public function empresa(){
+    $this->data['view_perfil'] = 'perfil';
+    $this->data['detalhes'] = 'empresa';
     $this->empresa = getModel('dataEmpresas');
 
     $this->empresa->doGravar();

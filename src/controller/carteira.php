@@ -14,6 +14,8 @@ class carteira extends controller {
   }
 
   public function index(){
+    $this->data['view_perfil'] = 'perfil';
+    $this->data['detalhes'] = 'carteira';
 
     if (!$this->carteira->doGravarAjax()){
 

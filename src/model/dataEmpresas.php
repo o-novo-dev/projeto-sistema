@@ -12,12 +12,6 @@ class dataEmpresas extends model {
     $this->atividades = getModel("dataAtividades");
     $this->usuario = getModel("dataUsuario");
     $data = $this->atividades->selectAll();
-    
-    /* exemplo para lista do select
-    $ativo = [
-      (object)["id" => "Sim", "nome" => "Sim"],
-      (object)["id" => "Não", "nome" => "Não"],
-    ];*/
 
     $this->inputs['id']['label'] = 'Identificador';
     $this->inputs['id']['order'] = 0;

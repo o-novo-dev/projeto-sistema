@@ -18,15 +18,7 @@ class usuario extends controller {
   function __construct() {
     if (!isset($_SESSION['usuario'])) redirect("/login");
     parent::__construct();
-    $this->usuario = getModel('dataUsuario');
-    $this->empresa = getModel('dataEmpresas');
-    $this->enderecos = getModel('dataEnderecos');
-    $this->carteira = getModel('dataCarteira');
-    $this->modulos = getModel('dataModulos');
-    $this->menus = getModel('dataMenus');
-    $this->projetos = getModel('dataProjetos');
-    $this->planotipos = getModel('dataPlanoTipos');
-    $this->plano = getModel('dataPlano');
+
     $this->parceiros = getModel('dataParceiros', $_SESSION['usuario']->empresa_id);
     $this->data['titulo'] = "Usuário";
   }
@@ -70,7 +62,7 @@ class usuario extends controller {
     } else if ($detalhes == 'senha'){
       getController('perfil')->doTrocaSenha();
     } else if ($detalhes == 'empresa'){
-      getController('perfil')->empresaa();
+      getController('perfil')->empresa();
     } 
   }
 
@@ -98,11 +90,7 @@ class usuario extends controller {
     }
   }
 
-
   public function plano($detalhes = '', $id = ''){
-    $this->data['view_perfil'] = 'plano';
-    $this->data['detalhes'] = $detalhes;
-    $this->data['id'] = $id;
     if (empty($detalhes)){
       getController('planos')->index();
     } else if ($detalhes == 'tipos'){
