@@ -2,24 +2,24 @@
 require_once('./src/base/controller.php');
 require_once('./src/controller/page404.php');
 
-class carteira extends controller {
+class carteiras extends controller {
 
-  public $carteira;
+  public $carteiras;
 
   function __construct() {
     if (!isset($_SESSION['usuario'])) redirect('/login');
 
     parent::__construct();
-    $this->carteira = getModel('dataCarteira');
+    $this->carteiras = getModel('dataCarteira');
   }
 
   public function index(){
     $this->data['view_perfil'] = 'perfil';
-    $this->data['detalhes'] = 'carteira';
+    $this->data['detalhes'] = 'carteiras';
 
-    if (!$this->carteira->doGravarAjax()){
+    if (!$this->carteiras->doGravarAjax()){
 
-      $this->addJS('carteira.js');
+      $this->addJS('carteiras.js');
       $this->viewLogado([
         "./src/pages/usuario/layout/header.php", 
         "./src/pages/usuario/layout/menu.php", 
@@ -31,6 +31,6 @@ class carteira extends controller {
 
   public function get($id = ''){
     if (empty($id))
-      echo json_encode(['data' => $this->carteira->selectByUsuario()]);
+      echo json_encode(['data' => $this->carteiras->selectByUsuario()]);
   }
 }

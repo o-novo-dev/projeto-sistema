@@ -4,17 +4,6 @@ require_once("./src/controller/page404.php");
 
 class usuario extends controller {
 
-  public $usuario;
-  public $empresa;
-  public $enderecos;
-  public $carteira;
-  public $modulos;
-  public $menus;
-  public $submenus;
-  public $projeto;
-  public $plano;
-  public $parceiros;
-
   function __construct() {
     if (!isset($_SESSION['usuario'])) redirect("/login");
     parent::__construct();
@@ -57,8 +46,8 @@ class usuario extends controller {
       getController('perfil')->index();
     } else if ($detalhes == 'enderecos'){
       getController('enderecos')->index();
-    } else if ($detalhes == 'carteira'){
-      getController('carteira')->index();
+    } else if ($detalhes == 'carteiras'){
+      getController('carteiras')->index();
     } else if ($detalhes == 'senha'){
       getController('perfil')->doTrocaSenha();
     } else if ($detalhes == 'empresa'){

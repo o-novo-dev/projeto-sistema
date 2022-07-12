@@ -1,7 +1,7 @@
 <?php
   $colunas = ['Plano', 'Tipo', 'Projeto'];
   $titulo = "Planos";
-  $inputs = $this->plano->inputs;
+  $inputs = $this->planos->inputs;
 ?>
                   <!-- grid column -->
                   <div class="col-lg-8">

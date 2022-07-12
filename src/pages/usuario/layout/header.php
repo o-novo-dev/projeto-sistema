@@ -28,7 +28,7 @@
                   <?php endif; ?>
 
                   <?php if (in_array($usuario->projeto_id,["3"])) : ?>
-                    <a class="nav-link <?= $view_perfil == "projeto" && $detalhes == ""  ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/projeto">Projeto</a> 
+                    <a class="nav-link <?= $view_perfil == "projeto" && $detalhes == ""  ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/projetos">Projeto</a> 
                     <a class="nav-link <?= $view_perfil == "modulo" ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/modulo">Modulo</a> 
                     <a class="nav-link <?= $view_perfil == "menu" ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/menu">Menu</a> 
                     <a class="nav-link <?= $view_perfil == "plano" ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/plano">Plano</a> 

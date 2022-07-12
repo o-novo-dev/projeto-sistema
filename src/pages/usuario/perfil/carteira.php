@@ -43,7 +43,7 @@
       <!-- /.modal-header -->
       <!-- .modal-body -->
       <div class="modal-body">
-        <?= formCard($this->carteira->inputs, '', 'Salvar') ?>
+        <?= formCard($this->carteiras->inputs, '', 'Salvar') ?>
       </div>
       <!-- /.modal-body -->
       <!-- .modal-footer -->

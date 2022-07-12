@@ -13,7 +13,7 @@
                       <nav class="nav nav-tabs flex-column border-0">
                         <a href="<?= BASE_URL ?>/usuario/perfil" class="nav-link <?=  empty($detalhes) ? "active": "" ?>">Usuário</a> 
                         <a href="<?= BASE_URL ?>/usuario/perfil/enderecos" class="nav-link <?=  $detalhes == "enderecos" ? "active": "" ?>">Endereços</a> 
-                        <a href="<?= BASE_URL ?>/usuario/perfil/carteira" class="nav-link <?=  $detalhes == "carteira" ? "active": "" ?>">Sua carteira</a> 
+                        <a href="<?= BASE_URL ?>/usuario/perfil/carteiras" class="nav-link <?=  $detalhes == "carteiras" ? "active": "" ?>">Sua carteira</a> 
                         <?php if (in_array($usuario->tipo,["Laboratório"])) : ?>
                         <a href="<?= BASE_URL ?>/usuario/perfil/empresa" class="nav-link <?=  $detalhes == "empresa" ? "active": "" ?>">Dados da Empresa</a> 
                         <?php endif; ?>
