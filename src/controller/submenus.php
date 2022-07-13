@@ -18,8 +18,7 @@ class submenus extends controller {
   public function index($menu_id = ''){
     $this->submenus = getModel('dataSubmenus', $menu_id);
 
-    $menus = getModel('dataMenus', $menu_id);
-    $data = $menus->selectWhere(['id' => $this->menu_id]);
+    $data = getModel('dataMenus', $menu_id)->selectWhere(['id' => $menu_id]);;
     if (count($data) > 0){
 
       $this->data['id'] = $menu_id;
@@ -34,10 +33,10 @@ class submenus extends controller {
           "./src/pages/usuario/menu/submenus.php", 
           "./src/pages/usuario/layout/footer.php"
         ]);
-      } else {
-        $page404 = new page404();
-        $page404->index();
       }
+    } else {
+      $page404 = new page404();
+      $page404->index();
     }
   }
 

@@ -129,7 +129,7 @@ abstract class model extends conectDB {
 
       if ($data){
         if (is_callable($this->afterUpdate))
-          $this->doCallBack($this->afterUpdate, $_POST['id']);
+          $this->doCallBack($this->afterUpdate, $_POST);
       }
 
       return $data;

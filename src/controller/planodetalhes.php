@@ -19,9 +19,10 @@ class planodetalhes extends controller {
     $this->data['detalhes'] = 'detalhes';
     $this->data['id'] = $id;
     $this->planodetalhes = getModel('dataPlanoDetalhes', $id); //filho
-    $data = $this->plano->selectWhere([
+    echo $id;
+    $data = getModel('dataPlanos')->selectWhere([
       ['key' => 'a.id', 'param' => 'id', 'valor' => $id]
-    ]); //pai
+    ]);
     if (count($data) > 0){
       if (!$this->planodetalhes->doGravarAjax()){
 

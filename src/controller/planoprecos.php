@@ -20,7 +20,7 @@ class planoprecos extends controller {
     $this->data['id'] = $id;
 
     $this->planoprecos = getModel('dataPlanoPrecos', $id); //filho
-    $data = $this->plano->selectWhere([
+    $data = getModel('dataPlanos')->selectWhere([
       ['key' => 'a.id', 'param' => 'id', 'valor' => $id]
     ]); //pai
     if (count($data) > 0){

@@ -33,8 +33,15 @@ class planos extends controller {
 
   public function get($id = ''){
     if (empty($id))
-      echo json_encode(['data' => $this->planos->selectAll()]);
+      echo json_encode(['data' => $this->planos->selectWhere()]);
     else
-      echo json_encode(['data' => $this->planos->selectWhere(['id' => $id])]);
+      echo json_encode(['data' => $this->planos->selectWhere([
+        ['key' => 'a.id', 'param' => 'id', 'valor' => $id]
+      ])]);
+      /*
+      $data = $this->plano->selectWhere([
+        ['key' => 'a.id', 'param' => 'id', 'valor' => $id]
+      ]); //pai
+    */
   }
 }

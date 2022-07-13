@@ -16,7 +16,7 @@
     public function index($id){
 
       $this->modulosmenus = getModel('dataModulosMenus', $id);
-      $data = $this->modulos->selectWhere(['id' => $id]);
+      $data = getModel('dataModulos')->selectWhere(['id' => $id]);
       if (count($data) > 0){
         if (!$this->modulosmenus->doGravarAjax()){
           
