@@ -23,8 +23,7 @@ class usuario extends controller {
   }
 
   public function parceiro($detalhes = '', $id = ''){
-    $parceiros = getController('parceiros');
-    $parceiros->index($id);
+    getController('parceiros')->index($id);
   }
 
   public function overview(){

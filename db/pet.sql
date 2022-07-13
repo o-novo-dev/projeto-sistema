@@ -185,7 +185,7 @@ CREATE TABLE `enderecos` (
 
 LOCK TABLES `enderecos` WRITE;
 /*!40000 ALTER TABLE `enderecos` DISABLE KEYS */;
-INSERT INTO `enderecos` VALUES (7,'Matheus de Mello','Miguel Barachini','510','Centro','','14180000','SP','RP','16991838523','Sim',5,'Sim');
+INSERT INTO `enderecos` VALUES (7,'Matheus de Mello','Miguel Barachini','510','Centro','','14180000','SP','Rib P','16991838523','Sim',5,'Sim');
 /*!40000 ALTER TABLE `enderecos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -612,10 +612,10 @@ CREATE TABLE `usuario` (
   `empresa_id` bigint(20) unsigned DEFAULT NULL,
   `projeto_id` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_email` (`email`),
+  UNIQUE KEY `uk_email` (`email`,`tipo`,`empresa_id`),
   KEY `users_empresa_id_foreign` (`empresa_id`),
   CONSTRAINT `users_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -624,7 +624,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (5,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Proprietário','391d3d5222ab211ccb0d8b26a1c2381e.jpg','36848874809','Sim','16991838523',24,3),(6,'Admin','matheus.gnu@gmail.com','e10adc3949ba59abbe56e057f20f883e','',NULL,'36848874809','Sim','16991838523',25,4),(9,'Estúdio Cristina Rodrigues','crisphoto5@hotmail.com','81dc9bdb52d04dc20036dbd8313ed055','Parceiro','null','null','Sim','null',24,3),(10,'Cristina rodrigues','creditogames@hotmail.com','202cb962ac59075b964b07152d234b70','Parceiro','','','Sim','',24,3);
+INSERT INTO `usuario` VALUES (5,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Proprietário','391d3d5222ab211ccb0d8b26a1c2381e.jpg','36848874809','Sim','16991838523',24,3),(6,'Admin','matheus.gnu@gmail.com','e10adc3949ba59abbe56e057f20f883e','',NULL,'36848874809','Sim','16991838523',25,4),(9,'Estúdio Cristina Rodrigues','crisphoto5@hotmail.com','81dc9bdb52d04dc20036dbd8313ed055','Parceiro','null','null','Sim','null',24,3),(10,'Cristina rodrigues','creditogames@hotmail.com','202cb962ac59075b964b07152d234b70','Parceiro','','','Sim','',24,3),(18,'Clinica Matheus','matheus.gnu@gmail.com','698dc19d489c4e4db73e28a713eab07b','Parceiro','','','Sim','',24,3);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -677,4 +677,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-07 17:53:03
+-- Dump completed on 2022-07-13 17:54:34

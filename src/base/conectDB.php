@@ -18,16 +18,20 @@ class conectDB {
     
     try{    
       $this->db = new PDO($dsn, $username, $password, $options);
+      $this->db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
     }catch (PDOException $e){
-        die ('DB Error conection. Error: ' . $e->message);
+        die ('DB Error conection. Error: ' . $e->getMessage());
     }    
   }
 
-
-
   public function insert($sql, $param = null){
-    $dbh = $this->db->prepare($sql);
-    $dbh->execute($param);
+    try{    
+      $dbh = $this->db->prepare($sql);
+      $dbh->execute($param);
+    }catch (PDOException $e){
+        die('DB Error conection. Error: ' . $e->getMessage());
+    }    
+
     return $this->db->lastInsertId();
   }
 
