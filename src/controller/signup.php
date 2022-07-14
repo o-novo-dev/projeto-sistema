@@ -13,7 +13,7 @@ class signup extends controller {
 
   public function index(){
     $this->data['titulo'] = "Principal";
-    
+
     if ($_POST){
       $this->usuario->doSignup([
         'nome' => $_POST['nome'],
@@ -21,7 +21,13 @@ class signup extends controller {
         'senha' => $_POST['senha'],
         'tipo' => $_POST['tipo']
       ]);
+
+      //getModel('dataContrato')->inserir();
     }
+    
+    $this->data['planos'] = getModel('dataPlanos')->selectWhere([
+      ['key' => 'a.projeto_id', 'param' => 'id', 'valor' => $_SESSION['projeto']->id]
+    ]);
     
     $this->view("./src/pages/signup/index.php");
   }

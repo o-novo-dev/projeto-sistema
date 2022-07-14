@@ -45,6 +45,8 @@ const load = (e) => {
       document.getElementById('id').value = row.id
       document.getElementById('nome').value = row.nome
       document.getElementById('ativo').value = row.ativo
+      document.getElementById('site').value = row.site
+      document.getElementById('dominio').value = row.dominio
     }
   })
   

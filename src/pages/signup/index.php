@@ -39,6 +39,20 @@
             <input name="senha" type="password" id="inputPassword" class="form-control" placeholder="Password" required=""> <label for="inputPassword">Password</label>
           </div>
         </div><!-- /.form-group -->
+        <?php if(!isset($_SESSION['plano_id'])) : ?>
+        <!-- .form-group -->
+        <div class="form-group">
+          <select name="plano_id" class="custom-select" id="selDefault" required="">
+            <option> Selecionar </option>
+            <?php 
+              foreach ($planos as $key => $plano) {
+                echo "<option value='{$plano->id}'> {$plano->nome} </option>";
+              }
+            ?>
+          </select>
+        </div><!-- /.form-group -->
+        <?php endif; ?> 
+        
         <!-- .form-group -->
         <div class="form-group">
           <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>

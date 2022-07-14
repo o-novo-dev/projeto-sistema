@@ -17,13 +17,17 @@ class dataProjetos extends model {
     $this->inputs['nome']['col'] = '12';
     $this->inputs['nome']['required'] = true;
     
-    // $this->inputs['modulos_id']['label'] = "Modulo";
-    // $this->inputs['modulos_id']['select'] = $this->modulos->selectAll();
-    // $this->inputs['modulos_id']['order'] = 2;
-    // $this->inputs['modulos_id']['col'] = '6';
-    // $this->inputs['modulos_id']['required'] = true;
+    $this->inputs['site']['label'] = "Site";
+    $this->inputs['site']['order'] = 2;
+    $this->inputs['site']['col'] = '12';
+    $this->inputs['site']['required'] = true;
 
-    $this->inputs['ativo']['order'] = 2;
+    $this->inputs['dominio']['label'] = "Dominio";
+    $this->inputs['dominio']['order'] = 3;
+    $this->inputs['dominio']['col'] = '12';
+    $this->inputs['dominio']['required'] = true;
+
+    $this->inputs['ativo']['order'] = 4;
     $this->inputs['ativo']['value'] = 'Sim';
 
     $this->ordernar();
