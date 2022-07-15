@@ -19,7 +19,6 @@ class planodetalhes extends controller {
     $this->data['detalhes'] = 'detalhes';
     $this->data['id'] = $id;
     $this->planodetalhes = getModel('dataPlanoDetalhes', $id); //filho
-    echo $id;
     $data = getModel('dataPlanos')->selectWhere([
       ['key' => 'a.id', 'param' => 'id', 'valor' => $id]
     ]);

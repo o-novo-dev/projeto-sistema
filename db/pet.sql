@@ -102,7 +102,7 @@ CREATE TABLE `contratos` (
   KEY `FK_CONTRATOS#EMPRESA#ID` (`empresa_id`),
   CONSTRAINT `FK_CONTRATOS#EMPRESA#ID` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`),
   CONSTRAINT `FK_CONTRATOS#PLANOS#ID` FOREIGN KEY (`plano_id`) REFERENCES `plano` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,6 +111,7 @@ CREATE TABLE `contratos` (
 
 LOCK TABLES `contratos` WRITE;
 /*!40000 ALTER TABLE `contratos` DISABLE KEYS */;
+INSERT INTO `contratos` VALUES (1,NULL,'Sim','2022-07-15',1,24,'Pago','2023-07-15');
 /*!40000 ALTER TABLE `contratos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +285,7 @@ CREATE TABLE `modulos_menus` (
   KEY `FK_modulos_menus#menus#menu_id` (`menu_id`),
   CONSTRAINT `FK_modulos_menus#menus#menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`),
   CONSTRAINT `FK_modulos_menus#modulos` FOREIGN KEY (`modulo_id`) REFERENCES `modulos` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,6 +294,7 @@ CREATE TABLE `modulos_menus` (
 
 LOCK TABLES `modulos_menus` WRITE;
 /*!40000 ALTER TABLE `modulos_menus` DISABLE KEYS */;
+INSERT INTO `modulos_menus` VALUES (1,'Pedido de Exames','Sim',6,4);
 /*!40000 ALTER TABLE `modulos_menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -407,7 +409,7 @@ CREATE TABLE `plano_detalhes` (
   KEY `FK_detalhes#modulos` (`modulo_id`),
   CONSTRAINT `FK_detalhes#modulos` FOREIGN KEY (`modulo_id`) REFERENCES `modulos` (`id`),
   CONSTRAINT `FK_detalhes#planos#plano_id` FOREIGN KEY (`plano_id`) REFERENCES `plano` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -416,6 +418,7 @@ CREATE TABLE `plano_detalhes` (
 
 LOCK TABLES `plano_detalhes` WRITE;
 /*!40000 ALTER TABLE `plano_detalhes` DISABLE KEYS */;
+INSERT INTO `plano_detalhes` VALUES (1,'Controle dos Pedidos de Exames','Sim',1,6,1),(2,'Controle de Cadastros dos Pets','Sim',1,6,2);
 /*!40000 ALTER TABLE `plano_detalhes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,7 +438,7 @@ CREATE TABLE `plano_precos` (
   PRIMARY KEY (`id`),
   KEY `FK_precos#planos#plano_id` (`plano_id`),
   CONSTRAINT `FK_precos#planos#plano_id` FOREIGN KEY (`plano_id`) REFERENCES `plano` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -444,6 +447,7 @@ CREATE TABLE `plano_precos` (
 
 LOCK TABLES `plano_precos` WRITE;
 /*!40000 ALTER TABLE `plano_precos` DISABLE KEYS */;
+INSERT INTO `plano_precos` VALUES (1,'Preço 1','Sim',1,120.00);
 /*!40000 ALTER TABLE `plano_precos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -548,7 +552,7 @@ CREATE TABLE `submenus` (
   PRIMARY KEY (`id`),
   KEY `FK_submenus#menus#menu_id` (`menu_id`),
   CONSTRAINT `FK_submenus#menus#menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -557,6 +561,7 @@ CREATE TABLE `submenus` (
 
 LOCK TABLES `submenus` WRITE;
 /*!40000 ALTER TABLE `submenus` DISABLE KEYS */;
+INSERT INTO `submenus` VALUES (1,'Cadastrar Exames','exames/add','Sim',4);
 /*!40000 ALTER TABLE `submenus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -615,7 +620,7 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `uk_email` (`email`,`tipo`,`empresa_id`),
   KEY `users_empresa_id_foreign` (`empresa_id`),
   CONSTRAINT `users_empresa_id_foreign` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -677,4 +682,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-13 17:54:34
+-- Dump completed on 2022-07-15 17:53:52
