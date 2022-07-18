@@ -238,7 +238,7 @@ CREATE TABLE `menus` (
 
 LOCK TABLES `menus` WRITE;
 /*!40000 ALTER TABLE `menus` DISABLE KEYS */;
-INSERT INTO `menus` VALUES (1,'Agenda Médica','#','Sim','far fa-calendar-alt',1),(2,'Agendamento Online','#','Sim','far fa-calendar-check',2),(3,'Manutenção de Cadastro','#','Sim','far fa-user',3),(4,'Pedido de Exames','#','Sim','far fa-laptop-medical',4),(5,'Prescrição Eletrônica','#','Sim','fal fa-files-medical',5),(6,'Prontuário Eletrônico','#','Sim','fal fa-book',6),(7,'Relatórios','#','Sim','fal fa-chart-line',7);
+INSERT INTO `menus` VALUES (1,'Agenda Médica','#','Sim','far fa-calendar-alt',1),(2,'Agendamento Online','#','Sim','far fa-calendar-check',2),(3,'Manutenção de Cadastro','#','Sim','far fa-user',3),(4,'Pedido de Exames','#','Sim','far fa-address-book',4),(5,'Prescrição Eletrônica','#','Sim','fal fa-files-medical',5),(6,'Prontuário Eletrônico','#','Sim','fal fa-book',6),(7,'Relatórios','#','Sim','fal fa-chart-line',7);
 /*!40000 ALTER TABLE `menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -682,4 +682,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-18  7:50:39
+-- Dump completed on 2022-07-18 17:48:47
