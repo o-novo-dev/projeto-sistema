@@ -7,9 +7,12 @@ function model(){
   if (count($opt) > 0){
     $filename = isset($opt['m']) ? $opt['m'] : $opt['all'];
     $tabela = $opt['t'];
+    $reescrever = isset($opt['s']) ? $opt['s'] : "n";
   } else {
     $filename = readline("Nome do Arquivo:");
     $tabela = readline("Nome da Tabela:");
+    if (file_exists("./src/model/{$filename}.php"))
+      $reescrever = readline("Sobrescrever o Arquivo? (s/n)");
   }
   
   $con = new conectDB();
@@ -26,7 +29,7 @@ function model(){
       'select' => null,
       'required' => ".($value->Null == 'NO' ? "false" : 'true').",
       'disabled' => false,
-      'type' => ".($value->Key == 'PRI' ? 'hidden' : ($value->Field == 'ativo' ? 'hidden' : 'text')).",
+      'type' => '".($value->Key == 'PRI' ? 'hidden' : ($value->Field == 'ativo' ? 'hidden' : 'text'))."',
       'col' => '12',
       'order' => {$key}
     ];\n";
@@ -48,11 +51,13 @@ function model(){
     }
   }
 
-  $file = "
+  $filename = "data".ucfirst($filename);
+
+  $content = "
 <?php
 require_once('./src/base/model.php');
 
-class data{$filename} extends model {
+class {$filename} extends model {
 
   function  __construct() {
     \$this->table = '{$tabela}';
@@ -97,7 +102,13 @@ class data{$filename} extends model {
 
 }";
 
-  echo $file;
+  echo $content;
+
+  if (file_exists("./src/model/{$filename}.php"))
+    echo "Arquivo encontrado";
+    
+  if ($reescrever == "s")
+    file_put_contents("./src/model/{$filename}.php", $content);
 }
 #endregion
 
