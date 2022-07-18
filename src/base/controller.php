@@ -30,6 +30,7 @@ class controller extends conectDB {
     }
 
     protected function viewLogado($views){
+      $this->data['menus'] = getModel('dataContratos')->getMenus();
       extract($this->data);
       extract($_SESSION);
       include("./src/pages/layout/header_logado.php");

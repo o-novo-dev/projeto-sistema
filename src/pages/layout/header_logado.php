@@ -253,13 +253,46 @@ foreach($arr as $obj){
                 <li class="menu-item has-active">
                   <a href="index.html" class="menu-link"><span class="menu-icon fas fa-home"></span> <span class="menu-text">Dashboard</span></a>
                 </li><!-- /.menu-item -->
+
+                <?php 
+                 foreach ($menus as $key => $menu) {
+                  if (count($menu->submenus) == 0) {
+                    echo "
+                    <li class='menu-item'>
+                      <a href='{BASE_URL}{$menu->link}' class='menu-link'>
+                        <span class='menu-icon {$menu->icone}'></span> 
+                        <span class='menu-text'>{$menu->nome}</span>
+                      </a>
+                    </li>";
+                  } else {
+                    echo "
+                    <li class='menu-item has-child'>
+                      <a href='#' class='menu-link'>
+                        <span class='menu-icon {$menu->icone}'></span> 
+                        <span class='menu-text'>{$menu->nome}</span>
+                      </a>
+                      <ul class='menu'>
+                    ";
+                    
+                    foreach ($menu->submenus as $key => $submenu) {
+                      echo "
+                      <li class='menu-item'>
+                        <a href='{$submenu->link}' class='menu-link'>{$submenu->nome}</a>
+                      </li>
+                      ";
+                    }
+                    echo "
+                      </ul>
+                    </li>
+                    ";
+                  }
+                }
+                ?>
                 <!-- .menu-item -->
                 <li class="menu-item has-child">
                   <a href="#" class="menu-link"><span class="menu-icon far fa-file"></span> <span class="menu-text">App Pages</span> <span class="badge badge-warning">New</span></a> <!-- child menu -->
                   <ul class="menu">
-                    <li class="menu-item">
-                      <a href="page-clients.html" class="menu-link">Clients</a>
-                    </li>
+                    
                     <li class="menu-item">
                       <a href="page-teams.html" class="menu-link">Teams</a>
                     </li>
