@@ -17,12 +17,17 @@ class contratos extends controller {
   public function index(){
 
     if (!$this->contratos->doGravarAjax()){
-
+      $this->data['view_perfil'] = 'perfil';
+      $this->data['detalhes'] = 'contratos';
+      
       $this->addJS('contratos.js');
   
-      $this->viewLogado('./pages/contratos/index.php');
-  
-      $this->view('./pages/contratos/index.php');
+      $this->viewLogado([
+        "./src/pages/usuario/layout/header.php", 
+        "./src/pages/usuario/layout/menu.php", 
+        "./src/pages/contratos/index.php", 
+        "./src/pages/usuario/layout/footer.php"
+      ]);  
     }
   }
 

@@ -150,34 +150,45 @@ class dataContratos extends model {
   }
 
   public function getMenus(){
-    $sql = "
-      SELECT DISTINCT g.id, g.nome, g.icone, g.link, g.ordem
+    $sqlModulo = "
+      SELECT DISTINCT e.id, e.nome
         FROM contratos a
-      INNER JOIN plano b ON a.plano_id = b.id
-      INNER JOIN plano_tipos c ON b.plano_tipo_id = c.id
-      INNER JOIN plano_detalhes d ON b.id = d.plano_id
-      INNER JOIN modulos e ON d.modulo_id = e.id
-      INNER JOIN modulos_menus f ON e.id = f.modulo_id
-      INNER JOIN menus g ON f.menu_id = g.id
-      WHERE a.ativo = 'Sim'
-        AND a.empresa_id = :empresa_id
-        AND a.status = 'Pago'
-        AND g.ativo = 'Sim'
-        AND f.ativo = 'Sim'
-      ORDER BY g.ordem DESC
+       INNER JOIN plano b ON a.plano_id = b.id
+       INNER JOIN plano_tipos c ON b.plano_tipo_id = c.id
+       INNER JOIN plano_detalhes d ON b.id = d.plano_id
+       INNER JOIN modulos e ON d.modulo_id = e.id
+       WHERE a.ativo = 'Sim'
+         AND a.empresa_id = :empresa_id
+         AND a.status = 'Pago'
+         AND b.ativo = 'Sim'
+         AND c.ativo = 'Sim'
+         AND d.ativo = 'Sim'
+         AND e.ativo = 'Sim'
     ";
-    $menus = $this->select($sql, ['empresa_id' => $_SESSION['usuario']->empresa_id]);
-    foreach ($menus as $key => $menu) {
-      
-      $menus[$key]->submenus = $this->select("
-        SELECT id, nome, link, ativo, menu_id 
-          FROM submenus 
-         WHERE menu_id = :menu_id
-           AND ativo = 'Sim'
-      ", ['menu_id' => $menu->id]);
-    }
+    $modulos = $this->select($sqlModulo, ['empresa_id' => $_SESSION['usuario']->empresa_id]);
+    foreach ($modulos as $key => $modulo) {      
+      $sqlMenu = "
+        SELECT b.id, b.nome, b.icone, b.link, b.ordem
+          FROM modulos_menus a
+         INNER JOIN menus b ON a.menu_id = b.id
+         WHERE a.ativo = 'Sim'
+           AND a.modulo_id = :modulo_id
+           AND b.ativo = 'Sim'
+         ORDER BY b.ordem DESC
+      ";
 
-    return $menus;
+      $modulos[$key]->menus = $this->select($sqlMenu, ['modulo_id' => $modulo->id]);
+
+      foreach ($modulos[$key]->menus as $key1 => $menu) {        
+        $modulos[$key]->menus[$key1]->submenus = $this->select("
+          SELECT id, nome, link, ativo, menu_id 
+            FROM submenus 
+          WHERE menu_id = :menu_id
+            AND ativo = 'Sim'
+        ", ['menu_id' => $menu->id]);
+      }
+    }
+      return $modulos;
   }
 
 }

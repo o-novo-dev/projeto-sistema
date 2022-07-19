@@ -116,70 +116,6 @@ foreach($arr as $obj){
            
             <!-- .top-bar-item -->
             <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
-              <!-- .nav -->
-              <ul class="header-nav nav">
-                <!-- .nav-item -->
-                <li class="nav-item dropdown header-nav-dropdown has-notified">
-                  <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-envelope-open"></span></a> <!-- .dropdown-menu -->
-                  <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
-                    <div class="dropdown-arrow"></div>
-                    <h6 class="dropdown-header stop-propagation">
-                      <span>Mensagens</span> <!-- <a href="#">Mark all as read</a> -->
-                    </h6><!-- .dropdown-scroll -->
-                    <div class="dropdown-scroll perfect-scrollbar">
-                      
-                      <!-- .dropdown-item -->
-                      <a href="#" class="dropdown-item">
-                        <div class="user-avatar">
-                          <img src="<?= ASSETS_URL ?>/assets/images/avatars/team2.png" alt="">
-                        </div>
-                        <div class="dropdown-item-body">
-                          <p class="subject"> Creative Division </p>
-                          <p class="text text-truncate"> Need some feedback on this please </p><span class="date">2 days ago</span>
-                        </div>
-                      </a> <!-- /.dropdown-item -->
-                      <!-- .dropdown-item -->
-                      <a href="#" class="dropdown-item">
-                        <div class="tile tile-circle bg-pink"> LD </div>
-                        <div class="dropdown-item-body">
-                          <p class="subject"> Lab Drill </p>
-                          <p class="text text-truncate"> Our UX exercise is ready </p><span class="date">6 days ago</span>
-                        </div>
-                      </a> <!-- /.dropdown-item -->
-                    </div><!-- /.dropdown-scroll -->
-                    <a href="#page-messages.html" class="dropdown-footer">Todas Mensagens <i class="fas fa-fw fa-long-arrow-alt-right"></i></a>
-                  </div><!-- /.dropdown-menu -->
-                </li><!-- /.nav-item -->
-                <!-- .nav-item -->
-                <li class="nav-item dropdown header-nav-dropdown">
-                  <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="oi oi-grid-three-up"></span></a> <!-- .dropdown-menu -->
-                  <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
-                    <div class="dropdown-arrow"></div><!-- .dropdown-sheets -->
-                    <div class="dropdown-sheets">
-                      <!-- .dropdown-sheet-item -->
-                      <div class="dropdown-sheet-item">
-                        <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-indigo"><i class="oi oi-people"></i></span> <span class="tile-peek">Teams</span></a>
-                      </div><!-- /.dropdown-sheet-item -->
-                      <!-- .dropdown-sheet-item -->
-                      <div class="dropdown-sheet-item">
-                        <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-teal"><i class="oi oi-fork"></i></span> <span class="tile-peek">Projects</span></a>
-                      </div><!-- /.dropdown-sheet-item -->
-                      <!-- .dropdown-sheet-item -->
-                      <div class="dropdown-sheet-item">
-                        <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-pink"><i class="fa fa-tasks"></i></span> <span class="tile-peek">Tasks</span></a>
-                      </div><!-- /.dropdown-sheet-item -->
-                      <!-- .dropdown-sheet-item -->
-                      <div class="dropdown-sheet-item">
-                        <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-yellow"><i class="oi oi-fire"></i></span> <span class="tile-peek">Feeds</span></a>
-                      </div><!-- /.dropdown-sheet-item -->
-                      <!-- .dropdown-sheet-item -->
-                      <div class="dropdown-sheet-item">
-                        <a href="#" class="tile-wrapper"><span class="tile tile-lg bg-cyan"><i class="oi oi-document"></i></span> <span class="tile-peek">Files</span></a>
-                      </div><!-- /.dropdown-sheet-item -->
-                    </div><!-- .dropdown-sheets -->
-                  </div><!-- .dropdown-menu -->
-                </li><!-- /.nav-item -->
-              </ul><!-- /.nav -->
               <!-- .btn-account -->
               <div class="dropdown d-flex">
                 <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -193,7 +129,7 @@ foreach($arr as $obj){
                 </button> <!-- .dropdown-menu -->
                 <div class="dropdown-menu">
                   <div class="dropdown-arrow ml-3"></div>
-                  <h6 class="dropdown-header d-none d-md-block d-lg-none"> Beni Arisandi </h6>
+                  <h6 class="dropdown-header d-none d-md-block d-lg-none"> <?= $usuario->nome ?> </h6>
                   <a class="dropdown-item" href="<?= BASE_URL ?>/usuario/perfil"><span class="dropdown-icon oi oi-person"></span> Profile</a> 
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="<?= BASE_URL ?>/usuario/logout"><span class="dropdown-icon oi oi-account-logout"></span> Logout</a>
@@ -216,14 +152,14 @@ foreach($arr as $obj){
             <!-- .btn-account -->
             <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside">
               <span class="user-avatar user-avatar-lg">
-                <img src="<?= ASSETS_URL ?>/assets/images/avatars/unknown-profile.jpg" alt="">
+                <img src="<?= ASSETS_URL ?>/assets/images/avatars/<?= empty($usuario->avatar) ? "unknown-profile.jpg" : $usuario->avatar ?>" alt="">
               </span> 
               <span class="account-icon">
                 <span class="fa fa-caret-down fa-lg"></span>
               </span> 
               <span class="account-summary">
-                <span class="account-name">Beni Arisandi</span> 
-                <span class="account-description">Marketing Manager</span>
+                <span class="account-name"><?= $usuario->nome ?></span> 
+                <span class="account-description"><?= $usuario->tipo ?></span>
               </span>
             </button> <!-- /.btn-account -->
             <!-- .dropdown-aside -->
@@ -251,184 +187,51 @@ foreach($arr as $obj){
               <ul class="menu">
                 <!-- .menu-item -->
                 <li class="menu-item has-active">
-                  <a href="index.html" class="menu-link"><span class="menu-icon fas fa-home"></span> <span class="menu-text">Dashboard</span></a>
+                  <a href="<?= BASE_URL . '/dashboard' ?>" class="menu-link"><span class="menu-icon fas fa-home"></span> <span class="menu-text">Dashboard</span></a>
                 </li><!-- /.menu-item -->
 
                 <?php 
-                if (count($menus) > 0){
-                  foreach ($menus as $key => $menu) {
-                    if (count($menu->submenus) == 0) {
-                      echo "
-                      <li class='menu-item'>
-                        <a href='{BASE_URL}{$menu->link}' class='menu-link'>
-                          <span class='menu-icon {$menu->icone}'></span> 
-                          <span class='menu-text'>{$menu->nome}</span>
-                        </a>
-                      </li>";
-                    } else {
-                      echo "
-                      <li class='menu-item has-child'>
-                        <a href='#' class='menu-link'>
-                          <span class='menu-icon {$menu->icone}'></span> 
-                          <span class='menu-text'>{$menu->nome}</span>
-                        </a>
-                        <ul class='menu'>
-                      ";
-                      
-                      foreach ($menu->submenus as $key => $submenu) {
+                if (count($modulos) > 0){
+                  foreach ($modulos as $key => $modulo) {
+                    echo "
+                      <li class='menu-header'>{$modulo->nome}</li>
+                    ";
+                  
+                    foreach ($modulo->menus as $key => $menu) {
+                      if (count($menu->submenus) == 0) {
                         echo "
                         <li class='menu-item'>
-                          <a href='{$submenu->link}' class='menu-link'>{$submenu->nome}</a>
+                          <a href='{BASE_URL}{$menu->link}' class='menu-link'>
+                            <span class='menu-icon {$menu->icone}'></span> 
+                            <span class='menu-text'>{$menu->nome}</span>
+                          </a>
+                        </li>";
+                      } else {
+                        echo "
+                        <li class='menu-item has-child'>
+                          <a href='#' class='menu-link'>
+                            <span class='menu-icon {$menu->icone}'></span> 
+                            <span class='menu-text'>{$menu->nome}</span>
+                          </a>
+                          <ul class='menu'>
+                        ";
+                        
+                        foreach ($menu->submenus as $key1 => $submenu) {
+                          echo "
+                          <li class='menu-item'>
+                            <a href='{$submenu->link}' class='menu-link'>{$submenu->nome}</a>
+                          </li>
+                          ";
+                        }
+                        echo "
+                          </ul>
                         </li>
                         ";
                       }
-                      echo "
-                        </ul>
-                      </li>
-                      ";
                     }
                   }
                 }
                 ?>
-                <!-- .menu-item -->
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link"><span class="menu-icon far fa-file"></span> <span class="menu-text">App Pages</span> <span class="badge badge-warning">New</span></a> <!-- child menu -->
-                  <ul class="menu">
-                    
-                    <li class="menu-item">
-                      <a href="page-teams.html" class="menu-link">Teams</a>
-                    </li>
-                    <li class="menu-item has-child">
-                      <a href="#" class="menu-link">Team</a> <!-- grand child menu -->
-                      <ul class="menu">
-                        <li class="menu-item">
-                          <a href="page-team.html" class="menu-link">Overview</a>
-                        </li>
-                        <li class="menu-item">
-                          <a href="page-team-feeds.html" class="menu-link">Feeds</a>
-                        </li>
-                        <li class="menu-item">
-                          <a href="page-team-projects.html" class="menu-link">Projects</a>
-                        </li>
-                        <li class="menu-item">
-                          <a href="page-team-members.html" class="menu-link">Members</a>
-                        </li>
-                      </ul><!-- /grand child menu -->
-                    </li>
-                  </ul><!-- /child menu -->
-                </li><!-- /.menu-item -->
-                <!-- .menu-item -->
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link"><span class="menu-icon oi oi-wrench"></span> <span class="menu-text">Auth</span></a> <!-- child menu -->
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="auth-comingsoon-v1.html" class="menu-link">Coming Soon v1</a>
-                    </li>
-                  </ul><!-- /child menu -->
-                </li><!-- /.menu-item -->
-                <!-- .menu-item -->
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link"><span class="menu-icon oi oi-person"></span> <span class="menu-text">User</span></a> <!-- child menu -->
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="user-profile.html" class="menu-link">Profile</a>
-                    </li>
-                  </ul><!-- /child menu -->
-                </li><!-- /.menu-item -->
-                <!-- .menu-item -->
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link"><span class="menu-icon oi oi-browser"></span> <span class="menu-text">Layouts</span> <span class="badge badge-subtle badge-success">+4</span></a> <!-- child menu -->
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="layout-blank.html" class="menu-link">Blank Page</a>
-                    </li>
-                  </ul><!-- /child menu -->
-                </li><!-- /.menu-item -->
-                <!-- .menu-item -->
-                <li class="menu-item">
-                  <a href="landing-page.html" class="menu-link"><span class="menu-icon fas fa-rocket"></span> <span class="menu-text">Landing Page</span></a>
-                </li><!-- /.menu-item -->
-                <!-- .menu-header -->
-                <li class="menu-header">Interfaces </li><!-- /.menu-header -->
-                <!-- .menu-item -->
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link"><span class="menu-icon oi oi-puzzle-piece"></span> <span class="menu-text">Components</span></a> <!-- child menu -->
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="component-general.html" class="menu-link">General</a>
-                    </li>
-                  </ul><!-- /child menu -->
-                </li><!-- /.menu-item -->
-                <!-- .menu-item -->
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link"><span class="menu-icon oi oi-pencil"></span> <span class="menu-text">Forms</span></a> <!-- child menu -->
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="form-basic.html" class="menu-link">Basic Elements</a>
-                    </li>
-                  </ul><!-- /child menu -->
-                </li><!-- /.menu-item -->
-                <!-- .menu-item -->
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link"><span class="menu-icon fas fa-table"></span> <span class="menu-text">Tables</span></a> <!-- child menu -->
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="table-basic.html" class="menu-link">Basic Table</a>
-                    </li>
-                  </ul><!-- /child menu -->
-                </li><!-- /.menu-item -->
-                <!-- .menu-item -->
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link"><span class="menu-icon oi oi-bar-chart"></span> <span class="menu-text">Collections</span></a> <!-- child menu -->
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="collection-jqvmap.html" class="menu-link">Vector Map</a>
-                    </li>
-                  </ul><!-- /child menu -->
-                </li><!-- /.menu-item -->
-                <!-- .menu-item exemplo de uso do menu
-                <li class="menu-item has-child">
-                  <a href="#" class="menu-link"><span class="menu-icon oi oi-list-rich"></span> <span class="menu-text">Level Menu</span></a> 
-                  <ul class="menu">
-                    <li class="menu-item">
-                      <a href="#" class="menu-link">Menu Item</a>
-                    </li>
-                    <li class="menu-item has-child">
-                      <a href="#" class="menu-link">Menu Item</a> 
-                      <ul class="menu">
-                        <li class="menu-item">
-                          <a href="#" class="menu-link">Child Item</a>
-                        </li>
-                        <li class="menu-item">
-                          <a href="#" class="menu-link">Child Item</a>
-                        </li>
-                        <li class="menu-item has-child">
-                          <a href="#" class="menu-link">Child Item</a> 
-                          <ul class="menu">
-                            <li class="menu-item">
-                              <a href="#" class="menu-link">Grand Child Item</a>
-                            </li>
-                            <li class="menu-item">
-                              <a href="#" class="menu-link">Grand Child Item</a>
-                            </li>
-                            <li class="menu-item">
-                              <a href="#" class="menu-link">Grand Child Item</a>
-                            </li>
-                            <li class="menu-item">
-                              <a href="#" class="menu-link">Grand Child Item</a>
-                            </li>
-                          </ul>
-                        </li>
-                        <li class="menu-item">
-                          <a href="#" class="menu-link">Child Item</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="menu-item">
-                      <a href="#" class="menu-link">Menu Item</a>
-                    </li>
-                  </ul>
-                </li> !-- /.menu-item exemplo do menu-->
               </ul><!-- /.menu -->
             </nav><!-- /.stacked-menu -->
           </div><!-- /.aside-menu -->
