@@ -24,7 +24,7 @@ class dataContratos extends model {
     ];
 
     $this->inputs['nome'] = [
-      'label' => 'nome',
+      'label' => 'Contrato',
       'name' => 'nome',
       'id' => 'nome',
       'value' => '',
@@ -50,7 +50,7 @@ class dataContratos extends model {
     ];
 
     $this->inputs['dt_contrato'] = [
-      'label' => 'dt_contrato',
+      'label' => 'Data Contrato',
       'name' => 'dt_contrato',
       'id' => 'dt_contrato',
       'value' => '',
@@ -62,12 +62,13 @@ class dataContratos extends model {
       'order' => 3
     ];
 
+    $this->planos = getModel('dataPlanos');
     $this->inputs['plano_id'] = [
-      'label' => 'plano_id',
+      'label' => 'Plano',
       'name' => 'plano_id',
       'id' => 'plano_id',
       'value' => '',
-      'select' => null,
+      'select' => $this->planos->selectAll(),
       'required' => false,
       'disabled' => false,
       'type' => 'text',
@@ -79,11 +80,11 @@ class dataContratos extends model {
       'label' => 'empresa_id',
       'name' => 'empresa_id',
       'id' => 'empresa_id',
-      'value' => '',
+      'value' => $_SESSION['usuario']->empresa_id,
       'select' => null,
       'required' => false,
       'disabled' => false,
-      'type' => 'text',
+      'type' => 'hidden',
       'col' => '12',
       'order' => 5
     ];
@@ -129,26 +130,16 @@ class dataContratos extends model {
   }
 
   protected function validate(){
-    
-      if((!isset($_POST['nome'])) or (empty($_POST['nome']))) {
-        echo json_encode([
-          'status' => 'false', 
-          'title' => 'Falhou',
-          'message' => 'Por favor, Preencher o campo nome!',
-        ]);
-        return false;
-      }
-
     return true;
   }  
 
 
   public function selectWhere($where = []){
-    $sql = "SELECT a.id, a.nome, a.plano_tipo_id, a.projeto_id, a.ativo, b.nome as tipo, c.nome as projeto
-              FROM plano a
-             INNER JOIN plano_tipos b ON b.id = a.plano_tipo_id
-             INNER JOIN projetos c ON c.id = a.projeto_id
-             WHERE a.ativo = 'Sim' ";
+    $sql = "SELECT a.id, a.nome, a.plano_id, a.ativo, b.nome as plano
+              FROM contratos a
+             INNER JOIN plano b ON b.id = a.plano_id
+             WHERE a.ativo = 'Sim' 
+               AND a.empresa_id = " . $_SESSION['usuario']->empresa_id;
     $andWhere = [];
     foreach ($where as $key => $value) {
       $sql .= " AND {$value['key']} = :{$value['param']} ";
