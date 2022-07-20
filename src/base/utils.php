@@ -162,7 +162,7 @@ function deleteFile($filename, $dir){
  * 
  * @exemple echo formParaMenuLateral(['Modulo'], 'Cadastro de Modulos', $this->modulos->inputs);
  */
-function formParaMenuLateral($colunas, $titulo, $inputs){
+function formParaMenuLateral($colunas, $titulo, $inputs, $btnAddAtivo = true){
   $row = "";
   foreach ($colunas as $key => $value) {
     $row .= "<th> {$value} </th>";
@@ -176,7 +176,7 @@ function formParaMenuLateral($colunas, $titulo, $inputs){
                           <!-- .card -->
                           <div class='card card-fluid'>
                             <div class='card-header'>
-                              <button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#modalForm'>Adicionar</button>
+                              ". ($btnAddAtivo ? "<button type='button' class='btn btn-outline-primary' data-toggle='modal' data-target='#modalForm'>Adicionar</button>" : "") ."
                             </div>
                             <!-- .card-body -->
                             <div class='card-body'>

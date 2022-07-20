@@ -135,7 +135,9 @@ class dataContratos extends model {
 
 
   public function selectWhere($where = []){
-    $sql = "SELECT a.id, a.nome, a.plano_id, a.ativo, b.nome as plano
+    $sql = "SELECT a.id, a.nome, a.ativo, a.dt_contrato, 
+                   a.plano_id, a.empresa_id, a.status,  a.dt_fim, 
+                   b.nome AS plano
               FROM contratos a
              INNER JOIN plano b ON b.id = a.plano_id
              WHERE a.ativo = 'Sim' 

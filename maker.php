@@ -4,6 +4,15 @@ require_once("./src/base/conectDB.php");
 #region model
 function model(){
   $opt = getopt("c:m:v:a:t:s:");
+
+  if (!isset($opt['m']) || !isset($opt['t'])){
+    if (!isset($opt['m']))
+      echo "abrigatório preencher o nome da modelo. -m";
+    if (!isset($opt['t']))
+      echo "abrigatório preencher o nome da tabela. -t";
+    die();
+  } 
+
   if (count($opt) > 0){
     $filename = isset($opt['m']) ? $opt['m'] : $opt['all'];
     $tabela = $opt['t'];
@@ -115,6 +124,14 @@ class {$filename} extends model {
 #region controller
 function controller() {
   $opt = getopt("c:m:v:a:t:s:");
+  if (!isset($opt['c']) || !isset($opt['t'])){
+    if (!isset($opt['c']))
+      echo "abrigatório preencher o nome da controller. -c";
+    /*if (!isset($opt['t']))
+      echo "abrigatório preencher o nome da tabela. -t";*/
+    die();
+  } 
+
   print_r($opt);
   if (count($opt) > 0){
     $filename = isset($opt['c']) ? $opt['c'] : $opt['all'];
@@ -179,7 +196,14 @@ class {$filename} extends controller {
 #region view
 function view(){
   $opt = getopt("c:m:v:a:t:s:");
-  print_r($opt);
+  if (!isset($opt['v']) || !isset($opt['t'])){
+    if (!isset($opt['v']))
+      echo "abrigatório preencher o nome da modelo. -m";
+    if (!isset($opt['t']))
+      echo "abrigatório preencher o nome da tabela. -t";
+    die();
+  } 
+  
   if (count($opt) > 0){
     $filename = isset($opt['v']) ? $opt['v'] : $opt['all'];
     $tabela = $opt['t'];
@@ -210,8 +234,8 @@ function view(){
         <'row align-items-center'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 d-flex justify-content-end'p>>`,
       language: {
         paginate: {
-          previous: '<i class='fa fa-lg fa-angle-left'></i>',
-          next: '<i class='fa fa-lg fa-angle-right'></i>'
+          previous: '<i class=\"fa fa-lg fa-angle-left\"></i>',
+          next: '<i class=\"fa fa-lg fa-angle-right\"></i>'
         }
       },
       columns: [
@@ -267,13 +291,14 @@ function view(){
    */
   window.addEventListener('load', load);
   ";
+
   echo $content;
 
-  if (file_exists("../public/assets/javascript/view/{$filename}.js"))
+  if (file_exists("./public/assets/javascript/view/{$filename}.js"))
     echo "Arquivo encontrado";
     
   if ($reescrever == "s")
-    file_put_contents("../public/assets/javascript/view/{$filename}.js", $content);
+    file_put_contents("./public/assets/javascript/view/{$filename}.js", $content);
 }
 #endregion
 
@@ -295,18 +320,20 @@ if ($argc > 1){
 
     if (isset($opt['c'])){
       controller();
-    } 
+    } else
     if (isset($opt['m'])){
       model();
-    }
+    } else
     if (isset($opt['v'])){
       view();
-    } 
+    } else
     if (isset($opt['a'])){
       controller();
       model();
       view();
-    } 
+    } else {
+      echo "utilize o help -h para descobrir os parametros.";
+    }
   } 
 } else {
   echo "

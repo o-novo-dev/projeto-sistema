@@ -22,7 +22,7 @@ class contratos extends controller {
           
       $this->addJS('contratos.js');
   
-      $this->data['formParaMenuLateral'] = formParaMenuLateral(['Contrato', 'Plano', 'Data Contrato', 'Data Fim', 'Situação'], 'Planos Contratados', $this->contratos->inputs);
+      $this->data['formParaMenuLateral'] = formParaMenuLateral(['Plano', 'Data Contrato', 'Data Fim', 'Situação'], 'Planos Contratados', $this->contratos->inputs, false);
       $this->viewLogado([
         "./src/pages/usuario/layout/header.php",
         "./src/pages/usuario/layout/menu.php",
@@ -34,7 +34,7 @@ class contratos extends controller {
 
   public function get($id = ''){
     if (empty($id))
-      echo json_encode(['data' => $this->contratos->selectAll()]);
+      echo json_encode(['data' => $this->contratos->selectWhere()]);
     else
       echo json_encode(['data' => $this->contratos->selectWhere(['id' => $id])]);
   }
