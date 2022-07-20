@@ -51,6 +51,8 @@ class usuario extends controller {
       getController('perfil')->doTrocaSenha();
     } else if ($detalhes == 'empresa'){
       getController('perfil')->empresa();
+    } else if ($detalhes == 'contratos'){
+      getController('contratos')->index();
     } 
   }
 

@@ -19,13 +19,14 @@ class contratos extends controller {
     if (!$this->contratos->doGravarAjax()){
       $this->data['view_perfil'] = 'perfil';
       $this->data['detalhes'] = 'contratos';
-      
+          
       $this->addJS('contratos.js');
   
+      $this->data['formParaMenuLateral'] = formParaMenuLateral(['Contrato', 'Plano', 'Data Contrato', 'Data Fim', 'Situação'], 'Planos Contratados', $this->contratos->inputs);
       $this->viewLogado([
-        "./src/pages/usuario/layout/header.php", 
-        "./src/pages/usuario/layout/menu.php", 
-        "./src/pages/contratos/index.php", 
+        "./src/pages/usuario/layout/header.php",
+        "./src/pages/usuario/layout/menu.php",
+        "./src/pages/contratos/index.php",
         "./src/pages/usuario/layout/footer.php"
       ]);  
     }

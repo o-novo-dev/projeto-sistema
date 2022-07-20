@@ -14,8 +14,9 @@
                         <a href="<?= BASE_URL ?>/usuario/perfil" class="nav-link <?=  empty($detalhes) ? "active": "" ?>">Usuário</a> 
                         <a href="<?= BASE_URL ?>/usuario/perfil/enderecos" class="nav-link <?=  $detalhes == "enderecos" ? "active": "" ?>">Endereços</a> 
                         <a href="<?= BASE_URL ?>/usuario/perfil/carteiras" class="nav-link <?=  $detalhes == "carteiras" ? "active": "" ?>">Sua carteira</a> 
-                        <?php if (in_array($usuario->tipo,["Laboratório"])) : ?>
+                        <?php if (in_array($usuario->tipo,["Proprietário"])) : ?>
                         <a href="<?= BASE_URL ?>/usuario/perfil/empresa" class="nav-link <?=  $detalhes == "empresa" ? "active": "" ?>">Dados da Empresa</a> 
+                        <a href="<?= BASE_URL ?>/usuario/perfil/contratos" class="nav-link <?=  $detalhes == "contratos" ? "active": "" ?>">Planos Contratados</a> 
                         <?php endif; ?>
                         <a href="<?= BASE_URL ?>/usuario/perfil/senha" class="nav-link <?=  $detalhes == "senha" ? "active": "" ?>">Trocar senha</a> 
                       </nav><!-- /.nav -->
