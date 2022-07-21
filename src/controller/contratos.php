@@ -22,7 +22,8 @@ class contratos extends controller {
           
       $this->addJS('contratos.js');
   
-      $this->data['formParaMenuLateral'] = formParaMenuLateral(['Plano', 'Data Contrato', 'Data Fim', 'Situação'], 'Planos Contratados', $this->contratos->inputs, false);
+      $this->data['formHTML'] = formParaMenuLateral(['Plano', 'Data Contrato', 'Data Fim', 'Situação'], 'Planos Contratados', $this->contratos->inputs, false);
+
       $this->viewLogado([
         "./src/pages/usuario/layout/header.php",
         "./src/pages/usuario/layout/menu.php",

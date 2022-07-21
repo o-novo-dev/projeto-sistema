@@ -16,12 +16,12 @@ function model(){
   if (count($opt) > 0){
     $filename = isset($opt['m']) ? $opt['m'] : $opt['all'];
     $tabela = $opt['t'];
-    $reescrever = isset($opt['s']) ? $opt['s'] : "n";
+    $reescrever = isset($opt['s']) ? $opt['s'] : "Nao";
   } else {
     $filename = readline("Nome do Arquivo:");
     $tabela = readline("Nome da Tabela:");
     if (file_exists("./src/model/{$filename}.php"))
-      $reescrever = readline("Sobrescrever o Arquivo? (s/n)");
+      $reescrever = readline("Sobrescrever o Arquivo? (Sim/Nao)");
   }
   
   $con = new conectDB();
@@ -116,7 +116,7 @@ class {$filename} extends model {
   if (file_exists("./src/model/{$filename}.php"))
     echo "Arquivo encontrado";
     
-  if ($reescrever == "s")
+  if ($reescrever == "Sim")
     file_put_contents("./src/model/{$filename}.php", $content);
 }
 #endregion
@@ -136,12 +136,12 @@ function controller() {
   if (count($opt) > 0){
     $filename = isset($opt['c']) ? $opt['c'] : $opt['all'];
     //$tabela = $opt['t'];
-    $reescrever = isset($opt['s']) ? $opt['s'] : "n";
+    $reescrever = isset($opt['s']) ? $opt['s'] : "Nao";
   } else {
     $filename = readline("Nome do Arquivo:");
     //$tabela = readline("Nome da Tabela:");
     if (file_exists("./src/controller/{$filename}.php"))
-      $reescrever = readline("Sobrescrever o Arquivo? (s/n)");
+      $reescrever = readline("Sobrescrever o Arquivo? (Sim/Nao)");
   }
   
   
@@ -169,6 +169,8 @@ class {$filename} extends controller {
 
       \$this->addJS('{$filename}.js');
   
+      \$this->data['formParaMenuLateral'] = formParaMenuLateral(['Coluna', 'Coluna', 'Coluna', 'Coluna'], 'Titulo', \$this->contratos->inputs, false);
+
       \$this->viewLogado('./pages/{$filename}/index.php');
   
       \$this->view('./pages/{$filename}/index.php');
@@ -188,7 +190,7 @@ class {$filename} extends controller {
   if (file_exists("./src/controller/{$filename}.php"))
     echo "Arquivo encontrado";
     
-  if ($reescrever == "s")
+  if ($reescrever == "Sim")
     file_put_contents("./src/controller/{$filename}.php", $content);
 }
 #endregion
@@ -207,12 +209,12 @@ function view(){
   if (count($opt) > 0){
     $filename = isset($opt['v']) ? $opt['v'] : $opt['all'];
     $tabela = $opt['t'];
-    $reescrever = isset($opt['s']) ? $opt['s'] : "n";
+    $reescrever = isset($opt['s']) ? $opt['s'] : "Nao";
   } else {
     $filename = readline("Nome do Arquivo:");
     $tabela = readline("Nome da Tabela:");
     if (file_exists("./src/controller/{$filename}.php"))
-      $reescrever = readline("Sobrescrever o Arquivo? (s/n)");
+      $reescrever = readline("Sobrescrever o Arquivo? (Sim/Nao)");
   }
 
   $con = new conectDB();
@@ -297,8 +299,20 @@ function view(){
   if (file_exists("./public/assets/javascript/view/{$filename}.js"))
     echo "Arquivo encontrado";
     
-  if ($reescrever == "s")
+  if ($reescrever == "Sim")
     file_put_contents("./public/assets/javascript/view/{$filename}.js", $content);
+
+  $content = "
+  <?= \$formHTML ?>
+  ";
+
+  echo $content;
+
+  if (file_exists("./src/pages/{$filename}/index.php"))
+    echo "Arquivo encontrado";
+    
+  if ($reescrever == "Sim")
+    file_put_contents("./src/pages/{$filename}/index.php", $content);
 }
 #endregion
 
@@ -306,14 +320,24 @@ function view(){
 if ($argc > 1){
   if ($argv[1] == '-h'){
     echo "
+    /*****************************************************************************/
+    /******************** Maker.php Developer Help *******************************/
+    /*****************************************************************************/
+    /*****************************************************************************/
+
     help - argumentos obrigatórios
 
-    -c [filename] => Controller
-    -m [filename] => Model
-    -v [filename] => View
-    -a --all [filename] => Todas opções acima
-    -t [Nome] => Tabela do banco de dados
-    -s [s/n] => sobrescrever?
+    usage: php maker.php -c usuario -t tbl_usuario -s Sim
+    usage: php maker.php -m usuario -t tbl_usuario -s Sim
+    usage: php maker.php -v usuario -t tbl_usuario -s Sim
+
+    -c          Controller
+    -m          Model
+    -v          View
+    -r          Relatório
+    -a --all    Todas opções acima
+    -t          Tabela do banco de dados
+    -s          Sim/Não => Sobrescrever?
     ";
   } else {
     $opt = getopt("c:m:v:a:t:s:");

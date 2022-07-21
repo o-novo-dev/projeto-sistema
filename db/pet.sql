@@ -229,7 +229,7 @@ CREATE TABLE `menus` (
   `icone` varchar(100) NOT NULL,
   `ordem` int(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,7 +238,7 @@ CREATE TABLE `menus` (
 
 LOCK TABLES `menus` WRITE;
 /*!40000 ALTER TABLE `menus` DISABLE KEYS */;
-INSERT INTO `menus` VALUES (1,'Agenda Médica','#','Sim','far fa-calendar-alt',1),(2,'Agendamento Online','#','Sim','far fa-calendar-check',2),(3,'Manutenção de Cadastro','#','Sim','far fa-user',3),(4,'Pedido de Exames','#','Sim','far fa-address-book',4),(5,'Prescrição Eletrônica','#','Sim','fal fa-files-medical',5),(6,'Prontuário Eletrônico','#','Sim','fal fa-book',6),(7,'Relatórios','#','Sim','fal fa-chart-line',7);
+INSERT INTO `menus` VALUES (1,'Agenda Médica','agenda','Sim','far fa-calendar-alt',1),(2,'Cadastros','#','Sim','far fa-calendar-check',2),(3,'Prontuário Eletrônico','prontuario/novo','Sim','far fa-user',3),(4,'Prescrição Eletrônica','prescricao/novo','Sim','far fa-address-book',4),(5,'Relatórios','#','Sim','fal fa-files-medical',5),(6,'Relacionamento','#','Sim','fal fa-book',6),(7,'Configurações Personalizadas','#','Sim','fal fa-chart-line',7),(8,'Controle financeiro','#','Sim','far fa-address-book',8),(9,'Controle de estoque','#','Sim','far fa-address-book',9),(10,'Relatórios financeiros','#','Sim','far fa-address-book',10),(11,'','','Sim','far fa-address-book',11);
 /*!40000 ALTER TABLE `menus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +254,7 @@ CREATE TABLE `modulos` (
   `nome` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,7 +263,7 @@ CREATE TABLE `modulos` (
 
 LOCK TABLES `modulos` WRITE;
 /*!40000 ALTER TABLE `modulos` DISABLE KEYS */;
-INSERT INTO `modulos` VALUES (1,'Cadastro de Pet','Sim'),(2,'Prontuário Eletrônico','Sim'),(3,'Prescrição Eletrônica','Sim'),(4,'Agenda Médica','Sim'),(5,'Agendamento Online','Sim'),(6,'Pedido de Exames','Sim'),(7,'Relatórios','Sim');
+INSERT INTO `modulos` VALUES (1,'Agenda','Sim'),(2,'Cadastro','Sim'),(3,'Prontuário Eletrônico','Sim'),(4,'Prescrição Eletrônica','Sim'),(5,'Relatórios','Sim'),(6,'Relacionamento','Sim'),(7,'Configurações Personalizadas','Sim'),(8,'Controle financeiro','Sim'),(9,'Controle de estoque','Sim'),(10,'Relatórios financeiros','Sim');
 /*!40000 ALTER TABLE `modulos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -489,7 +489,7 @@ CREATE TABLE `produtos` (
   `ativo` enum('Sim','Não') NOT NULL,
   `dt_cadastro` date NOT NULL,
   `valor` decimal(10,2) NOT NULL,
-  `tipo` enum('Serviço','Produto') NOT NULL,
+  `tipo` enum('Serviço','Produto','Exame') NOT NULL,
   `usuario_id` bigint(20) NOT NULL,
   `empresa_id` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`id`),
@@ -552,7 +552,7 @@ CREATE TABLE `submenus` (
   PRIMARY KEY (`id`),
   KEY `FK_submenus#menus#menu_id` (`menu_id`),
   CONSTRAINT `FK_submenus#menus#menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -561,7 +561,7 @@ CREATE TABLE `submenus` (
 
 LOCK TABLES `submenus` WRITE;
 /*!40000 ALTER TABLE `submenus` DISABLE KEYS */;
-INSERT INTO `submenus` VALUES (1,'Cadastrar Exames','exames/add','Sim',4);
+INSERT INTO `submenus` VALUES (1,'Paciente','pacientes/view','Sim',2),(2,'Prestadores','prestadores/view','Sim',2),(3,'Unidades','clinicas/view','Sim',2),(5,'Serviços','produtos/servico/view','Sim',2),(7,'Produtos','produtos/view','Sim',2),(8,'Fornecedores','fornecedores/view','Sim',2),(9,'Exames','pacientes/relatorio','Sim',5),(11,'Prestadores','prestadores/relatorio','Sim',5);
 /*!40000 ALTER TABLE `submenus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -682,4 +682,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-18 17:48:47
+-- Dump completed on 2022-07-21 17:59:42
