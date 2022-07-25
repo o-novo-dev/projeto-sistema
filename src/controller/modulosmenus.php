@@ -17,6 +17,10 @@
 
       $this->modulosmenus = getModel('dataModulosMenus', $id);
       $data = getModel('dataModulos')->selectWhere(['id' => $id]);
+      $this->data['id'] = $id;
+      $this->data['view_perfil'] = 'modulo';
+      $this->data['detalhes'] = '';
+
       if (count($data) > 0){
         if (!$this->modulosmenus->doGravarAjax()){
           

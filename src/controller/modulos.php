@@ -15,7 +15,9 @@
 
     public function index(){
       if (!$this->modulos->doGravarAjax()){
-      
+        $this->data['view_perfil'] = 'modulo';
+        $this->data['detalhes'] = '';
+
         $this->addJS('modulos.js');
         $this->viewLogado([
           "./src/pages/usuario/layout/header.php", 

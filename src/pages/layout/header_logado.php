@@ -193,9 +193,9 @@ foreach($arr as $obj){
                 <?php 
                 if (count($modulos) > 0){
                   foreach ($modulos as $key => $modulo) {
-                    echo "
-                      <li class='menu-header'>{$modulo->nome}</li>
-                    ";
+                    // echo "
+                    //   <li class='menu-header'>{$modulo->nome}</li>
+                    // ";
                   
                     foreach ($modulo->menus as $key => $menu) {
                       if (count($menu->submenus) == 0) {
