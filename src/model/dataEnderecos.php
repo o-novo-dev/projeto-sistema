@@ -4,7 +4,7 @@ require_once("./src/base/model.php");
 class dataEnderecos extends model {
 
   function  __construct() {
-    $this->table = 'enderecos';
+    $this->table = 'cad_enderecos';
     $this->pk = "id";
     parent::__construct();
     $principal = [
@@ -79,7 +79,7 @@ class dataEnderecos extends model {
     $this->afterUpdate = function($data) {
       $id = $data['id'];
       if($_POST['principal'] == 'Sim'){
-        $this->update("UPDATE enderecos SET principal = 'Não' WHERE usuario_id = {$_SESSION['usuario']->id} AND id NOT IN ({$id})");
+        $this->update("UPDATE cad_enderecos SET principal = 'Não' WHERE usuario_id = {$_SESSION['usuario']->id} AND id NOT IN ({$id})");
       }
     };
   }

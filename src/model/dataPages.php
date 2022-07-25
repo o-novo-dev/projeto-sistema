@@ -4,7 +4,7 @@ require_once("./src/base/model.php");
 class dataPages extends model {
 
   function  __construct($id = '') {
-    $this->table = 'pages';
+    $this->table = 'dev_pages';
     $this->pk = "id";
     parent::__construct();
 

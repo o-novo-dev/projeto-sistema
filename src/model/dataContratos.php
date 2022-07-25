@@ -5,7 +5,7 @@ require_once('./src/base/model.php');
 class dataContratos extends model {
 
   function  __construct() {
-    $this->table = 'contratos';
+    $this->table = 'cad_contratos';
     $this->pk = 'id';
     parent::__construct();
 
@@ -138,8 +138,8 @@ class dataContratos extends model {
     $sql = "SELECT a.id, a.nome, a.ativo, a.dt_contrato, 
                    a.plano_id, a.empresa_id, a.status,  a.dt_fim, 
                    b.nome AS plano
-              FROM contratos a
-             INNER JOIN plano b ON b.id = a.plano_id
+              FROM cad_contratos a
+             INNER JOIN dev_plano b ON b.id = a.plano_id
              WHERE a.ativo = 'Sim' 
                AND a.empresa_id = " . $_SESSION['usuario']->empresa_id;
     $andWhere = [];
@@ -154,11 +154,11 @@ class dataContratos extends model {
   public function getMenus(){
     $sqlModulo = "
       SELECT DISTINCT e.id, e.nome
-        FROM contratos a
-       INNER JOIN plano b ON a.plano_id = b.id
-       INNER JOIN plano_tipos c ON b.plano_tipo_id = c.id
-       INNER JOIN plano_detalhes d ON b.id = d.plano_id
-       INNER JOIN modulos e ON d.modulo_id = e.id
+        FROM cad_contratos a
+       INNER JOIN dev_plano b ON a.plano_id = b.id
+       INNER JOIN dev_plano_tipos c ON b.plano_tipo_id = c.id
+       INNER JOIN dev_plano_detalhes d ON b.id = d.plano_id
+       INNER JOIN dev_modulos e ON d.modulo_id = e.id
        WHERE a.ativo = 'Sim'
          AND a.empresa_id = :empresa_id
          AND a.status = 'Pago'
@@ -171,8 +171,8 @@ class dataContratos extends model {
     foreach ($modulos as $key => $modulo) {      
       $sqlMenu = "
         SELECT b.id, b.nome, b.icone, b.link, b.ordem
-          FROM modulos_menus a
-         INNER JOIN menus b ON a.menu_id = b.id
+          FROM dev_modulos_menus a
+         INNER JOIN dev_menus b ON a.menu_id = b.id
          WHERE a.ativo = 'Sim'
            AND a.modulo_id = :modulo_id
            AND b.ativo = 'Sim'
@@ -184,7 +184,7 @@ class dataContratos extends model {
       foreach ($modulos[$key]->menus as $key1 => $menu) {        
         $modulos[$key]->menus[$key1]->submenus = $this->select("
           SELECT id, nome, link, ativo, menu_id 
-            FROM submenus 
+            FROM dev_submenus 
           WHERE menu_id = :menu_id
             AND ativo = 'Sim'
         ", ['menu_id' => $menu->id]);

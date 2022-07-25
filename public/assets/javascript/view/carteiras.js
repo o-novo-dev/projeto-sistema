@@ -26,7 +26,7 @@ const load = (e) => {
         let dataRow = JSON.stringify(row);
         return `
         <a class="btn btn-sm btn-icon btn-secondary" data-row='${dataRow}' data-toggle="modal" href="#modalFormCarteira"><i class="fa fa-pencil-alt"></i></a>
-        <a class="btn btn-sm btn-icon btn-secondary" data-row='${dataRow}' data-toggle="modal" href="#modalFormDelete" data-tabela="cartoes" data-campo="ativo" data-valor="Não" data-datatable="data-carteira"><i class="far fa-trash-alt"></i></a>
+        <a class="btn btn-sm btn-icon btn-secondary" data-row='${dataRow}' data-toggle="modal" href="#modalFormDelete" data-tabela="cad_cartoes" data-campo="ativo" data-valor="Não" data-datatable="data-carteira"><i class="far fa-trash-alt"></i></a>
         `
       }
     }]

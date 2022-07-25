@@ -4,7 +4,7 @@ require_once("./src/base/model.php");
 class dataModulosMenus extends model {
 
   function  __construct($id = '') {
-    $this->table = 'modulos_menus';
+    $this->table = 'dev_modulos_menus';
     $this->pk = "id";
     parent::__construct();
 
@@ -41,8 +41,8 @@ class dataModulosMenus extends model {
 
   public function selectWhere($where = []){   
     $sql = "SELECT a.id, a.nome, a.ativo, a.modulo_id, a.menu_id, b.nome as menu
-              FROM modulos_menus a
-             INNER JOIN menus b on b.id = a.menu_id
+              FROM dev_modulos_menus a
+             INNER JOIN dev_menus b on b.id = a.menu_id
              WHERE a.ativo = 'Sim'
                AND b.ativo = 'Sim' ";
     foreach ($where as $key => $value) {

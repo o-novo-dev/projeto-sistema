@@ -4,7 +4,7 @@ require_once("./src/base/model.php");
 class dataPlanoDetalhes extends model {
 
   function  __construct($id = '') {
-    $this->table = 'plano_detalhes';
+    $this->table = 'dev_plano_detalhes';
     $this->pk = "id";
     parent::__construct();
 
@@ -78,9 +78,9 @@ class dataPlanoDetalhes extends model {
 
   public function selectWhere($where = []){
     $sql = "SELECT a.id, a.nome, a.ativo, a.plano_id, a.modulo_id, b.nome as plano, c.nome as modulo, a.ordem
-              FROM plano_detalhes a
-             INNER JOIN plano b ON a.plano_id = b.id
-             INNER JOIN modulos c ON a.modulo_id = c.id
+              FROM dev_plano_detalhes a
+             INNER JOIN dev_plano b ON a.plano_id = b.id
+             INNER JOIN dev_modulos c ON a.modulo_id = c.id
              WHERE a.ativo = 'Sim'
                AND b.ativo = 'Sim'
                AND c.ativo = 'Sim' ";

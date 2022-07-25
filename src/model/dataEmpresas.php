@@ -5,7 +5,7 @@ require_once("./src/base/model.php");
 class dataEmpresas extends model {
 
   function  __construct() {
-    $this->table = 'empresas';
+    $this->table = 'cad_empresas';
     $this->pk = "id";
     parent::__construct();
     

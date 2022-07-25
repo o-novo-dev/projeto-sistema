@@ -4,7 +4,7 @@ require_once("./src/base/model.php");
 class dataMenus extends model {
 
   function  __construct() {
-    $this->table = 'menus';
+    $this->table = 'dev_menus';
     $this->pk = "id";
     parent::__construct();
 

@@ -137,9 +137,9 @@ class data[Tabela] extends model {
   /*
   public function selectWhere($where = []){
     $sql = "SELECT a.id, a.nome, a.plano_tipo_id, a.projeto_id, a.ativo, b.nome as tipo, c.nome as projeto
-              FROM plano a
-             INNER JOIN plano_tipos b ON b.id = a.plano_tipo_id
-             INNER JOIN projetos c ON c.id = a.projeto_id
+              FROM dev_plano a
+             INNER JOIN dev_plano_tipos b ON b.id = a.plano_tipo_id
+             INNER JOIN dev_projetos c ON c.id = a.projeto_id
              WHERE a.ativo = 'Sim' ";
     $andWhere = [];
     foreach ($where as $key => $value) {

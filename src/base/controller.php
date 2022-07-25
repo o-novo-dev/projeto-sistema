@@ -13,7 +13,7 @@ class controller extends conectDB {
       $this->arrJS = [];
 
       if (!isset($_SESSION['projeto'])  ||  $_SESSION['projeto']->dominio !== SUBDOMINIO){
-        $_SESSION['projeto'] = $this->select("SELECT * FROM projetos WHERE dominio = :dominio", ['dominio' => SUBDOMINIO])[0];
+        $_SESSION['projeto'] = $this->select("SELECT * FROM dev_projetos WHERE dominio = :dominio", ['dominio' => SUBDOMINIO])[0];
       }
     }
 

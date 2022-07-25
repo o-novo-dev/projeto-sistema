@@ -4,7 +4,7 @@ require_once("./src/base/model.php");
 class dataCarteira extends model {
 
   function  __construct() {
-    $this->table = 'cartoes';
+    $this->table = 'cad_cartoes';
     $this->pk = "id";
     parent::__construct();
     $tipo = [

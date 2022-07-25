@@ -4,7 +4,7 @@ require_once("./src/base/model.php");
 class dataModulos extends model {
 
   function  __construct() {
-    $this->table = 'modulos';
+    $this->table = 'dev_modulos';
     $this->pk = "id";
     parent::__construct();
 

@@ -24,7 +24,7 @@ const load = (e) => {
         let dataRow = JSON.stringify(row);
         return `
         <a class="btn btn-sm btn-icon btn-secondary" data-row='${dataRow}' data-toggle="modal" href="#modalForm"><i class="fa fa-pencil-alt"></i></a>
-        <a class="btn btn-sm btn-icon btn-secondary" data-row='${dataRow}' data-toggle="modal" href="#modalFormDelete" data-tabela="plano" data-campo="ativo" data-valor="Não" data-datatable="datatable"><i class="far fa-trash-alt"></i></a>
+        <a class="btn btn-sm btn-icon btn-secondary" data-row='${dataRow}' data-toggle="modal" href="#modalFormDelete" data-tabela="dev_plano" data-campo="ativo" data-valor="Não" data-datatable="datatable"><i class="far fa-trash-alt"></i></a>
         <a class="btn btn-sm btn-icon btn-secondary" data-row='${dataRow}' href="${base_url}/usuario/plano/detalhes/${row.id}" role="button" data-toggle="tooltip" data-placement="top" title="Detalhes"><i class="fab fa-elementor"></i></a>
         <a class="btn btn-sm btn-icon btn-secondary" data-row='${dataRow}' href="${base_url}/usuario/plano/precos/${row.id}" role="button" data-toggle="tooltip" data-placement="top" title="Preços"><i class="fab fa-elementor"></i></a>
         `

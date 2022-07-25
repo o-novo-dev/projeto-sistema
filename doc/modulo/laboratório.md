@@ -22,23 +22,23 @@ flowchart LR
 ---
 ```mermaid
 erDiagram
-  usuario ||--|| empresas : "1 -> 1"
-  usuario ||--|| projetos : "1 -> 1"
-  empresas ||--|| atividades : "1 -> 1"
-  empresas ||--|| contratos : "1 -> x"
-  plano ||--|| contratos : "1 -> 1"
-  usuario ||--|{ cartoes : "1 -> x"
+  usuario ||--|| cad_empresas : "1 -> 1"
+  usuario ||--|| dev_projetos : "1 -> 1"
+  cad_empresas ||--|| cad_atividades : "1 -> 1"
+  cad_empresas ||--|| cad_contratos : "1 -> x"
+  dev_plano ||--|| cad_contratos : "1 -> 1"
+  usuario ||--|{ cad_cartoes : "1 -> x"
   usuario ||--|{ enderecos : "1 -> x"
-  menus ||--|{ submenus : "1 -> x"
-  modulos ||--|{ modulos_menus : "1 -> x"
-  menus ||--|{ modulos_menus : "1 -> x"
-  projetos ||--|{ plano "1 -> x"
-  projetos ||--|{ pages "1 -> x"
+  dev_menus ||--|{ dev_submenus : "1 -> x"
+  dev_modulos ||--|{ dev_modulos_menus : "1 -> x"
+  dev_menus ||--|{ dev_modulos_menus : "1 -> x"
+  dev_projetos ||--|{ dev_plano "1 -> x"
+  dev_projetos ||--|{ pages "1 -> x"
   
-  plano_tipos ||--|{ plano "1 -> x"
-  plano_precos ||--|| plano "1 -> x"
-  plano ||--|{ plano_precos "1 -> x"
-  plano ||--|{ plano_detalhes "1 -> x"
+  dev_plano_tipos ||--|{ dev_plano "1 -> x"
+  dev_plano_precos ||--|| dev_plano "1 -> x"
+  dev_plano ||--|{ dev_plano_precos "1 -> x"
+  dev_plano ||--|{ dev_plano_detalhes "1 -> x"
 ```
 ---
 ## Tabelas
@@ -54,12 +54,12 @@ erDiagram
     string avatar
     string cpf_cnpj
     enum ativo "Sim|Não"
-    bigint empresa_id FK "fk_usuario#empresas#id"
+    bigint empresa_id FK "fk_usuario#cad_empresas#id"
     bigint projeto_id FK "fk_usuario#projetos#id"
   }
-  empresas {
+  cad_empresas {
     bigint id PK "Chave Primaria"
-    bigint atividade_id PK "fk_empresas#atividade#id"
+    bigint atividade_id PK "fk_cad_empresas#atividade#id"
     string razao_social
     string nome_fantasia
     string cep
@@ -73,7 +73,7 @@ erDiagram
     date dt_experiencia
     enum ativo "Sim|Não"
   }
-  projetos {
+  dev_projetos {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"
@@ -83,17 +83,17 @@ erDiagram
 ```
 ```mermaid
 erDiagram
-  atividades {
+  cad_atividades {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"
   }
-  modulos {
+  dev_modulos {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"
   }
-  menus {
+  dev_menus {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"
@@ -104,21 +104,21 @@ erDiagram
 ```
 ```mermaid
 erDiagram
-  submenus {
+  dev_submenus {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"
     string link
     bigint menu_id FK "fk_submenus#menus#id"
   }
-  modulos_menus {
+  dev_modulos_menus {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"
     bigint modulo_id FK "fk_modulos_menus#modulos#id"
     bigint menu_id FK "fk_modulos_menus#menus#id"
   }
-  plano_tipos {
+  dev_plano_tipos {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"
@@ -126,14 +126,14 @@ erDiagram
 ```
 ```mermaid
 erDiagram
-  plano {
+  dev_plano {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"
     bigint plano_tipo_id FK "fk_plano#plano_tipos#id"
     bigint projeto_id FK "fk_plano#projetos#id"
   }
-  plano_detalhes {
+  dev_plano_detalhes {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"
@@ -141,7 +141,7 @@ erDiagram
     bigint modulo_id FK "fk_plano_detalhes#modulos#id"
     int ordem
   }
-  plano_precos {
+  dev_plano_precos {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"
@@ -172,7 +172,7 @@ erDiagram
     enum bandeira "Visa|Master Card|Elo|American Express"
     bigint usuario_id FK "fk_cartoes#usuario#id"    
   }
-  contratos {
+  cad_contratos {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"

@@ -4,7 +4,7 @@ require_once("./src/base/model.php");
 class dataPlanoTipos extends model {
 
   function  __construct() {
-    $this->table = 'plano_tipos';
+    $this->table = 'dev_plano_tipos';
     $this->pk = "id";
     parent::__construct();
 

@@ -1,9 +1,9 @@
 <?php
-$arr = $this->query("select * from pages");
+/*$arr = $this->query("select * from dev_pages");
 $pages = [];
 foreach($arr as $obj){
   $pages[$obj->tipo][$obj->param] = $obj->value;
-}
+}*/
 ?>
 <!DOCTYPE html>
 <html lang="en">

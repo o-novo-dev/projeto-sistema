@@ -4,7 +4,7 @@ require_once("./src/base/model.php");
 class dataProjetos extends model {
 
   function  __construct() {
-    $this->table = 'projetos';
+    $this->table = 'dev_projetos';
     $this->pk = "id";
     parent::__construct();
     // $this->modulos = getModel('dataModulos');
