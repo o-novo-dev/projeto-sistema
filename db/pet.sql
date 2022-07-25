@@ -609,13 +609,14 @@ CREATE TABLE `usuario` (
   `nome` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `senha` varchar(64) NOT NULL,
-  `tipo` enum('Proprietário','Cliente','Parceiro') NOT NULL DEFAULT 'Parceiro',
+  `tipo` enum('Proprietário','Cliente','Prestador') NOT NULL DEFAULT 'Prestador',
   `avatar` varchar(255) DEFAULT NULL,
   `cpf_cnpj` varchar(14) DEFAULT NULL,
   `ativo` enum('Sim','Não') DEFAULT 'Sim',
   `telefone` varchar(20) DEFAULT NULL,
   `empresa_id` bigint(20) unsigned DEFAULT NULL,
   `projeto_id` bigint(20) NOT NULL,
+  `nivel_acesso` enum('Proprietario','Administrador','Recepcionista','Prestador') DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_email` (`email`,`tipo`,`empresa_id`),
   KEY `users_empresa_id_foreign` (`empresa_id`),
@@ -629,7 +630,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (5,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Proprietário','391d3d5222ab211ccb0d8b26a1c2381e.jpg','36848874809','Sim','16991838523',24,3),(6,'Admin','matheus.gnu@gmail.com','e10adc3949ba59abbe56e057f20f883e','',NULL,'36848874809','Sim','16991838523',25,4),(9,'Estúdio Cristina Rodrigues','crisphoto5@hotmail.com','81dc9bdb52d04dc20036dbd8313ed055','Parceiro','null','null','Sim','null',24,3),(10,'Cristina rodrigues','creditogames@hotmail.com','202cb962ac59075b964b07152d234b70','Parceiro','','','Sim','',24,3),(18,'Clinica Matheus','matheus.gnu@gmail.com','698dc19d489c4e4db73e28a713eab07b','Parceiro','','','Sim','',24,3);
+INSERT INTO `usuario` VALUES (5,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Proprietário','391d3d5222ab211ccb0d8b26a1c2381e.jpg','36848874809','Sim','16991838523',24,3,NULL),(6,'Matheus PetLabSystem','matheus.gnu@gmail.com','e10adc3949ba59abbe56e057f20f883e','Proprietário',NULL,'36848874809','Sim','16991838523',25,4,NULL),(9,'Estúdio Cristina Rodrigues','crisphoto5@hotmail.com','e10adc3949ba59abbe56e057f20f883e','','','null','Sim','null',24,3,NULL),(10,'Cristina rodrigues','creditogames@hotmail.com','202cb962ac59075b964b07152d234b70','Prestador','','','Sim','',24,3,NULL),(18,'Clinica Matheus','matheus.gnu@gmail.com','698dc19d489c4e4db73e28a713eab07b','Prestador','','','Sim','',24,3,NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -682,4 +683,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-21 17:59:42
+-- Dump completed on 2022-07-25  7:08:17

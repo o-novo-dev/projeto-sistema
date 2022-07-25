@@ -120,7 +120,7 @@ foreach($arr as $obj){
               <div class="dropdown d-flex">
                 <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="user-avatar user-avatar-md">
-                    <img src="<?= ASSETS_URL ?>/assets/images/avatars/<?= empty($usuario->avatar) ? "unknown-profile.jpg" : $usuario->avatar ?>" alt="">
+                    <img src="<?= ASSETS_URL ?>/assets/images/avatars/<?= $usuario->avatar == 'null' ? "unknown-profile.jpg" : $usuario->avatar ?>" alt="">
                   </span> 
                   <span class="account-summary pr-lg-4 d-none d-lg-block">
                     <span class="account-name"><?= $usuario->nome ?></span> 
@@ -152,7 +152,7 @@ foreach($arr as $obj){
             <!-- .btn-account -->
             <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside">
               <span class="user-avatar user-avatar-lg">
-                <img src="<?= ASSETS_URL ?>/assets/images/avatars/<?= empty($usuario->avatar) ? "unknown-profile.jpg" : $usuario->avatar ?>" alt="">
+                <img src="<?= ASSETS_URL ?>/assets/images/avatars/<?= $usuario->avatar == 'null' ? "unknown-profile.jpg" : $usuario->avatar ?>" alt="">
               </span> 
               <span class="account-icon">
                 <span class="fa fa-caret-down fa-lg"></span>
@@ -201,7 +201,7 @@ foreach($arr as $obj){
                       if (count($menu->submenus) == 0) {
                         echo "
                         <li class='menu-item'>
-                          <a href='{BASE_URL}{$menu->link}' class='menu-link'>
+                          <a href='". BASE_URL."/{$menu->link}' class='menu-link'>
                             <span class='menu-icon {$menu->icone}'></span> 
                             <span class='menu-text'>{$menu->nome}</span>
                           </a>
