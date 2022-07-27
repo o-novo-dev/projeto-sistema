@@ -8,8 +8,6 @@ class dataPlanoDetalhes extends model {
     $this->pk = "id";
     parent::__construct();
 
-    $this->modulos = getModel('dataModulos');
-
     $this->inputs['id']['label'] = 'Identificador';
     $this->inputs['id']['order'] = 0;
 
@@ -19,11 +17,6 @@ class dataPlanoDetalhes extends model {
     
     $this->inputs['ativo']['order'] = 2;
     $this->inputs['ativo']['value'] = 'Sim';
-
-    $this->inputs['modulo_id']['label'] = "Modulo";
-    $this->inputs['modulo_id']['select'] = $this->modulos->selectAll();
-    $this->inputs['modulo_id']['order'] = 3;
-    $this->inputs['modulo_id']['required'] = true;
 
     $this->inputs['plano_id']['label'] = "Plano";
     $this->inputs['plano_id']['value'] = $id;
@@ -77,13 +70,11 @@ class dataPlanoDetalhes extends model {
   }
 
   public function selectWhere($where = []){
-    $sql = "SELECT a.id, a.nome, a.ativo, a.plano_id, a.modulo_id, b.nome as plano, c.nome as modulo, a.ordem
+    $sql = "SELECT a.id, a.nome, a.ativo, a.plano_id, a.modulo_id, b.nome as plano, a.ordem
               FROM dev_plano_detalhes a
              INNER JOIN dev_plano b ON a.plano_id = b.id
-             INNER JOIN dev_modulos c ON a.modulo_id = c.id
              WHERE a.ativo = 'Sim'
-               AND b.ativo = 'Sim'
-               AND c.ativo = 'Sim' ";
+               AND b.ativo = 'Sim' ";
     foreach ($where as $key => $value) {
       $sql .= " and {$key} = :{$key} ";
     }

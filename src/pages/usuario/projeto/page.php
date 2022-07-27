@@ -5,7 +5,7 @@
                 <?= getflashdata() ?>
                 <!-- grid row -->
                 <div class="row">
-                  <?php if ($_SESSION['projeto']->id = "3") : ?>
+                  
                   <header class="page-title-bar">
                     <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
@@ -16,7 +16,7 @@
                     </nav>
                     <h1 class="page-title"> Landing Page </h1>
                   </header>
-                  <?php endif; ?>
+                  
                   <!-- grid column -->
                   <div class="col-lg-12">
 

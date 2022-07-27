@@ -3,7 +3,7 @@ require_once("./src/base/model.php");
 
 class dataPages extends model {
 
-  function  __construct($id = '') {
+  function  __construct() {
     $this->table = 'dev_pages';
     $this->pk = "id";
     parent::__construct();
@@ -37,12 +37,6 @@ class dataPages extends model {
     $this->inputs['valueImg']['label'] = "Imagem";
     $this->inputs['valueImg']['order'] = 5;
     $this->inputs['valueImg']['type'] = 'file';
-
-    $this->inputs['projeto_id']['label'] = "Projeto";
-    $this->inputs['projeto_id']['value'] = $id;
-    $this->inputs['projeto_id']['order'] = 6;
-    $this->inputs['projeto_id']['type'] = 'hidden';
-    $this->inputs['projeto_id']['col'] = '6';
 
     $this->inputs['nome']['label'] = "Nome";
     $this->inputs['nome']['order'] = 7;
@@ -101,13 +95,7 @@ class dataPages extends model {
 
   protected function validate(){
     $arrMessage = [];
-    if((!isset($_POST['projeto_id'])) or (empty($_POST['projeto_id']))) { 
-      $arrMessage = [
-        'status' => 'false', 
-        'title' => 'Falhou',
-        'message' => 'Falha ao receber o código do projeto!',
-      ];
-    } else if((!isset($_POST['tipo'])) or (empty($_POST['tipo']))) { 
+    if((!isset($_POST['tipo'])) or (empty($_POST['tipo']))) { 
       $arrMessage = [
         'status' => 'false', 
         'title' => 'Falhou',

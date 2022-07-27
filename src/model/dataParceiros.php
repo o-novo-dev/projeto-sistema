@@ -40,10 +40,6 @@ class dataParceiros extends model {
     $this->inputs['ativo']['value'] = 'Sim';
     $this->inputs['ativo']['type'] = 'hidden';
 
-    $this->inputs['projeto_id']['order'] = 9;
-    $this->inputs['projeto_id']['type'] = 'hidden';
-    $this->inputs['projeto_id']['value'] = $_SESSION['projeto']->id;
-
     $this->inputs['empresa_id']['label'] = "Empresa";
     $this->inputs['empresa_id']['value'] = $id;
     $this->inputs['empresa_id']['order'] = 10;
@@ -89,7 +85,7 @@ class dataParceiros extends model {
    */
 
   public function selectWhere($where = []){
-    $sql = "SELECT id, nome, email, tipo, empresa_id, projeto_id FROM usuario where ativo = 'Sim' and tipo = 'Parceiro' ";
+    $sql = "SELECT id, nome, email, tipo, empresa_id FROM usuario where ativo = 'Sim' and tipo = 'Parceiro' ";
     foreach ($where as $key => $value) {
       $sql .= " and {$key} = :{$key} ";
     }

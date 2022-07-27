@@ -19,29 +19,20 @@ class pages extends controller {
   }
 
   public function index($id){
-    $this->projetos = getModel('dataProjetos');
-    $data = $this->projetos->selectWhere(['id' => $id]);
+    if (!$this->pages->doGravarAjax()){
 
-    if (count($data) > 0){
+      $this->data['view_perfil'] = 'projeto';
+      $this->data['detalhes'] = 'page';
+      $this->data['id'] = $id;
 
-      if (!$this->pages->doGravarAjax()){
-
-        $this->data['view_perfil'] = 'projeto';
-        $this->data['detalhes'] = 'page';
-        $this->data['id'] = $id;
-
-        $this->addJS('pages.js');
-    
-        $this->viewLogado([
-          "./src/pages/usuario/layout/header.php", 
-          "./src/pages/usuario/projeto/page.php", 
-          "./src/pages/usuario/layout/footer.php"
-        ]);
-      }
-    } else {
-      $page404 = new page404();
-      $page404->index();
-    }   
+      $this->addJS('pages.js');
+  
+      $this->viewLogado([
+        "./src/pages/usuario/layout/header.php", 
+        "./src/pages/usuario/projeto/page.php", 
+        "./src/pages/usuario/layout/footer.php"
+      ]);
+    }  
   }
 
   public function get($id = ''){
@@ -49,7 +40,7 @@ class pages extends controller {
       echo json_encode(['data' => $this->pages->selectAll()]);
     else {
       $this->pages = getModel("dataPages", $id);
-      echo json_encode(['data' => $this->pages->selectWhere(['projeto_id' => $id])]);
+      echo json_encode(['data' => $this->pages->selectWhere()]);
     }
   }
 }

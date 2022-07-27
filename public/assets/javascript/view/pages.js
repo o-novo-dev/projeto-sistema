@@ -50,7 +50,6 @@ const load = (e) => {
       document.getElementById('tipo').value = row.tipo
       document.getElementById('param').value = row.param
       document.getElementById('value').value = row.value
-      document.getElementById('projeto_id').value = row.projeto_id;
     }
     //console.log(row);
   })
@@ -63,7 +62,6 @@ const load = (e) => {
     document.getElementById('tipo').value = ''
     document.getElementById('param').value = ''
     document.getElementById('value').value = ''
-    document.getElementById('projeto_id').value = ''
   })
 }
 

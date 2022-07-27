@@ -12,9 +12,9 @@ class controller extends conectDB {
       $this->data['titulo'] = '';
       $this->arrJS = [];
 
-      if (!isset($_SESSION['projeto'])  ||  $_SESSION['projeto']->dominio !== SUBDOMINIO){
+      /*if (!isset($_SESSION['projeto'])  ||  $_SESSION['projeto']->dominio !== SUBDOMINIO){
         $_SESSION['projeto'] = $this->select("SELECT * FROM dev_projetos WHERE dominio = :dominio", ['dominio' => SUBDOMINIO])[0];
-      }
+      }*/
     }
 
     protected function addJS($js){
@@ -30,7 +30,7 @@ class controller extends conectDB {
     }
 
     protected function viewLogado($views){
-      $this->data['modulos'] = getModel('dataContratos')->getMenus();
+      $this->data['menus'] = getModel('dataContratos')->getMenus();
       extract($this->data);
       extract($_SESSION);
       include("./src/pages/layout/header_logado.php");

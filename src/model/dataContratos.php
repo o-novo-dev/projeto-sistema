@@ -158,7 +158,6 @@ class dataContratos extends model {
        INNER JOIN dev_plano b ON a.plano_id = b.id
        INNER JOIN dev_plano_tipos c ON b.plano_tipo_id = c.id
        INNER JOIN dev_plano_detalhes d ON b.id = d.plano_id
-       INNER JOIN dev_modulos e ON d.modulo_id = e.id
        WHERE a.ativo = 'Sim'
          AND a.empresa_id = :empresa_id
          AND a.status = 'Pago'
@@ -171,11 +170,8 @@ class dataContratos extends model {
     foreach ($modulos as $key => $modulo) {      
       $sqlMenu = "
         SELECT b.id, b.nome, b.icone, b.link, b.ordem
-          FROM dev_modulos_menus a
-         INNER JOIN dev_menus b ON a.menu_id = b.id
-         WHERE a.ativo = 'Sim'
-           AND a.modulo_id = :modulo_id
-           AND b.ativo = 'Sim'
+          FROM dev_menus b
+         WHERE b.ativo = 'Sim'
          ORDER BY b.ordem DESC
       ";
 

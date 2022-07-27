@@ -28,7 +28,6 @@ class dataUsuario extends model {
       $data = $this->selectByEmail($arrPost['email']);
       
       if ($data == null){
-        $arrPost['projeto_id'] = $_SESSION['projeto']->id;
         $id = $this->inserirUsuario($arrPost);
         if($id){
           $data = $this->selectByEmail($arrPost['email'])[0];
@@ -58,22 +57,20 @@ class dataUsuario extends model {
       if ($datas == null){
         setflashdata(indicator("Este e-mail não está cadastrado. ", "warning"));
       } else {
-        if($datas[0]->projeto_id !== $_SESSION['projeto']->id){
-          setflashdata(indicator("Este e-mail não está cadastrado. ", "warning"));
+        
+        if($datas[0]->ativo == 'Não'){
+          setflashdata(indicator("Conta desativa. Entre em contato com o administrador. ", "warning"));
         } else {
-          if($datas[0]->ativo == 'Não'){
-            setflashdata(indicator("Conta desativa. Entre em contato com o administrador. ", "warning"));
+          if ($datas[0]->senha == md5($arrPost['senha'])){
+            $datas[0]->senha = '';
+            $_SESSION['usuario'] = $datas[0];
+            setflashdata(indicator("Login realizado com sucesso! ", "success"));
+            redirect("/dashboard");
           } else {
-            if ($datas[0]->senha == md5($arrPost['senha'])){
-              $datas[0]->senha = '';
-              $_SESSION['usuario'] = $datas[0];
-              setflashdata(indicator("Login realizado com sucesso! ", "success"));
-              redirect("/dashboard");
-            } else {
-              setflashdata(indicator("Usuário ou senha estão incorretos. ", "danger"));
-            }
+            setflashdata(indicator("Usuário ou senha estão incorretos. ", "danger"));
           }
         }
+      
       }
     }
   }
@@ -172,10 +169,10 @@ class dataUsuario extends model {
 
   private function inserirUsuario($arr){
     $arr['senha'] = md5($arr['senha']);
-    return $this->insert('insert into usuario (id, nome, email, senha, tipo, projeto_id) values (null, :nome, :email, :senha, :tipo, :projeto_id)', $arr);
+    return $this->insert('insert into usuario (id, nome, email, senha, tipo) values (null, :nome, :email, :senha, :tipo)', $arr);
   }
 
   private function selectByEmail($email){
-    return $this->select('select id, nome, email, tipo, senha, avatar, cpf_cnpj, ativo, telefone, empresa_id, projeto_id from usuario where email = :email', ['email' => $email]);
+    return $this->select('select id, nome, email, tipo, senha, avatar, cpf_cnpj, ativo, telefone, empresa_id from usuario where email = :email', ['email' => $email]);
   }
 }

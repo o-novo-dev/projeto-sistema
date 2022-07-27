@@ -324,62 +324,6 @@ INSERT INTO `dev_menus` VALUES (1,'Agenda Médica','agenda','Sim','fas fa-calend
 UNLOCK TABLES;
 
 --
--- Table structure for table `dev_modulos`
---
-
-DROP TABLE IF EXISTS `dev_modulos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dev_modulos` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) NOT NULL,
-  `ativo` enum('Sim','Não') NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `dev_modulos`
---
-
-LOCK TABLES `dev_modulos` WRITE;
-/*!40000 ALTER TABLE `dev_modulos` DISABLE KEYS */;
-INSERT INTO `dev_modulos` VALUES (1,'Agenda','Sim'),(2,'Prontuário Eletrônico','Sim'),(3,'Prescrição Eletrônica','Sim'),(5,'Relatórios','Sim'),(6,'Relacionamento','Sim'),(8,'Controle financeiro','Sim'),(9,'Controle de estoque','Sim'),(10,'Relatórios financeiros','Sim');
-/*!40000 ALTER TABLE `dev_modulos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `dev_modulos_menus`
---
-
-DROP TABLE IF EXISTS `dev_modulos_menus`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dev_modulos_menus` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) NOT NULL,
-  `ativo` enum('Sim','Não') NOT NULL,
-  `modulo_id` bigint(20) NOT NULL,
-  `menu_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_modulos_menus#modulos` (`modulo_id`),
-  KEY `FK_modulos_menus#menus#menu_id` (`menu_id`),
-  CONSTRAINT `FK_modulos_menus#menus#menu_id` FOREIGN KEY (`menu_id`) REFERENCES `dev_menus` (`id`),
-  CONSTRAINT `FK_modulos_menus#modulos` FOREIGN KEY (`modulo_id`) REFERENCES `dev_modulos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `dev_modulos_menus`
---
-
-LOCK TABLES `dev_modulos_menus` WRITE;
-/*!40000 ALTER TABLE `dev_modulos_menus` DISABLE KEYS */;
-INSERT INTO `dev_modulos_menus` VALUES (1,'Pedido de Exames','Sim',6,2),(2,'Agenda','Sim',1,1),(3,'Prontuário Eletrônico','Sim',2,3),(4,'Prescrição Médica','Sim',3,4),(6,'Relatório','Sim',5,5),(7,'Controle Financeiro','Sim',8,8),(8,'Controle de Estoque','Sim',9,9),(9,'Relatório Financeiro','Sim',10,10);
-/*!40000 ALTER TABLE `dev_modulos_menus` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `dev_pages`
 --
 
@@ -393,12 +337,9 @@ CREATE TABLE `dev_pages` (
   `value` varchar(4000) DEFAULT NULL,
   `valueImg` varchar(255) DEFAULT NULL,
   `ativo` enum('Sim','Não') NOT NULL DEFAULT 'Sim',
-  `projeto_id` bigint(20) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_param` (`tipo`,`param`),
-  KEY `FK_PAGES#PROJETOS#ID` (`projeto_id`),
-  CONSTRAINT `FK_PAGES#PROJETOS#ID` FOREIGN KEY (`projeto_id`) REFERENCES `dev_projetos` (`id`)
+  UNIQUE KEY `uk_param` (`tipo`,`param`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -408,7 +349,7 @@ CREATE TABLE `dev_pages` (
 
 LOCK TABLES `dev_pages` WRITE;
 /*!40000 ALTER TABLE `dev_pages` DISABLE KEYS */;
-INSERT INTO `dev_pages` VALUES (1,'footer','teste11','teste1','slider-02.jpg','Não',4,''),(2,'header','teste1','teste1','9791ed6af6b32510f8c2f324afa0c98b.jpg','Sim',3,'');
+INSERT INTO `dev_pages` VALUES (1,'footer','teste11','teste1','slider-02.jpg','Não',''),(2,'header','teste1','teste1','9791ed6af6b32510f8c2f324afa0c98b.jpg','Sim','');
 /*!40000 ALTER TABLE `dev_pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -423,13 +364,10 @@ CREATE TABLE `dev_plano` (
   `id` bigint(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `plano_tipo_id` bigint(11) NOT NULL,
-  `projeto_id` bigint(11) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK_plano#projetos#projeto_id` (`projeto_id`),
   KEY `FK_plano#plano_tipos#plano_tipo_id` (`plano_tipo_id`),
-  CONSTRAINT `FK_plano#plano_tipos#plano_tipo_id` FOREIGN KEY (`plano_tipo_id`) REFERENCES `dev_plano_tipos` (`id`),
-  CONSTRAINT `FK_plano#projetos#projeto_id` FOREIGN KEY (`projeto_id`) REFERENCES `dev_projetos` (`id`)
+  CONSTRAINT `FK_plano#plano_tipos#plano_tipo_id` FOREIGN KEY (`plano_tipo_id`) REFERENCES `dev_plano_tipos` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -439,7 +377,7 @@ CREATE TABLE `dev_plano` (
 
 LOCK TABLES `dev_plano` WRITE;
 /*!40000 ALTER TABLE `dev_plano` DISABLE KEYS */;
-INSERT INTO `dev_plano` VALUES (1,'Start',1,3,'Sim'),(2,'Start',1,4,'Sim'),(3,'Plus',2,4,'Sim'),(4,'Pro',3,4,'Sim'),(5,'Premium',4,4,'Sim'),(6,'Free',5,4,'Sim');
+INSERT INTO `dev_plano` VALUES (1,'Start',1,'Sim'),(2,'Start',1,'Sim'),(3,'Plus',2,'Sim'),(4,'Pro',3,'Sim'),(5,'Premium',4,'Sim'),(6,'Free',5,'Sim');
 /*!40000 ALTER TABLE `dev_plano` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -455,12 +393,9 @@ CREATE TABLE `dev_plano_detalhes` (
   `nome` varchar(255) NOT NULL,
   `ativo` enum('Sim','Não') NOT NULL,
   `plano_id` bigint(20) NOT NULL,
-  `modulo_id` bigint(20) NOT NULL,
   `ordem` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_detalhes#planos#plano_id` (`plano_id`),
-  KEY `FK_detalhes#modulos` (`modulo_id`),
-  CONSTRAINT `FK_detalhes#modulos` FOREIGN KEY (`modulo_id`) REFERENCES `dev_modulos` (`id`),
   CONSTRAINT `FK_detalhes#planos#plano_id` FOREIGN KEY (`plano_id`) REFERENCES `dev_plano` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -471,7 +406,7 @@ CREATE TABLE `dev_plano_detalhes` (
 
 LOCK TABLES `dev_plano_detalhes` WRITE;
 /*!40000 ALTER TABLE `dev_plano_detalhes` DISABLE KEYS */;
-INSERT INTO `dev_plano_detalhes` VALUES (1,'Relacionamento','Sim',1,6,1),(2,'Relatórios','Sim',1,5,2),(3,'Agenda','Sim',1,1,3),(4,'Prontuário Eletrônico','Sim',1,2,4),(5,'Prescrição Eletrônico','Sim',1,3,5),(6,'Controle Financeiro','Sim',1,8,6),(9,'Controle de Estoque','Sim',1,9,7),(10,'Relatório Financeiro','Sim',1,10,8);
+INSERT INTO `dev_plano_detalhes` VALUES (1,'Relacionamento','Sim',1,1),(2,'Relatórios','Sim',1,2),(3,'Agenda','Sim',1,3),(4,'Prontuário Eletrônico','Sim',1,4),(5,'Prescrição Eletrônico','Sim',1,5),(6,'Controle Financeiro','Sim',1,6),(9,'Controle de Estoque','Sim',1,7),(10,'Relatório Financeiro','Sim',1,8);
 /*!40000 ALTER TABLE `dev_plano_detalhes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -527,33 +462,6 @@ LOCK TABLES `dev_plano_tipos` WRITE;
 /*!40000 ALTER TABLE `dev_plano_tipos` DISABLE KEYS */;
 INSERT INTO `dev_plano_tipos` VALUES (1,'Starter','Sim'),(2,'Plus','Sim'),(3,'Pro','Sim'),(4,'Premium','Sim'),(5,'Free','Sim');
 /*!40000 ALTER TABLE `dev_plano_tipos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `dev_projetos`
---
-
-DROP TABLE IF EXISTS `dev_projetos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dev_projetos` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(255) NOT NULL,
-  `ativo` enum('Sim','Não') NOT NULL,
-  `site` varchar(150) NOT NULL,
-  `dominio` varchar(150) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `dev_projetos`
---
-
-LOCK TABLES `dev_projetos` WRITE;
-/*!40000 ALTER TABLE `dev_projetos` DISABLE KEYS */;
-INSERT INTO `dev_projetos` VALUES (3,'Staart Dev','Sim','www.staartdev.com.br','staartdev'),(4,'Pet Lab System','Sim','www.petlabsystem.com','petlabsystem');
-/*!40000 ALTER TABLE `dev_projetos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -649,14 +557,12 @@ CREATE TABLE `usuario` (
   `nome` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `senha` varchar(64) NOT NULL,
-  `tipo` enum('Proprietário','Cliente','Prestador','Financeiro','Recepcionista') NOT NULL DEFAULT 'Prestador',
+  `tipo` enum('Clinica','Laboratório','Paciente','Prestador','Financeiro','Recepcionista','Admin') NOT NULL DEFAULT 'Prestador',
   `avatar` varchar(255) DEFAULT NULL,
   `cpf_cnpj` varchar(14) DEFAULT NULL,
   `ativo` enum('Sim','Não') DEFAULT 'Sim',
   `telefone` varchar(20) DEFAULT NULL,
   `empresa_id` bigint(20) unsigned DEFAULT NULL,
-  `projeto_id` bigint(20) NOT NULL,
-  `atividade` enum('Clinica','Laboratório') DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_email` (`email`,`tipo`,`empresa_id`),
   KEY `users_empresa_id_foreign` (`empresa_id`),
@@ -670,7 +576,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (5,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Proprietário','391d3d5222ab211ccb0d8b26a1c2381e.jpg','36848874809','Sim','16991838523',24,3,'Laboratório'),(6,'Matheus PetLabSystem','matheus.gnu@gmail.com','e10adc3949ba59abbe56e057f20f883e','Proprietário',NULL,'36848874809','Sim','16991838523',25,4,'Clinica'),(9,'Estúdio Cristina Rodrigues','crisphoto5@hotmail.com','e10adc3949ba59abbe56e057f20f883e','','','null','Sim','null',24,3,NULL),(10,'Cristina rodrigues','creditogames@hotmail.com','202cb962ac59075b964b07152d234b70','Prestador','','','Sim','',24,3,NULL),(18,'Clinica Matheus','matheus.gnu@gmail.com','698dc19d489c4e4db73e28a713eab07b','Prestador','','','Sim','',24,3,NULL);
+INSERT INTO `usuario` VALUES (5,'Matheus de Mello','matheusnarciso@hotmail.com','e10adc3949ba59abbe56e057f20f883e','Admin','391d3d5222ab211ccb0d8b26a1c2381e.jpg','36848874809','Sim','16991838523',24),(6,'Matheus PetLabSystem','matheus.gnu@gmail.com','e10adc3949ba59abbe56e057f20f883e','Laboratório',NULL,'36848874809','Sim','16991838523',25),(9,'Estúdio Cristina Rodrigues','crisphoto5@hotmail.com','e10adc3949ba59abbe56e057f20f883e','','','null','Sim','null',24),(10,'Cristina rodrigues','creditogames@hotmail.com','202cb962ac59075b964b07152d234b70','Prestador','','','Sim','',24),(18,'Clinica Matheus','matheus.gnu@gmail.com','698dc19d489c4e4db73e28a713eab07b','Prestador','','','Sim','',24);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -683,4 +589,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-26 17:44:48
+-- Dump completed on 2022-07-27 17:51:52

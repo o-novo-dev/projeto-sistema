@@ -15,7 +15,6 @@ const load = (e) => {
     columns: [
       { data: 'nome' },
       { data: 'tipo' },
-      { data: 'projeto' },
       { data: 'id', className: 'align-middle text-right', orderable: false, searchable: false }
     ],
     columnDefs: [{
@@ -40,7 +39,6 @@ const load = (e) => {
       document.getElementById('id').value = row.id // campos da tabela
       document.getElementById('nome').value = row.nome // campos da tabela
       document.getElementById('ativo').value = row.ativo // campos da tabela
-      document.getElementById('projeto_id').value = row.projeto_id
       document.getElementById('plano_tipo_id').value = row.plano_tipo_id
     }
     //console.log(row);
@@ -51,7 +49,6 @@ const load = (e) => {
     document.getElementById('formAdd').reset();   
     document.getElementById('id').value = '';
     document.getElementById('ativo').value = 'Sim';
-    document.getElementById('projeto_id').value = '';
     document.getElementById('plano_tipo_id').value = '';
   })
 }

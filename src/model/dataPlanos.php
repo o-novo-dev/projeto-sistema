@@ -9,7 +9,6 @@ class dataPlanos extends model {
     parent::__construct();
 
     $tipo = getModel('dataPlanoTipos');
-    $projetos = getModel('dataProjetos');
 
     $this->inputs['id']['label'] = 'Identificador';
     $this->inputs['id']['order'] = 0;
@@ -22,11 +21,6 @@ class dataPlanos extends model {
     $this->inputs['plano_tipo_id']['select'] = $tipo->selectAll();
     $this->inputs['plano_tipo_id']['order'] = 2;
     $this->inputs['plano_tipo_id']['required'] = true;
-
-    $this->inputs['projeto_id']['label'] = "Projeto";
-    $this->inputs['projeto_id']['select'] = $projetos->selectAll();
-    $this->inputs['projeto_id']['order'] = 3;
-    $this->inputs['projeto_id']['required'] = true;
 
     $this->inputs['ativo']['order'] = 4;
     $this->inputs['ativo']['value'] = 'Sim';
@@ -51,12 +45,6 @@ class dataPlanos extends model {
         'title' => 'Falhou',
         'message' => 'Por favor, Preencher o campo Tipo do Plano!',
       ];
-    } else if((!isset($_POST['projeto_id'])) or (empty($_POST['projeto_id']))) { 
-      $arrMessage = [
-        'status' => 'false', 
-        'title' => 'Falhou',
-        'message' => 'Por favor, Preencher o campo Projeto!',
-      ];
     } else {
       return true;
     }
@@ -65,10 +53,9 @@ class dataPlanos extends model {
   }
   
   public function selectWhere($where = []){
-    $sql = "SELECT a.id, a.nome, a.plano_tipo_id, a.projeto_id, a.ativo, b.nome as tipo, c.nome as projeto
+    $sql = "SELECT a.id, a.nome, a.plano_tipo_id, a.ativo, b.nome as tipo
               FROM dev_plano a
              INNER JOIN dev_plano_tipos b ON b.id = a.plano_tipo_id
-             INNER JOIN dev_projetos c ON c.id = a.projeto_id
              WHERE a.ativo = 'Sim' ";
     $andWhere = [];
     foreach ($where as $key => $value) {

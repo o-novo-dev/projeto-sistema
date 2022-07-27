@@ -56,27 +56,11 @@ class usuario extends controller {
     } 
   }
 
-  public function modulo($detalhes = '', $id = ''){
-    if (empty($detalhes)){
-      getController('modulos')->index();
-    } else if ($detalhes == 'menus'){
-      getController('modulosmenus')->index($id);
-    }
-  }
-
   public function menu($detalhes = '', $id = ''){
     if (empty($detalhes)){
       getController('menus')->index();
     } else if ($detalhes == 'submenus'){
       getController('submenus')->index($id);
-    }
-  }
-
-  public function projetos($detalhes = '', $id = ''){
-    if (empty($detalhes)){
-      getController('projetos')->index();
-    } else if ($detalhes == 'page'){
-      getController('pages')->index($id);
     }
   }
 

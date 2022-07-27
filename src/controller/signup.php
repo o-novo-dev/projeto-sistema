@@ -25,9 +25,7 @@ class signup extends controller {
       //getModel('dataContrato')->inserir();
     }
     
-    $this->data['planos'] = getModel('dataPlanos')->selectWhere([
-      ['key' => 'a.projeto_id', 'param' => 'id', 'valor' => $_SESSION['projeto']->id]
-    ]);
+    $this->data['planos'] = getModel('dataPlanos')->selectWhere();
     
     $this->view("./src/pages/signup/index.php");
   }

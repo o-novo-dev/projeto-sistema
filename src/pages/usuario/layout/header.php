@@ -20,16 +20,14 @@
                     <a class="nav-link <?= $view_perfil == "overview" ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/overview">Visão Geral</a> 
                     <a class="nav-link <?= $view_perfil == "perfil" ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/perfil">Sua Conta</a>
                     <a class="nav-link <?= $view_perfil == "parceiro" ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/parceiro/usuarios/<?= $usuario->empresa_id ?>">Parceiros</a> 
-                    <a class="nav-link <?= $view_perfil == "projeto" && $detalhes == "page" ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/projeto/page/<?= $_SESSION['projeto']->id ?>">Landing page</a> 
+                    <a class="nav-link <?= $view_perfil == "projeto" && $detalhes == "page" ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/projeto/page/ ?>">Landing page</a>
                   <?php endif; ?>
                   
                   <?php if (in_array($usuario->tipo,["Cliente"])) : ?>
                     <a class="nav-link <?= $view_perfil == "perfil" ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/perfil">Sua Conta</a>
                   <?php endif; ?>
 
-                  <?php if (in_array($usuario->projeto_id,["3"])) : ?>
-                    <a class="nav-link <?= $view_perfil == "projeto" && $detalhes == ""  ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/projetos">Projeto</a> 
-                    <a class="nav-link <?= $view_perfil == "modulo" ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/modulo">Modulo</a> 
+                  <?php if (in_array($usuario->tipo,["Admin"])) : ?>
                     <a class="nav-link <?= $view_perfil == "menu" ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/menu">Menu</a> 
                     <a class="nav-link <?= $view_perfil == "plano" ? "active" : "" ?>" href="<?= BASE_URL ?>/usuario/plano">Plano</a> 
                   <?php endif; ?>
