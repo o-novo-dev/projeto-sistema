@@ -15,12 +15,11 @@ const load = (e) => {
     columns: [
       { data: 'nome' },
       { data: 'plano' },
-      { data: 'modulo' },
       { data: 'ordem' },
       { data: 'id', className: 'align-middle text-right', orderable: false, searchable: false }
     ],
     columnDefs: [{
-      targets: 4,
+      targets: 3,
       render: function (data, type, row, meta) {
         let dataRow = JSON.stringify(row);
         return `

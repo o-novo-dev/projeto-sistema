@@ -210,45 +210,41 @@ foreach($arr as $obj){
                 </li><!-- /.menu-item -->
 
                 <?php 
-                if (count($modulos) > 0){
-                  foreach ($modulos as $key => $modulo) {
-                    // echo "
-                    //   <li class='menu-header'>{$modulo->nome}</li>
-                    // ";
-                  
-                    foreach ($modulo->menus as $key => $menu) {
-                      if (count($menu->submenus) == 0) {
+                if (count($menus) > 0){
+
+                  foreach ($menus as $key => $menu) {
+                    if (count($menu->submenus) == 0) {
+                      echo "
+                      <li class='menu-item'>
+                        <a href='". BASE_URL."/{$menu->link}' class='menu-link'>
+                          <span class='menu-icon {$menu->icone}'></span> 
+                          <span class='menu-text'>{$menu->nome}</span>
+                        </a>
+                      </li>";
+                    } else {
+                      echo "
+                      <li class='menu-item has-child'>
+                        <a href='#' class='menu-link'>
+                          <span class='menu-icon {$menu->icone}'></span> 
+                          <span class='menu-text'>{$menu->nome}</span>
+                        </a>
+                        <ul class='menu'>
+                      ";
+                      
+                      foreach ($menu->submenus as $key1 => $submenu) {
                         echo "
                         <li class='menu-item'>
-                          <a href='". BASE_URL."/{$menu->link}' class='menu-link'>
-                            <span class='menu-icon {$menu->icone}'></span> 
-                            <span class='menu-text'>{$menu->nome}</span>
-                          </a>
-                        </li>";
-                      } else {
-                        echo "
-                        <li class='menu-item has-child'>
-                          <a href='#' class='menu-link'>
-                            <span class='menu-icon {$menu->icone}'></span> 
-                            <span class='menu-text'>{$menu->nome}</span>
-                          </a>
-                          <ul class='menu'>
-                        ";
-                        
-                        foreach ($menu->submenus as $key1 => $submenu) {
-                          echo "
-                          <li class='menu-item'>
-                            <a href='{$submenu->link}' class='menu-link'>{$submenu->nome}</a>
-                          </li>
-                          ";
-                        }
-                        echo "
-                          </ul>
+                          <a href='{$submenu->link}' class='menu-link'>{$submenu->nome}</a>
                         </li>
                         ";
                       }
+                      echo "
+                        </ul>
+                      </li>
+                      ";
                     }
                   }
+                
                 }
                 ?>
               </ul><!-- /.menu -->

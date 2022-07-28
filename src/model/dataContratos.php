@@ -152,41 +152,32 @@ class dataContratos extends model {
   }
 
   public function getMenus(){
-    $sqlModulo = "
-      SELECT DISTINCT e.id, e.nome
+    $sqlMenus = "
+      SELECT DISTINCT d.id, d.nome
         FROM cad_contratos a
        INNER JOIN dev_plano b ON a.plano_id = b.id
-       INNER JOIN dev_plano_tipos c ON b.plano_tipo_id = c.id
-       INNER JOIN dev_plano_detalhes d ON b.id = d.plano_id
+       INNER JOIN dev_plano_menus c ON b.id = c.plano_id
+       INNER JOIN dev_menus d ON c.menu_id = d.id
        WHERE a.ativo = 'Sim'
          AND a.empresa_id = :empresa_id
          AND a.status = 'Pago'
          AND b.ativo = 'Sim'
          AND c.ativo = 'Sim'
          AND d.ativo = 'Sim'
-         AND e.ativo = 'Sim'
+         AND d.permissao = :tipo
     ";
-    $modulos = $this->select($sqlModulo, ['empresa_id' => $_SESSION['usuario']->empresa_id]);
-    foreach ($modulos as $key => $modulo) {      
-      $sqlMenu = "
-        SELECT b.id, b.nome, b.icone, b.link, b.ordem
-          FROM dev_menus b
-         WHERE b.ativo = 'Sim'
-         ORDER BY b.ordem DESC
-      ";
+    $menus = $this->select($sqlMenus, ['empresa_id' => $_SESSION['usuario']->empresa_id, 'tipo' => $_SESSION['usuario']->tipo]);
 
-      $modulos[$key]->menus = $this->select($sqlMenu, ['modulo_id' => $modulo->id]);
-
-      foreach ($modulos[$key]->menus as $key1 => $menu) {        
-        $modulos[$key]->menus[$key1]->submenus = $this->select("
-          SELECT id, nome, link, ativo, menu_id 
-            FROM dev_submenus 
-          WHERE menu_id = :menu_id
-            AND ativo = 'Sim'
-        ", ['menu_id' => $menu->id]);
-      }
+    foreach ($menus as $key => $menu) {        
+      $menus[$key]->submenus = $this->select("
+        SELECT id, nome, link, ativo, menu_id 
+          FROM dev_menus_sub
+        WHERE menu_id = :menu_id
+          AND ativo = 'Sim'
+      ", ['menu_id' => $menu->id]);
     }
-      return $modulos;
+    
+    return $menus;
   }
 
 }

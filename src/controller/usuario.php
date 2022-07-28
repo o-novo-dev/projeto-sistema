@@ -61,7 +61,7 @@ class usuario extends controller {
       getController('menus')->index();
     } else if ($detalhes == 'submenus'){
       getController('submenus')->index($id);
-    }
+    } 
   }
 
   public function plano($detalhes = '', $id = ''){
@@ -73,6 +73,8 @@ class usuario extends controller {
       getController('planoprecos')->index($id);
     } else if ($detalhes == 'detalhes'){
       getController('planodetalhes')->index($id);
+    } else if ($detalhes == 'menus'){
+      getController('planomenus')->index($id);
     }
   }
 }

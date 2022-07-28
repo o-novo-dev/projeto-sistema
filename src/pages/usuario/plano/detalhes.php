@@ -1,8 +1,9 @@
 <?php
-  $colunas = ['Detalhe', 'Plano', 'Modulo', 'Ordem'];
+  $colunas = ['Detalhe', 'Plano', 'Ordem'];
   $titulo = "Detalhes";
   $titulo_pai = "Plano";
   $inputs = $this->planodetalhes->inputs;
+  $url = BASE_URL.'/usuario/plano'
 ?>
             <!-- .page-inner -->
             <div class="page-inner">
@@ -15,7 +16,7 @@
                     <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
                         <li class="breadcrumb-item active">
-                          <a href="<?= BASE_URL ?>/usuario/plano"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Voltar ao <?= $titulo_pai ?></a>
+                          <a href="<?= $url ?>"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Voltar ao <?= $titulo_pai ?></a>
                         </li>
                       </ol>
                     </nav>

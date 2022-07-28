@@ -28,7 +28,7 @@ erDiagram
   dev_plano ||--|| cad_contratos : "1 -> 1"
   usuario ||--|{ cad_cartoes : "1 -> x"
   usuario ||--|{ enderecos : "1 -> x"
-  dev_menus ||--|{ dev_submenus : "1 -> x"
+  dev_menus ||--|{ dev_menus_sub : "1 -> x"
     
   dev_plano_tipos ||--|{ dev_plano "1 -> x"
   dev_plano_precos ||--|| dev_plano "1 -> x"
@@ -86,12 +86,12 @@ erDiagram
 ```
 ```mermaid
 erDiagram
-  dev_submenus {
+  dev_menus_sub {
     bigint id PK "Chave Primaria"
     string nome
     enum ativo "Sim|Não"
     string link
-    bigint menu_id FK "fk_submenus#menus#id"
+    bigint menu_id FK "fk_menus_sub#menus#id"
   }
   dev_plano_tipos {
     bigint id PK "Chave Primaria"

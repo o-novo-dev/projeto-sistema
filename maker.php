@@ -112,11 +112,14 @@ class {$filename} extends model {
 
   echo $content;
 
-  if (file_exists("./src/model/{$filename}.php"))
-    echo "Arquivo encontrado";
-    
-  if ($reescrever == "Sim")
+  if (file_exists("./src/model/{$filename}.php")){
+    if ($reescrever == "Sim")
+      file_put_contents("./src/model/{$filename}.php", $content);
+    else
+      echo "Arquivo encontrado. Utilize opção -s Sim para sobrescrever.";
+  } else {
     file_put_contents("./src/model/{$filename}.php", $content);
+  }
 }
 #endregion
 
@@ -168,7 +171,7 @@ class {$filename} extends controller {
 
       \$this->addJS('{$filename}.js');
   
-      \$this->data['formParaMenuLateral'] = formParaMenuLateral(['Coluna', 'Coluna', 'Coluna', 'Coluna'], 'Titulo', \$this->contratos->inputs, false);
+      \$this->data['form'] = formParaMenuLateral(['Coluna', 'Coluna', 'Coluna', 'Coluna'], 'Titulo', \$this->{$filename}->inputs, false);
 
       \$this->viewLogado('./pages/{$filename}/index.php');
   
@@ -186,11 +189,14 @@ class {$filename} extends controller {
 ";
   echo $content;
 
-  if (file_exists("./src/controller/{$filename}.php"))
-    echo "Arquivo encontrado";
-    
-  if ($reescrever == "Sim")
-    file_put_contents("./src/controller/{$filename}.php", $content);
+  if (file_exists("./src/model/{$filename}.php")){
+    if ($reescrever == "Sim")
+      file_put_contents("./src/model/{$filename}.php", $content);
+    else
+      echo "Arquivo encontrado. Utilize opção -s Sim para sobrescrever.";
+  } else {
+    file_put_contents("./src/model/{$filename}.php", $content);
+  }
 }
 #endregion
 
@@ -307,11 +313,14 @@ function view(){
 
   echo $content;
 
-  if (file_exists("./src/pages/{$filename}/index.php"))
-    echo "Arquivo encontrado";
-    
-  if ($reescrever == "Sim")
-    file_put_contents("./src/pages/{$filename}/index.php", $content);
+  if (file_exists("./src/model/{$filename}.php")){
+    if ($reescrever == "Sim")
+      file_put_contents("./src/model/{$filename}.php", $content);
+    else
+      echo "Arquivo encontrado. Utilize opção -s Sim para sobrescrever.";
+  } else {
+    file_put_contents("./src/model/{$filename}.php", $content);
+  }
 }
 #endregion
 

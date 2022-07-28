@@ -70,7 +70,7 @@ class dataPlanoDetalhes extends model {
   }
 
   public function selectWhere($where = []){
-    $sql = "SELECT a.id, a.nome, a.ativo, a.plano_id, a.modulo_id, b.nome as plano, a.ordem
+    $sql = "SELECT a.id, a.nome, a.ativo, a.plano_id, b.nome as plano, a.ordem
               FROM dev_plano_detalhes a
              INNER JOIN dev_plano b ON a.plano_id = b.id
              WHERE a.ativo = 'Sim'
